@@ -519,106 +519,14 @@ footer {
       </div>
     </div>
 
-    <div class="diagram-wrap fi">
-      <svg id="contestation-diagram-svg" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg"
-           style="width:100%;display:block" role="img"
-           aria-label="Push and Pushback: Iterative Contestation Dynamics">
-        <defs>
-          <marker id="mh-dn" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
-            <polygon points="0 0, 9 3.5, 0 7" fill="#f43f5e"/>
-          </marker>
-          <marker id="mh-up" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
-            <polygon points="0 0, 9 3.5, 0 7" fill="#3b82f6"/>
-          </marker>
-          <marker id="mh-gray" markerWidth="8" markerHeight="6" refX="7.5" refY="3" orient="auto">
-            <polygon points="0 0, 8 3, 0 6" fill="#9ca3af"/>
-          </marker>
-          <marker id="mh-green-l" markerWidth="8" markerHeight="6" refX="7.5" refY="3" orient="auto">
-            <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
-          </marker>
-        </defs>
-        <style>
-          #svg-export-btn { cursor: pointer; }
-          #svg-export-btn rect { transition: stroke .18s; }
-          #svg-export-btn:hover rect { stroke: #1e3a5f; }
-          #svg-export-btn:hover text { fill: #1e3a5f; }
-        </style>
-
-        <!-- ===== TOP BOX: Responses from Above ===== -->
-        <rect x="50" y="8" width="710" height="50" rx="4" fill="#ffe4e6"/>
-        <rect x="50" y="8" width="710" height="4" rx="2" fill="#f43f5e"/>
-        <text x="69" y="38" font-family="'Inter',system-ui,sans-serif" font-size="12" font-weight="700" fill="#e11d48">&gt;&gt;</text>
-        <text x="405" y="38" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
-              font-size="13" font-weight="700" fill="#881337">Responses from Above</text>
-
-        <!-- ===== BOTTOM BOX: Challenge From Below ===== -->
-        <rect x="50" y="262" width="710" height="50" rx="4" fill="#dbeafe"/>
-        <rect x="50" y="262" width="710" height="4" rx="2" fill="#3b82f6"/>
-        <text x="69" y="292" font-family="'Inter',system-ui,sans-serif" font-size="12" font-weight="700" fill="#1d4ed8">&gt;&gt;</text>
-        <text x="405" y="292" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
-              font-size="13" font-weight="700" fill="#1e3a5f">Challenge From Below</text>
-
-        <!-- ===== OUTCOMES BOX (right vertical strip) ===== -->
-        <rect x="766" y="8" width="30" height="304" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
-        <rect x="766" y="8" width="3" height="304" rx="1.5" fill="#16a34a"/>
-        <text x="781" y="160" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
-              font-size="9" font-weight="700" fill="#166534" transform="rotate(-90,781,160)">Outcomes</text>
-
-        <!-- ===== LEFT FEEDBACK ARC ===== -->
-        <path d="M 50,33 C 5,33 5,287 50,287" fill="none" stroke="#9ca3af"
-              stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#mh-gray)"/>
-
-        <!-- LEFT FEEDBACK TEXT -->
-        <text font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#9ca3af"
-              font-style="italic" text-anchor="middle">
-          <tspan x="126" y="140">Responses can provoke</tspan>
-          <tspan x="126" dy="13">escalation, reframing,</tspan>
-          <tspan x="126" dy="13">and new rounds</tspan>
-          <tspan x="126" dy="13">of contestation</tspan>
-        </text>
-
-        <!-- ===== CENTER DOWN ARROW (pink ↓, from top box into center) ===== -->
-        <line x1="405" y1="58" x2="405" y2="110" stroke="#f87171" stroke-width="2"
-              stroke-linecap="round" marker-end="url(#mh-dn)"/>
-
-        <!-- ===== CENTER DASHED BOX ===== -->
-        <rect x="190" y="103" width="430" height="114" rx="6" fill="white" fill-opacity="0.75"
-              stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="8,4"/>
-
-        <!-- Center title -->
-        <text x="405" y="138" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
-              font-size="13" font-weight="700" fill="#1e3a5f">Iterative Contestation Dynamics</text>
-
-        <!-- Center subtitle -->
-        <text text-anchor="middle" font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#6b7280">
-          <tspan x="405" y="162">Contestation unfolds as a prolonged, relational process between</tspan>
-          <tspan x="405" dy="14">actors from below and above.</tspan>
-        </text>
-
-        <!-- ===== CENTER UP ARROW (blue ↑, from bottom box into center) ===== -->
-        <line x1="405" y1="262" x2="405" y2="210" stroke="#60a5fa" stroke-width="2"
-              stroke-linecap="round" marker-end="url(#mh-up)"/>
-
-        <!-- ===== RIGHT FEEDBACK TEXT ===== -->
-        <text font-family="'Inter',system-ui,sans-serif" font-size="8" fill="#9ca3af"
-              font-style="italic" text-anchor="middle">
-          <tspan x="693" y="182">Outcomes may</tspan>
-          <tspan x="693" dy="13">trigger new rounds</tspan>
-        </text>
-
-        <!-- ===== RIGHT FEEDBACK ARROW (← into system) ===== -->
-        <line x1="762" y1="207" x2="622" y2="207" stroke="#16a34a" stroke-width="1.3"
-              stroke-dasharray="5,3" marker-end="url(#mh-green-l)"/>
-
-        <!-- ===== EXPORT BUTTON ===== -->
-        <g id="svg-export-btn" onclick="exportDiagramSVG()" tabindex="0" role="button" aria-label="Export diagram as SVG">
-          <rect x="652" y="14" width="97" height="20" rx="3" fill="white" stroke="#e2ddd6" stroke-width="1"/>
-          <line x1="663" y1="18" x2="663" y2="25" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round"/>
-          <polyline points="660,22 663,26 666,22" fill="none" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="659" y1="28" x2="667" y2="28" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round"/>
-          <text x="675" y="27.5" font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#6b7280">Export SVG</text>
-        </g>
-      </svg>
+    <div class="diagram-wrap fi" style="position:relative">
+      <img src="contestation-diagram.svg" style="width:100%;display:block"
+           alt="Push and Pushback: Iterative Contestation Dynamics"/>
+      <button class="export-btn" onclick="exportDiagramSVG()"
+              style="position:absolute;top:12px;right:10px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export SVG
+      </button>
     </div>
 
     <div class="diagram-caption fi">
@@ -1143,17 +1051,10 @@ function setTab(id, btn) {
 }
 
 /* ===== SVG EXPORT ===== */
-function exportDiagramSVG() {
-  const svg = document.querySelector('#contestation-diagram-svg');
-  const clone = svg.cloneNode(true);
-  clone.removeAttribute('style');
-  clone.setAttribute('style', 'font-family: Inter, system-ui, sans-serif;');
-  const btn = clone.querySelector('#svg-export-btn');
-  if (btn) btn.remove();
-  const blob = new Blob(
-    ['<?xml version="1.0" encoding="UTF-8"?>\n' + clone.outerHTML],
-    { type: 'image/svg+xml' }
-  );
+async function exportDiagramSVG() {
+  const res = await fetch('contestation-diagram.svg');
+  const text = await res.text();
+  const blob = new Blob([text], { type: 'image/svg+xml' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
