@@ -124,7 +124,11 @@ nav {
 
 /* ===== PUSH-PUSHBACK DIAGRAM ===== */
 #contestation { background: var(--surface); }
-.diagram-wrap { max-width: 680px; margin: 0 auto; }
+.diagram-wrap { max-width: 800px; margin: 0 auto; }
+#svg-export-btn { cursor: pointer; }
+#svg-export-btn rect { transition: stroke .18s; }
+#svg-export-btn:hover rect { stroke: var(--primary); }
+#svg-export-btn:hover text { fill: var(--primary); }
 .pd-block {
   border-radius: var(--r-lg); padding: 1.75rem 2rem;
   text-align: center;
@@ -188,6 +192,7 @@ nav {
   font-size: .65rem; font-weight: 700;
   letter-spacing: .13em; text-transform: uppercase;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
 .tc-head.who      { color: #5b21b6; background: #faf5ff; border-top: 2px solid #7c3aed; }
 .tc-head.what     { color: #0369a1; background: #f0f9ff; border-top: 2px solid #0284c7; }
@@ -421,8 +426,8 @@ footer {
 
   /* Hide everything, then reveal only the target */
   #hero, #contestation, #taxonomy, #cases, #dynamics, #lessons, #cite { display: none !important; }
-  body.print-diagram   #contestation { display: block !important; }
-  body.print-taxonomy  #taxonomy     { display: block !important; }
+  body.print-taxonomy  #taxonomy { display: block !important; }
+  #svg-export-btn { display: none !important; }
 
   /* For taxonomy: ensure grid is readable in landscape */
   body.print-taxonomy .taxonomy-cols { grid-template-columns: repeat(5,1fr) !important; }
@@ -444,7 +449,7 @@ footer {
   scrollbar-color: var(--border) transparent;
 }
 .taxonomy-scroll .taxonomy-cols {
-  min-width: 760px;
+  min-width: 920px;
 }
 @media (max-width: 860px) {
   .taxonomy-scroll .taxonomy-cols { border-radius: 0; }
@@ -511,62 +516,109 @@ footer {
           <h2>What Is Contestation?</h2>
           <p>Contestation is a <strong>relational, iterative accountability-seeking process</strong> in which lower-power actors challenge AI systems—and those from above push back. Unlike simple algorithmic resistance or abandonment, contestation involves ongoing negotiation between parties with asymmetric power, shaped by Bovens's relational theory of accountability.</p>
         </div>
-        <button class="export-btn" onclick="exportSection('diagram')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Export PDF
-        </button>
       </div>
     </div>
 
     <div class="diagram-wrap fi">
-      <!-- FROM ABOVE -->
-      <div class="pd-block above">
-        <div class="pd-title above">Responses From Above</div>
-        <div class="pd-tags">
-          <span class="pd-tag above">Deny responsibility</span>
-          <span class="pd-tag above">Justify the algorithm</span>
-          <span class="pd-tag above">Restrict contestation</span>
-          <span class="pd-tag above">Avoid scrutiny</span>
-          <span class="pd-tag above">Strategic concession</span>
-          <span class="pd-tag above">Downplay harm</span>
-        </div>
-      </div>
+      <svg id="contestation-diagram-svg" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg"
+           style="width:100%;display:block" role="img"
+           aria-label="Push and Pushback: Iterative Contestation Dynamics">
+        <defs>
+          <marker id="mh-dn" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="#f43f5e"/>
+          </marker>
+          <marker id="mh-up" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="#3b82f6"/>
+          </marker>
+          <marker id="mh-gray" markerWidth="8" markerHeight="6" refX="7.5" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#9ca3af"/>
+          </marker>
+          <marker id="mh-green-l" markerWidth="8" markerHeight="6" refX="7.5" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
+          </marker>
+        </defs>
+        <style>
+          #svg-export-btn { cursor: pointer; }
+          #svg-export-btn rect { transition: stroke .18s; }
+          #svg-export-btn:hover rect { stroke: #1e3a5f; }
+          #svg-export-btn:hover text { fill: #1e3a5f; }
+        </style>
 
-      <!-- ARROWS -->
-      <div class="arrows-row">
-        <div class="arrow-col arrow-push">
-          <span class="arrow-label-top" style="color:var(--below)">Push</span>
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <path d="M18 30L18 6M18 6L10 14M18 6L26 14" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="arrow-label-bot">From Below</span>
-        </div>
-        <div class="center-label">
-          <div class="cl-top">Iterative</div>
-          <div class="cl-main">Contestation Dynamics</div>
-          <div class="cl-bot">Non-linear &amp; ongoing</div>
-        </div>
-        <div class="arrow-col arrow-back">
-          <span class="arrow-label-bot">From Above</span>
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <path d="M18 6L18 30M18 30L10 22M18 30L26 22" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="arrow-label-top" style="color:var(--above)">Pushback</span>
-        </div>
-      </div>
+        <!-- ===== TOP BOX: Responses from Above ===== -->
+        <rect x="50" y="8" width="710" height="50" rx="4" fill="#ffe4e6"/>
+        <rect x="50" y="8" width="710" height="4" rx="2" fill="#f43f5e"/>
+        <text x="69" y="38" font-family="'Inter',system-ui,sans-serif" font-size="12" font-weight="700" fill="#e11d48">&gt;&gt;</text>
+        <text x="405" y="38" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+              font-size="13" font-weight="700" fill="#881337">Responses from Above</text>
 
-      <!-- FROM BELOW -->
-      <div class="pd-block below">
-        <div class="pd-title below">Challenges From Below</div>
-        <div class="pd-tags">
-          <span class="pd-tag below">Direct appeals</span>
-          <span class="pd-tag below">Regulatory complaints</span>
-          <span class="pd-tag below">Public protest</span>
-          <span class="pd-tag below">Litigation</span>
-          <span class="pd-tag below">Media campaigns</span>
-          <span class="pd-tag below">Coalition building</span>
-        </div>
-      </div>
+        <!-- ===== BOTTOM BOX: Challenge From Below ===== -->
+        <rect x="50" y="262" width="710" height="50" rx="4" fill="#dbeafe"/>
+        <rect x="50" y="262" width="710" height="4" rx="2" fill="#3b82f6"/>
+        <text x="69" y="292" font-family="'Inter',system-ui,sans-serif" font-size="12" font-weight="700" fill="#1d4ed8">&gt;&gt;</text>
+        <text x="405" y="292" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+              font-size="13" font-weight="700" fill="#1e3a5f">Challenge From Below</text>
+
+        <!-- ===== OUTCOMES BOX (right vertical strip) ===== -->
+        <rect x="766" y="8" width="30" height="304" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+        <rect x="766" y="8" width="3" height="304" rx="1.5" fill="#16a34a"/>
+        <text x="781" y="160" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+              font-size="9" font-weight="700" fill="#166534" transform="rotate(-90,781,160)">Outcomes</text>
+
+        <!-- ===== LEFT FEEDBACK ARC ===== -->
+        <path d="M 50,33 C 5,33 5,287 50,287" fill="none" stroke="#9ca3af"
+              stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#mh-gray)"/>
+
+        <!-- LEFT FEEDBACK TEXT -->
+        <text font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#9ca3af"
+              font-style="italic" text-anchor="middle">
+          <tspan x="126" y="140">Responses can provoke</tspan>
+          <tspan x="126" dy="13">escalation, reframing,</tspan>
+          <tspan x="126" dy="13">and new rounds</tspan>
+          <tspan x="126" dy="13">of contestation</tspan>
+        </text>
+
+        <!-- ===== CENTER DOWN ARROW (pink ↓, from top box into center) ===== -->
+        <line x1="405" y1="58" x2="405" y2="110" stroke="#f87171" stroke-width="2"
+              stroke-linecap="round" marker-end="url(#mh-dn)"/>
+
+        <!-- ===== CENTER DASHED BOX ===== -->
+        <rect x="190" y="103" width="430" height="114" rx="6" fill="white" fill-opacity="0.75"
+              stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="8,4"/>
+
+        <!-- Center title -->
+        <text x="405" y="138" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+              font-size="13" font-weight="700" fill="#1e3a5f">Iterative Contestation Dynamics</text>
+
+        <!-- Center subtitle -->
+        <text text-anchor="middle" font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#6b7280">
+          <tspan x="405" y="162">Contestation unfolds as a prolonged, relational process between</tspan>
+          <tspan x="405" dy="14">actors from below and above.</tspan>
+        </text>
+
+        <!-- ===== CENTER UP ARROW (blue ↑, from bottom box into center) ===== -->
+        <line x1="405" y1="262" x2="405" y2="210" stroke="#60a5fa" stroke-width="2"
+              stroke-linecap="round" marker-end="url(#mh-up)"/>
+
+        <!-- ===== RIGHT FEEDBACK TEXT ===== -->
+        <text font-family="'Inter',system-ui,sans-serif" font-size="8" fill="#9ca3af"
+              font-style="italic" text-anchor="middle">
+          <tspan x="693" y="182">Outcomes may</tspan>
+          <tspan x="693" dy="13">trigger new rounds</tspan>
+        </text>
+
+        <!-- ===== RIGHT FEEDBACK ARROW (← into system) ===== -->
+        <line x1="762" y1="207" x2="622" y2="207" stroke="#16a34a" stroke-width="1.3"
+              stroke-dasharray="5,3" marker-end="url(#mh-green-l)"/>
+
+        <!-- ===== EXPORT BUTTON ===== -->
+        <g id="svg-export-btn" onclick="exportDiagramSVG()" tabindex="0" role="button" aria-label="Export diagram as SVG">
+          <rect x="652" y="14" width="97" height="20" rx="3" fill="white" stroke="#e2ddd6" stroke-width="1"/>
+          <line x1="663" y1="18" x2="663" y2="25" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round"/>
+          <polyline points="660,22 663,26 666,22" fill="none" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="659" y1="28" x2="667" y2="28" stroke="#9ca3af" stroke-width="1.2" stroke-linecap="round"/>
+          <text x="675" y="27.5" font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#6b7280">Export SVG</text>
+        </g>
+      </svg>
     </div>
 
     <div class="diagram-caption fi">
@@ -1090,12 +1142,33 @@ function setTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('on');
 }
 
+/* ===== SVG EXPORT ===== */
+function exportDiagramSVG() {
+  const svg = document.querySelector('#contestation-diagram-svg');
+  const clone = svg.cloneNode(true);
+  clone.removeAttribute('style');
+  clone.setAttribute('style', 'font-family: Inter, system-ui, sans-serif;');
+  const btn = clone.querySelector('#svg-export-btn');
+  if (btn) btn.remove();
+  const blob = new Blob(
+    ['<?xml version="1.0" encoding="UTF-8"?>\n' + clone.outerHTML],
+    { type: 'image/svg+xml' }
+  );
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'contestation-dynamics.svg';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 /* ===== PDF EXPORT ===== */
 function exportSection(section) {
-  const orientation = section === 'taxonomy' ? 'landscape' : 'portrait';
   const style = document.createElement('style');
   style.id = '__print-page';
-  style.textContent = `@page { size: A4 ${orientation}; margin: 1.5cm; }`;
+  style.textContent = '@page { size: A4 landscape; margin: 1.5cm; }';
   document.head.appendChild(style);
   document.body.classList.add('print-' + section);
   window.print();
