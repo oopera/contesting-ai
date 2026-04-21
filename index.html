@@ -1,815 +1,1992 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Push and Pushback in Contesting AI | FAccT 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ===== RESET & VARIABLES ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:       #faf9f7;
-  --surface:  #f3f0eb;
-  --card:     #ffffff;
-  --border:   #e2ddd6;
-  --primary:  #1e3a5f;
-  --primary-d:#162d4a;
-  --below:    #9a3412;
-  --above:    #1d4ed8;
-  --green:    #166534;
-  --yellow:   #92400e;
-  --red:      #b91c1c;
-  --text:     #1c1917;
-  --muted:    #6b7280;
-  --faint:    #d1cdc8;
-  --r:        6px;
-  --r-lg:     10px;
-}
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Push and Pushback in Contesting AI | FAccT 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* ===== TYPOGRAPHY ===== */
-h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; }
-h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; line-height: 1.2; }
-h3 { font-size: 1.15rem; font-weight: 600; }
-h4 { font-size: 0.95rem; font-weight: 600; }
-p  { color: var(--muted); }
-strong { color: var(--text); font-weight: 600; }
-a { color: var(--primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --card: #ffffff;
+      --border: #e0e0e0;
+      --primary: #1e3a5f;
+      --primary-d: #162d4a;
+      --below: #9a3412;
+      --above: #1d4ed8;
+      --green: #166534;
+      --yellow: #92400e;
+      --red: #b91c1c;
+      --text: #0a0a0a;
+      --muted: #6b7280;
+      --faint: #c8c8c8;
+      --r: 6px;
+      --r-lg: 10px;
+    }
 
-/* ===== LAYOUT ===== */
-.container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
-.section    { padding: 5.5rem 0; }
-.section-label {
-  font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--muted);
-  display: block;
-  margin-bottom: 0.75rem;
-}
-.section-header { margin-bottom: 3rem; }
-.section-header h2 { margin-bottom: 0.75rem; }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
 
-/* ===== NAV ===== */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  background: rgba(250,249,247,0.94);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-inner {
-  max-width: 1180px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 58px; padding: 0 1.5rem;
-}
-.nav-logo { font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 0.02em; }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
-.nav-links a { font-size: 0.82rem; color: var(--muted); transition: color .2s; }
-.nav-links a:hover { color: var(--text); text-decoration: none; }
-.nav-cta {
-  color: #fff !important;
-  background: var(--primary-d);
-  padding: 0.35rem 1rem;
-  border-radius: var(--r);
-  font-weight: 500;
-}
-.nav-cta:hover { background: var(--primary) !important; }
-.nav-info-btn {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1.5px solid var(--border);
-  background: var(--card);
-  color: var(--muted);
-  font-size: .82rem; font-weight: 700; font-family: inherit;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all .18s; flex-shrink: 0;
-}
-.nav-info-btn:hover { border-color: var(--primary); color: var(--primary); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-/* ===== INFO MODAL ===== */
-.info-overlay {
-  position: fixed; inset: 0; z-index: 500;
-  background: rgba(28,25,23,.45);
-  backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .22s;
-}
-.info-overlay.open { opacity: 1; pointer-events: all; }
-.info-modal {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 2.25rem 2.5rem;
-  max-width: 620px; width: calc(100% - 3rem);
-  max-height: calc(100vh - 6rem);
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,.15);
-  transform: translateY(8px);
-  transition: transform .22s;
-  position: relative;
-}
-.info-overlay.open .info-modal { transform: translateY(0); }
-.info-modal-close {
-  position: absolute; top: 1rem; right: 1rem;
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--surface);
-  color: var(--muted); font-size: 1rem; line-height: 1;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all .15s;
-}
-.info-modal-close:hover { border-color: var(--text); color: var(--text); }
-.info-modal h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1rem; }
-.info-modal p { font-size: .9rem; line-height: 1.85; margin-bottom: 1.25rem; }
-.info-modal p:last-child { margin-bottom: 0; }
-.info-modal .info-label {
-  font-size: .65rem; font-weight: 700; letter-spacing: .15em;
-  text-transform: uppercase; color: var(--muted);
-  display: block; margin-bottom: .5rem; margin-top: 1.5rem;
-}
+    /* ===== TYPOGRAPHY ===== */
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
 
-/* ===== HERO ===== */
-#hero { padding: 9rem 0 4rem; position: relative; overflow: hidden; }
-.hero-diagram { margin-top: 3.5rem; max-width: 900px; position: relative; }
-.hero-diagram img { width: 100%; display: block; border-radius: var(--r-lg); }
-.hero-diagram .export-btn { position: absolute; top: 12px; right: 10px; }
-.hero-glow { display: none; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: .5rem;
-  background: #dbeafe;
-  border: 1px solid #93c5fd;
-  color: #1d4ed8;
-  font-size: .78rem; font-weight: 600;
-  padding: .3rem .9rem; border-radius: 100px;
-  margin-bottom: 1.5rem; letter-spacing: .03em;
-}
-#hero h1 {
-  max-width: 17ch; margin-bottom: .5rem;
-  color: var(--primary);
-}
-.hero-subtitle { font-size: clamp(1rem,2vw,1.3rem); color: var(--muted); margin-bottom: .75rem; max-width: 55ch; }
-.hero-authors {
-  color: var(--muted); font-size: .88rem; margin-bottom: 2.5rem;
-  display: flex; flex-wrap: wrap; gap: .4rem; align-items: center;
-}
-.author-name {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 100px; padding: .2rem .7rem;
-  font-size: .78rem; color: var(--text);
-}
-.hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
-.stat { display: flex; flex-direction: column; }
-.stat-num { font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--primary); }
-.stat-label { font-size: .75rem; color: var(--muted); }
-.hero-abstract {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 1.75rem 2.25rem; max-width: 62ch;
-}
-.hero-abstract p { font-size: .94rem; line-height: 1.85; }
-.hero-abstract strong { color: var(--primary); }
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
 
-/* ===== PUSH-PUSHBACK DIAGRAM ===== */
-#contestation { background: var(--surface); }
-.diagram-wrap { max-width: 800px; margin: 0 auto; }
-#svg-export-btn { cursor: pointer; }
-#svg-export-btn rect { transition: stroke .18s; }
-#svg-export-btn:hover rect { stroke: var(--primary); }
-#svg-export-btn:hover text { fill: var(--primary); }
-.pd-block {
-  border-radius: var(--r-lg); padding: 1.75rem 2rem;
-  text-align: center;
-}
-.pd-block.above {
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-}
-.pd-block.below {
-  background: #fff7ed;
-  border: 1px solid #fed7aa;
-}
-.pd-title { font-weight: 700; font-size: 1rem; margin-bottom: 1rem; }
-.pd-title.above { color: #1d4ed8; }
-.pd-title.below { color: #9a3412; }
-.pd-tags { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
-.pd-tag {
-  font-size: .72rem; font-weight: 500;
-  padding: .22rem .7rem; border-radius: 100px;
-}
-.pd-tag.above { background: #dbeafe; color: #1e40af; }
-.pd-tag.below { background: #ffedd5; color: #9a3412; }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
 
-.arrows-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 3.5rem; padding: .75rem 0;
-}
-.arrow-col { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
-.arrow-label-top { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.arrow-label-bot { font-size: .62rem; color: var(--muted); letter-spacing: .05em; }
-.arrow-push   { animation: arrowUp   2.4s ease-in-out infinite; }
-.arrow-back   { animation: arrowDown 2.4s ease-in-out 1.2s infinite; }
-@keyframes arrowUp {
-  0%,100% { transform: translateY(0); opacity: .7; }
-  50%     { transform: translateY(-7px); opacity: 1; }
-}
-@keyframes arrowDown {
-  0%,100% { transform: translateY(0); opacity: .7; }
-  50%     { transform: translateY(7px); opacity: 1; }
-}
-.center-label { text-align: center; }
-.center-label .cl-top  { font-size: .6rem; color: var(--muted); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.center-label .cl-main { font-size: .85rem; color: var(--primary); font-weight: 700; margin: .15rem 0; }
-.center-label .cl-bot  { font-size: .6rem; color: var(--muted); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.diagram-caption { text-align: center; margin-top: 2.5rem; max-width: 55ch; margin-left: auto; margin-right: auto; }
-.diagram-caption p { font-size: .88rem; line-height: 1.75; }
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
 
-/* ===== TAXONOMY ===== */
-.taxonomy-cols {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-.tc { background: var(--card); }
-.tc-head {
-  padding: .9rem .75rem;
-  text-align: center;
-  font-size: .65rem; font-weight: 700;
-  letter-spacing: .13em; text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-.tc-head.who      { color: #5b21b6; background: #faf5ff; border-top: 2px solid #7c3aed; }
-.tc-head.what     { color: #0369a1; background: #f0f9ff; border-top: 2px solid #0284c7; }
-.tc-head.how      { color: #92400e; background: #fffbeb; border-top: 2px solid #d97706; }
-.tc-head.responses{ color: #9a3412; background: #fff7ed; border-top: 2px solid #c2410c; }
-.tc-head.outcomes { color: #166534; background: #f0fdf4; border-top: 2px solid #16a34a; }
-.tc-items { padding: .6rem; display: flex; flex-direction: column; gap: .4rem; }
-.ti {
-  padding: .55rem .7rem; border-radius: 6px;
-  cursor: pointer; transition: all .18s;
-  border: 1px solid transparent;
-  font-size: .76rem; line-height: 1.3; font-weight: 500;
-  background: var(--surface); color: var(--text);
-}
-.ti:hover { background: var(--bg); border-color: var(--border); }
-.ti.who:hover       { background: #faf5ff; border-color: #c4b5fd; }
-.ti.what:hover      { background: #f0f9ff; border-color: #7dd3fc; }
-.ti.how:hover       { background: #fffbeb; border-color: #fcd34d; }
-.ti.responses:hover { background: #fff7ed; border-color: #fdba74; }
-.ti.outcomes:hover  { background: #f0fdf4; border-color: #86efac; }
-.ti.active.who       { background: #ede9fe; border-color: #7c3aed; color: #4c1d95; }
-.ti.active.what      { background: #e0f2fe; border-color: #0284c7; color: #0c4a6e; }
-.ti.active.how       { background: #fef3c7; border-color: #d97706; color: #78350f; }
-.ti.active.responses { background: #fee2e2; border-color: #c2410c; color: #7f1d1d; }
-.ti.active.outcomes  { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+    p {
+      color: var(--muted);
+    }
 
-.tax-detail {
-  margin-top: 1.5rem;
-  padding: 1.5rem 1.75rem;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  min-height: 110px;
-  transition: opacity .25s;
-}
-.tax-detail.empty { opacity: .4; }
-.tax-detail h4 { margin-bottom: .5rem; }
-.tax-detail p  { font-size: .875rem; }
-.tax-example {
-  margin-top: .85rem; padding: .7rem 1rem;
-  background: var(--surface); border-radius: 8px;
-  font-size: .79rem; color: var(--muted);
-  border-left: 3px solid var(--primary-d);
-  line-height: 1.65;
-}
-.tax-example strong {
-  display: block; font-size: .65rem;
-  text-transform: uppercase; letter-spacing: .08em;
-  color: var(--primary); margin-bottom: .3rem;
-  font-weight: 700;
-}
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
 
-/* ===== CASES ===== */
-#cases { background: var(--surface); }
-.filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: 1.75rem; }
-.fl { font-size: .72rem; color: var(--muted); font-weight: 600; }
-.filter-sep { width: 1px; height: 18px; background: var(--border); margin: 0 .35rem; }
-.fb {
-  font-size: .72rem; padding: .28rem .7rem; border-radius: 100px;
-  border: 1px solid var(--border); background: var(--card);
-  color: var(--muted); cursor: pointer;
-  transition: all .18s; font-family: inherit;
-}
-.fb:hover,.fb.on { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
 
-.outcome-key { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.5rem; }
-.ok-item { display: flex; align-items: center; gap: .45rem; font-size: .78rem; color: var(--muted); }
-.ok-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    a:hover {
+      text-decoration: underline;
+    }
 
-.cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: .9rem; }
-.cc {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 1.1rem 1.25rem;
-  cursor: default; transition: all .2s;
-}
-.cc:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30,58,95,.1); }
-.cc.hidden { display: none; }
-.cc-meta { display: flex; align-items: center; gap: .45rem; margin-bottom: .65rem; flex-wrap: wrap; }
-.db { font-size: .67rem; font-weight: 600; padding: .18rem .55rem; border-radius: 100px; }
-.db-health      { background: #dcfce7; color: #166534; }
-.db-benefits    { background: #e0f2fe; color: #0369a1; }
-.db-education   { background: #fef9c3; color: #854d0e; }
-.db-surveillance{ background: #ffedd5; color: #9a3412; }
-.db-employment  { background: #dbeafe; color: #1e40af; }
-.db-safety      { background: #fee2e2; color: #b91c1c; }
-.db-policing    { background: #ede9fe; color: #5b21b6; }
-.db-copyright   { background: #fef3c7; color: #92400e; }
-.db-government  { background: #f1f5f9; color: #475569; }
-.cc-year { font-size: .68rem; color: var(--muted); margin-left: auto; }
-.outcome-pip { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.op-structural { background: var(--green); }
-.op-system     { background: var(--above); }
-.op-individual { background: var(--yellow); }
-.op-minimal    { background: var(--faint); }
-.cc h4  { font-size: .85rem; line-height: 1.35; margin-bottom: .45rem; }
-.cc p   { font-size: .78rem; line-height: 1.6; }
-.cc-actor {
-  margin-top: .75rem; padding-top: .7rem; border-top: 1px solid var(--border);
-  font-size: .7rem; color: var(--muted);
-  display: flex; align-items: center; gap: .35rem;
-}
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
-/* ===== DYNAMICS ===== */
-.dyn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px,1fr)); gap: 1.1rem; }
-.dyn-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 1.65rem;
-  transition: all .22s;
-}
-.dyn-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(30,58,95,.1); }
-.dyn-num { font-size: .65rem; font-weight: 700; letter-spacing: .12em; color: var(--primary); margin-bottom: .65rem; }
-.dyn-card h3 { margin-bottom: .65rem; font-size: 1rem; }
-.dyn-card p  { font-size: .85rem; margin-bottom: .9rem; }
-.dyn-ex {
-  background: var(--surface); border-radius: 8px;
-  padding: .7rem .95rem; font-size: .78rem;
-  color: var(--muted); line-height: 1.65;
-  border-left: 3px solid var(--primary-d);
-}
-.dyn-ex strong { display: block; font-size: .63rem; text-transform: uppercase; letter-spacing: .08em; color: var(--primary); margin-bottom: .3rem; font-weight: 700; }
+    .section {
+      padding: 5.5rem 0;
+    }
 
-/* ===== LESSONS ===== */
-#lessons { background: var(--surface); }
-.tabs { display: flex; gap: .3rem; background: var(--border); padding: .3rem; border-radius: var(--r); width: fit-content; margin-bottom: 2rem; }
-.tab-btn {
-  padding: .55rem 1.2rem; border-radius: 5px; border: none;
-  background: transparent; color: var(--muted);
-  font-family: inherit; font-size: .84rem; font-weight: 500;
-  cursor: pointer; transition: all .18s;
-}
-.tab-btn.on { background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.tab-pane { display: none; }
-.tab-pane.on { display: block; }
-.lesson-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
-.lesson-item {
-  display: flex; gap: .9rem;
-  padding: 1.15rem 1.35rem;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r);
-}
-.ln { width: 26px; height: 26px; border-radius: 50%; background: #eff6ff; border: 1px solid #bfdbfe; color: var(--primary); font-size: .72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.lc h4 { margin-bottom: .3rem; }
-.lc p  { font-size: .84rem; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
 
-/* ===== CITATION ===== */
-#cite { border-top: 1px solid var(--border); }
-.cite-pre {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r-lg); padding: 1.4rem 1.75rem;
-  font-family: 'Courier New', monospace; font-size: .8rem;
-  color: var(--muted); line-height: 1.85;
-  white-space: pre; overflow-x: auto;
-}
-.copy-btn {
-  margin-top: .9rem; padding: .45rem 1.15rem;
-  border-radius: var(--r); border: 1px solid var(--border);
-  background: var(--card); color: var(--muted);
-  cursor: pointer; font-family: inherit; font-size: .83rem;
-  transition: all .18s;
-}
-.copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .section-header {
+      margin-bottom: 3rem;
+    }
 
-/* ===== FOOTER ===== */
-footer {
-  padding: 1.75rem 0; border-top: 1px solid var(--border);
-  font-size: .78rem; color: var(--muted);
-}
-.footer-inner {
-  max-width: 1180px; margin: 0 auto; padding: 0 1.5rem;
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem;
-}
+    .section-header h2 {
+      margin-bottom: 0.75rem;
+    }
 
-/* ===== SCROLL FADE-IN ===== */
-.fi { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
-.fi.vis { opacity: 1; transform: none; }
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
 
-/* ===== TAXONOMY DIM / CHIPS / PILLS ===== */
-.ti.dim { opacity: 0.15; pointer-events: none; }
-.tax-match-list { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .55rem; }
-.match-pill {
-  font-size: .72rem; padding: .22rem .65rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 100px; color: var(--muted);
-  display: inline-flex; align-items: center; gap: .35rem; line-height: 1;
-}
-.sel-chip {
-  font-size: .7rem; font-weight: 500;
-  padding: .22rem .65rem; border-radius: 100px;
-  cursor: pointer; transition: opacity .15s; border: 1px solid transparent;
-}
-.sel-chip:hover { opacity: .65; }
-.sel-chip-who       { background: #ede9fe; color: #4c1d95; border-color: #c4b5fd; }
-.sel-chip-what      { background: #e0f2fe; color: #0c4a6e; border-color: #7dd3fc; }
-.sel-chip-how       { background: #fef3c7; color: #78350f; border-color: #fcd34d; }
-.sel-chip-responses { background: #fee2e2; color: #7f1d1d; border-color: #fca5a5; }
-.sel-chip-outcomes  { background: #dcfce7; color: #14532d; border-color: #86efac; }
-.tax-sel-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: .5rem; margin-bottom: .65rem;
-}
-.tax-clear-btn {
-  font-size: .7rem; padding: .2rem .65rem; border-radius: 100px;
-  border: 1px solid var(--border); background: var(--surface);
-  color: var(--muted); cursor: pointer; font-family: inherit; transition: all .15s;
-}
-.tax-clear-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      padding: 0 1.5rem;
+    }
 
-/* ===== EXPORT BUTTON ===== */
-.export-btn {
-  display: inline-flex; align-items: center; gap: .4rem;
-  font-size: .75rem; font-weight: 500; font-family: inherit;
-  padding: .35rem .85rem; border-radius: var(--r);
-  border: 1px solid var(--border); background: var(--card);
-  color: var(--muted); cursor: pointer;
-  transition: all .18s; white-space: nowrap; flex-shrink: 0;
-}
-.export-btn:hover { border-color: var(--primary); color: var(--primary); }
-.section-header-row {
-  display: flex; align-items: flex-start;
-  justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-}
-.section-header-row > div { flex: 1; min-width: 0; }
+    .nav-logo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
 
-/* ===== PRINT ===== */
-@media print {
-  nav, footer, .export-btn { display: none !important; }
-  .fi { opacity: 1 !important; transform: none !important; }
-  body { background: #fff !important; }
-  section { padding: 1.5rem 0 !important; }
-  .tax-detail, .dyn-card, .cc { box-shadow: none !important; }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      align-items: center;
+    }
 
-  /* Hide everything, then reveal only the target */
-  #hero, #contestation, #taxonomy, #cases, #dynamics, #lessons, #cite { display: none !important; }
-  body.print-taxonomy  #taxonomy { display: block !important; }
-  #svg-export-btn { display: none !important; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color .2s;
+    }
 
-  /* For taxonomy: ensure grid is readable in landscape */
-  body.print-taxonomy .taxonomy-cols { grid-template-columns: repeat(5,1fr) !important; }
-  body.print-taxonomy .tc:nth-child(3),
-  body.print-taxonomy .tc:nth-child(4) { display: block !important; }
-  body.print-taxonomy .tax-detail { display: none; }
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
 
-  /* Suppress interactive states in print */
-  .ti.dim { opacity: 1 !important; pointer-events: none; }
-}
+    .nav-cta {
+      color: #fff !important;
+      background: var(--primary-d);
+      padding: 0.35rem 1rem;
+      border-radius: var(--r);
+      font-weight: 500;
+    }
 
-/* ===== RESPONSIVE ===== */
-.taxonomy-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius: var(--r-lg);
-  /* Hint for mobile users that it scrolls */
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-.taxonomy-scroll .taxonomy-cols {
-  min-width: 920px;
-}
-@media (max-width: 860px) {
-  .taxonomy-scroll .taxonomy-cols { border-radius: 0; }
-}
-@media (max-width: 640px) {
-  #hero { padding: 7.5rem 0 4rem; }
-  .nav-links { display: none; }
-  .hero-stats { gap: 1.25rem; }
-  .arrows-row { gap: 1.5rem; }
-}
-</style>
+    .nav-cta:hover {
+      background: var(--primary) !important;
+    }
+
+    .nav-info-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .18s;
+      flex-shrink: 0;
+    }
+
+    .nav-info-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===== INFO MODAL ===== */
+    .info-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(28, 25, 23, .45);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s;
+    }
+
+    .info-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .info-modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.25rem 2.5rem;
+      max-width: 620px;
+      width: calc(100% - 3rem);
+      max-height: calc(100vh - 6rem);
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+      transform: translateY(8px);
+      transition: transform .22s;
+      position: relative;
+    }
+
+    .info-overlay.open .info-modal {
+      transform: translateY(0);
+    }
+
+    .info-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s;
+    }
+
+    .info-modal-close:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    .info-modal h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .info-modal p {
+      font-size: .9rem;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .info-modal p:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-modal .info-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: .5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      padding: 9rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-body {
+      display: flex;
+      align-items: flex-start;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 0 0 auto;
+      max-width: 480px;
+    }
+
+    .hero-diagram {
+      flex: 1 1 420px;
+      min-width: 0;
+      position: relative;
+      margin-top: 0;
+    }
+
+    .hero-diagram img {
+      width: 100%;
+      display: block;
+    }
+
+    @media (max-width: 860px) {
+      .hero-body {
+        flex-direction: column;
+      }
+
+      .hero-text {
+        max-width: 100%;
+      }
+
+      .hero-diagram {
+        flex-basis: 100%;
+        margin-top: 2.5rem;
+      }
+    }
+
+    .hero-glow {
+      display: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      color: #1d4ed8;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .3rem .9rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: .03em;
+    }
+
+    #hero h1 {
+      max-width: 17ch;
+      margin-bottom: .5rem;
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--muted);
+      margin-bottom: .75rem;
+      max-width: 55ch;
+    }
+
+    .hero-authors {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      align-items: center;
+    }
+
+    .author-name {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .2rem .7rem;
+      font-size: .78rem;
+      color: var(--text);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .hero-abstract {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.75rem 2.25rem;
+      max-width: 62ch;
+    }
+
+    .hero-abstract p {
+      font-size: .94rem;
+      line-height: 1.85;
+    }
+
+    .hero-abstract strong {
+      color: var(--primary);
+    }
+
+    /* ===== PUSH-PUSHBACK DIAGRAM ===== */
+    .diagram-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #svg-export-btn {
+      cursor: pointer;
+    }
+
+    #svg-export-btn rect {
+      transition: stroke .18s;
+    }
+
+    #svg-export-btn:hover rect {
+      stroke: var(--primary);
+    }
+
+    #svg-export-btn:hover text {
+      fill: var(--primary);
+    }
+
+    .pd-block {
+      border-radius: var(--r-lg);
+      padding: 1.75rem 2rem;
+      text-align: center;
+    }
+
+    .pd-block.above {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .pd-block.below {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .pd-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .pd-title.above {
+      color: #1d4ed8;
+    }
+
+    .pd-title.below {
+      color: #9a3412;
+    }
+
+    .pd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      justify-content: center;
+    }
+
+    .pd-tag {
+      font-size: .72rem;
+      font-weight: 500;
+      padding: .22rem .7rem;
+      border-radius: 100px;
+    }
+
+    .pd-tag.above {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .pd-tag.below {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .arrows-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5rem;
+      padding: .75rem 0;
+    }
+
+    .arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    .arrow-label-top {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .arrow-label-bot {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+
+    .arrow-push {
+      animation: arrowUp 2.4s ease-in-out infinite;
+    }
+
+    .arrow-back {
+      animation: arrowDown 2.4s ease-in-out 1.2s infinite;
+    }
+
+    @keyframes arrowUp {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: .7;
+      }
+
+      50% {
+        transform: translateY(-7px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes arrowDown {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: .7;
+      }
+
+      50% {
+        transform: translateY(7px);
+        opacity: 1;
+      }
+    }
+
+    .center-label {
+      text-align: center;
+    }
+
+    .center-label .cl-top {
+      font-size: .6rem;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .center-label .cl-main {
+      font-size: .85rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin: .15rem 0;
+    }
+
+    .center-label .cl-bot {
+      font-size: .6rem;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      margin-top: 2.5rem;
+      max-width: 55ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .diagram-caption p {
+      font-size: .88rem;
+      line-height: 1.75;
+    }
+
+    /* ===== TAXONOMY ===== */
+    .taxonomy-cols {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .tc {
+      background: var(--card);
+    }
+
+    .tc-head {
+      padding: .9rem .75rem;
+      text-align: center;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .tc-head.who {
+      color: #5b21b6;
+      background: #faf5ff;
+      border-top: 2px solid #7c3aed;
+    }
+
+    .tc-head.what {
+      color: #0369a1;
+      background: #f0f9ff;
+      border-top: 2px solid #0284c7;
+    }
+
+    .tc-head.how {
+      color: #92400e;
+      background: #fffbeb;
+      border-top: 2px solid #d97706;
+    }
+
+    .tc-head.responses {
+      color: #9a3412;
+      background: #fff7ed;
+      border-top: 2px solid #c2410c;
+    }
+
+    .tc-head.outcomes {
+      color: #166534;
+      background: #f0fdf4;
+      border-top: 2px solid #16a34a;
+    }
+
+    .tc-items {
+      padding: .6rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .ti {
+      padding: .55rem .7rem;
+      cursor: pointer;
+      transition: all .18s;
+      border: 1px solid transparent;
+      font-size: .76rem;
+      line-height: 1.3;
+      font-weight: 500;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .ti:hover {
+      background: var(--bg);
+      border-color: var(--border);
+    }
+
+    .ti.who:hover {
+      background: #faf5ff;
+      border-color: #c4b5fd;
+    }
+
+    .ti.what:hover {
+      background: #f0f9ff;
+      border-color: #7dd3fc;
+    }
+
+    .ti.how:hover {
+      background: #fffbeb;
+      border-color: #fcd34d;
+    }
+
+    .ti.responses:hover {
+      background: #fff7ed;
+      border-color: #fdba74;
+    }
+
+    .ti.outcomes:hover {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+
+    .ti.active.who {
+      background: #ede9fe;
+      border-color: #7c3aed;
+      color: #4c1d95;
+    }
+
+    .ti.active.what {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0c4a6e;
+    }
+
+    .ti.active.how {
+      background: #fef3c7;
+      border-color: #d97706;
+      color: #78350f;
+    }
+
+    .ti.active.responses {
+      background: #fee2e2;
+      border-color: #c2410c;
+      color: #7f1d1d;
+    }
+
+    .ti.active.outcomes {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .tax-detail {
+      margin-top: 1.5rem;
+      padding: 1.5rem 1.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      min-height: 110px;
+      transition: opacity .25s;
+    }
+
+    .tax-detail.empty {
+      opacity: .4;
+    }
+
+    .tax-detail h4 {
+      margin-bottom: .5rem;
+    }
+
+    .tax-detail p {
+      font-size: .875rem;
+    }
+
+    .tax-example {
+      margin-top: .85rem;
+      padding: .7rem 1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      font-size: .79rem;
+      color: var(--muted);
+      border-left: 3px solid var(--primary-d);
+      line-height: 1.65;
+    }
+
+    .tax-example strong {
+      display: block;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--primary);
+      margin-bottom: .3rem;
+      font-weight: 700;
+    }
+
+    /* ===== CASES ===== */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .fl {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .filter-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+      margin: 0 .35rem;
+    }
+
+    .fb {
+      font-size: .72rem;
+      padding: .28rem .7rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .18s;
+      font-family: inherit;
+    }
+
+    .fb:hover,
+    .fb.on {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .outcome-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ok-item {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .ok-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: .9rem;
+    }
+
+    .cc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.1rem 1.25rem;
+      cursor: default;
+      transition: all .2s;
+    }
+
+    .cc:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 58, 95, .1);
+    }
+
+    .cc.hidden {
+      display: none;
+    }
+
+    .cc-meta {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      margin-bottom: .65rem;
+      flex-wrap: wrap;
+    }
+
+    .db {
+      font-size: .67rem;
+      font-weight: 600;
+      padding: .18rem .55rem;
+      border-radius: 100px;
+    }
+
+    .db-health {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .db-benefits {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .db-education {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .db-surveillance {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .db-employment {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .db-safety {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .db-policing {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .db-copyright {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .db-government {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .cc-year {
+      font-size: .68rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    .outcome-pip {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .op-structural {
+      background: var(--green);
+    }
+
+    .op-system {
+      background: var(--above);
+    }
+
+    .op-individual {
+      background: var(--yellow);
+    }
+
+    .op-minimal {
+      background: var(--faint);
+    }
+
+    .cc h4 {
+      font-size: .85rem;
+      line-height: 1.35;
+      margin-bottom: .45rem;
+    }
+
+    .cc p {
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    .cc-actor {
+      margin-top: .75rem;
+      padding-top: .7rem;
+      border-top: 1px solid var(--border);
+      font-size: .7rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    /* ===== DYNAMICS ===== */
+    .dyn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .dyn-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.65rem;
+      transition: all .22s;
+    }
+
+    .dyn-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(30, 58, 95, .1);
+    }
+
+    .dyn-num {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--primary);
+      margin-bottom: .65rem;
+    }
+
+    .dyn-card h3 {
+      margin-bottom: .65rem;
+      font-size: 1rem;
+    }
+
+    .dyn-card p {
+      font-size: .85rem;
+      margin-bottom: .9rem;
+    }
+
+    .dyn-ex {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: .7rem .95rem;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.65;
+      border-left: 3px solid var(--primary-d);
+    }
+
+    .dyn-ex strong {
+      display: block;
+      font-size: .63rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--primary);
+      margin-bottom: .3rem;
+      font-weight: 700;
+    }
+
+    /* ===== LESSONS ===== */
+    .tabs {
+      display: flex;
+      gap: .3rem;
+      background: var(--border);
+      padding: .3rem;
+      border-radius: var(--r);
+      width: fit-content;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: .55rem 1.2rem;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: .84rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+    }
+
+    .tab-btn.on {
+      background: var(--card);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.on {
+      display: block;
+    }
+
+    .lesson-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+
+    .lesson-item {
+      display: flex;
+      gap: .9rem;
+      padding: 1.15rem 1.35rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+    }
+
+    .ln {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      font-size: .72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .lc h4 {
+      margin-bottom: .3rem;
+    }
+
+    .lc p {
+      font-size: .84rem;
+    }
+
+    /* ===== CITATION ===== */
+    #cite {
+      border-top: 1px solid var(--border);
+    }
+
+    .cite-pre {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.4rem 1.75rem;
+      font-family: 'Courier New', monospace;
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.85;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .copy-btn {
+      margin-top: .9rem;
+      padding: .45rem 1.15rem;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: .83rem;
+      transition: all .18s;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+
+    /* ===== SCROLL FADE-IN ===== */
+    .fi {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .fi.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Pane content skips fade-in — tab switch is the transition */
+    .sec-pane .fi {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== TAXONOMY DIM / CHIPS / PILLS ===== */
+    .ti.dim {
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .tax-match-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: .55rem;
+    }
+
+    .match-pill {
+      font-size: .72rem;
+      padding: .22rem .65rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      line-height: 1;
+    }
+
+    .sel-chip {
+      font-size: .7rem;
+      font-weight: 500;
+      padding: .22rem .65rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: opacity .15s;
+      border: 1px solid transparent;
+    }
+
+    .sel-chip:hover {
+      opacity: .65;
+    }
+
+    .sel-chip-who {
+      background: #ede9fe;
+      color: #4c1d95;
+      border-color: #c4b5fd;
+    }
+
+    .sel-chip-what {
+      background: #e0f2fe;
+      color: #0c4a6e;
+      border-color: #7dd3fc;
+    }
+
+    .sel-chip-how {
+      background: #fef3c7;
+      color: #78350f;
+      border-color: #fcd34d;
+    }
+
+    .sel-chip-responses {
+      background: #fee2e2;
+      color: #7f1d1d;
+      border-color: #fca5a5;
+    }
+
+    .sel-chip-outcomes {
+      background: #dcfce7;
+      color: #14532d;
+      border-color: #86efac;
+    }
+
+    .tax-sel-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: .65rem;
+    }
+
+    .tax-clear-btn {
+      font-size: .7rem;
+      padding: .2rem .65rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .15s;
+    }
+
+    .tax-clear-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===== EXPORT BUTTON ===== */
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .75rem;
+      font-weight: 500;
+      font-family: inherit;
+      padding: .35rem .85rem;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .export-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .section-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-header-row>div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ===== SECTION TABS ===== */
+    .section-tab-bar {
+      position: sticky;
+      top: 58px;
+      z-index: 150;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-tab-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .stab {
+      font-family: inherit;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      padding: .85rem 1.35rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+
+    .stab:hover {
+      color: var(--text);
+    }
+
+    .stab.on {
+      color: var(--text);
+      border-bottom-color: var(--text);
+      font-weight: 600;
+    }
+
+    .sec-pane {
+      display: none;
+    }
+
+    .sec-pane.on {
+      display: block;
+    }
+
+    /* ===== PRINT ===== */
+    @media print {
+
+      nav,
+      footer,
+      .export-btn {
+        display: none !important;
+      }
+
+      .fi {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      body {
+        background: #fff !important;
+      }
+
+      section {
+        padding: 1.5rem 0 !important;
+      }
+
+      .tax-detail,
+      .dyn-card,
+      .cc {
+        box-shadow: none !important;
+      }
+
+      /* Hide everything, then reveal only the target */
+      #hero,
+      #contestation,
+      #taxonomy,
+      #cases,
+      #dynamics,
+      #lessons,
+      #cite {
+        display: none !important;
+      }
+
+      body.print-taxonomy #taxonomy {
+        display: block !important;
+      }
+
+      #svg-export-btn {
+        display: none !important;
+      }
+
+      /* For taxonomy: ensure grid is readable in landscape */
+      body.print-taxonomy .taxonomy-cols {
+        grid-template-columns: repeat(5, 1fr) !important;
+      }
+
+      body.print-taxonomy .tc:nth-child(3),
+      body.print-taxonomy .tc:nth-child(4) {
+        display: block !important;
+      }
+
+      body.print-taxonomy .tax-detail {
+        display: none;
+      }
+
+      /* Suppress interactive states in print */
+      .ti.dim {
+        opacity: 1 !important;
+        pointer-events: none;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    .taxonomy-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      /* Hint for mobile users that it scrolls */
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .taxonomy-scroll .taxonomy-cols {
+      min-width: 920px;
+    }
+
+    @media (max-width: 860px) {
+      .taxonomy-scroll .taxonomy-cols {
+        border-radius: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #hero {
+        padding: 7.5rem 0 4rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-stats {
+        gap: 1.25rem;
+      }
+
+      .arrows-row {
+        gap: 1.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- INFO MODAL -->
-<div class="info-overlay" id="infoOverlay" onclick="closeInfo(event)">
-  <div class="info-modal" role="dialog" aria-modal="true" aria-label="About this paper">
-    <button class="info-modal-close" onclick="toggleInfo()" aria-label="Close">×</button>
-    <span class="info-label">Abstract</span>
-    <h3>Push and Pushback in Contesting AI</h3>
-    <p>Much research examines how AI actors "from above"—designers, deployers, and authorities—handle accountability. Far less is known about <strong>contestation</strong>: the dynamic, iterative process by which affected communities and lower-power actors challenge AI systems. Drawing on <strong>43 real-world cases</strong> spanning health, education, policing, and employment, we map who contests AI, what gets targeted, how institutions respond, and what outcomes emerge. Contestation is rarely settled cleanly—it is an ongoing negotiation shaped by attribution clarity, coalition strength, enforcement capacity, and strategic framing.</p>
-    <span class="info-label">Conceptual Framework</span>
-    <p>Contestation is a <strong>relational, iterative accountability-seeking process</strong> in which lower-power actors challenge AI systems—and those from above push back. Unlike simple algorithmic resistance or abandonment, contestation involves ongoing negotiation between parties with asymmetric power, shaped by Bovens's relational theory of accountability. We extend this model to trace both sides of the dynamic—capturing how initial challenges evolve as institutions respond and contesters adapt strategies, pursue alternative channels, and build coalitions over time.</p>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <span class="nav-logo">FAccT '26 &nbsp;·&nbsp; Contesting AI</span>
-    <ul class="nav-links">
-      <li><button class="nav-info-btn" onclick="toggleInfo()" aria-label="About this paper">i</button></li>
-      <li><a href="#taxonomy">Taxonomy</a></li>
-      <li><a href="#cases">Cases</a></li>
-      <li><a href="#dynamics">Dynamics</a></li>
-      <li><a href="#lessons">Lessons</a></li>
-      <li><a href="#cite" class="nav-cta">Cite</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-glow"></div>
-  <div class="container">
-    <div class="hero-badge">ACM FAccT 2026 &nbsp;·&nbsp; Accepted</div>
-    <h1>Push and Pushback in Contesting AI</h1>
-    <p class="hero-subtitle">Demands for and Resistance to Accountability</p>
-    <div class="hero-authors fi">
-      <span class="author-name">Yulu Pi</span>
-      <span class="author-name">Lucas Lichner</span>
-      <span class="author-name">Jae Woo Lee</span>
-      <span class="author-name">Sijia Xiao</span>
-      <span class="author-name">Renwen Zhang</span>
-      <span class="author-name">Jat Singh</span>
-    </div>
-    <div class="hero-stats fi">
-      <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
-      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Actor types</span></div>
-      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
-      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Outcome levels</span></div>
-    </div>
-
-    <div class="hero-diagram fi">
-      <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics"/>
-      <button class="export-btn" onclick="exportDiagramSVG()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Export SVG
-      </button>
+  <!-- INFO MODAL -->
+  <div class="info-overlay" id="infoOverlay" onclick="closeInfo(event)">
+    <div class="info-modal" role="dialog" aria-modal="true" aria-label="About this paper">
+      <button class="info-modal-close" onclick="toggleInfo()" aria-label="Close">×</button>
+      <span class="info-label">Paper</span>
+      <h3>Push and Pushback in Contesting AI: Demands for and Resistance to Accountability</h3>
+      <p style="margin-bottom:.5rem;color:var(--text);font-size:.85rem;">Yulu Pi, Lucas Lichner, Jae Woo Lee, Sijia
+        Xiao, Renwen Zhang, Jat Singh</p>
+      <p style="margin-bottom:1.25rem;font-size:.8rem;">ACM FAccT 2026</p>
+      <span class="info-label">Abstract</span>
+      <p>Much research examines how AI actors "from above"—designers, deployers, and authorities—handle accountability.
+        Far less is known about <strong>contestation</strong>: the dynamic, iterative process by which affected
+        communities and lower-power actors challenge AI systems. Drawing on <strong>43 real-world cases</strong>
+        spanning health, education, policing, and employment, we map who contests AI, what gets targeted, how
+        institutions respond, and what outcomes emerge. Contestation is rarely settled cleanly—it is an ongoing
+        negotiation shaped by attribution clarity, coalition strength, enforcement capacity, and strategic framing.</p>
+      <span class="info-label">Conceptual Framework</span>
+      <p>Contestation is a <strong>relational, iterative accountability-seeking process</strong> in which lower-power
+        actors challenge AI systems—and those from above push back. Unlike simple algorithmic resistance or abandonment,
+        contestation involves ongoing negotiation between parties with asymmetric power, shaped by Bovens's relational
+        theory of accountability. We extend this model to trace both sides of the dynamic—capturing how initial
+        challenges evolve as institutions respond and contesters adapt strategies, pursue alternative channels, and
+        build coalitions over time.</p>
+      <span class="info-label">Citation</span>
+      <pre
+        style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem;font-size:.72rem;line-height:1.7;overflow-x:auto;margin-bottom:.75rem;">@inproceedings{pi2026pushpushback,
+  author    = {Pi, Yulu and Lichner, Lucas and Lee, Jae Woo and
+               Xiao, Sijia and Zhang, Renwen and Singh, Jat},
+  title     = {Push and Pushback in Contesting {AI}:
+               Demands for and Resistance to Accountability},
+  booktitle = {Proceedings of the 2026 ACM Conference on
+               Fairness, Accountability, and Transparency},
+  year      = {2026},
+  doi       = {10.1145/nnnnnnn.nnnnnnn}
+}</pre>
+      <button class="export-btn" style="font-size:.8rem"
+        onclick="(()=>{const t=`@inproceedings{pi2026pushpushback,\n  author    = {Pi, Yulu and Lichner, Lucas and Lee, Jae Woo and\n               Xiao, Sijia and Zhang, Renwen and Singh, Jat},\n  title     = {Push and Pushback in Contesting {AI}:\n               Demands for and Resistance to Accountability},\n  booktitle = {Proceedings of the 2026 ACM Conference on\n               Fairness, Accountability, and Transparency},\n  year      = {2026},\n  doi       = {10.1145/nnnnnnn.nnnnnnn}\n}`;navigator.clipboard.writeText(t).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy BibTeX',2200)})})()">Copy
+        BibTeX</button>
     </div>
   </div>
-</section>
 
-<!-- TAXONOMY -->
-<section id="taxonomy" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Empirical Taxonomy</div>
-      <div class="section-header-row">
-        <div>
-          <h2>The Contestation Taxonomy</h2>
-          <p>Across 43 cases, we identify structured patterns in <strong>who</strong> contests, <strong>what</strong> they target, <strong>how</strong> they act, how institutions <strong>respond</strong>, and what <strong>outcomes</strong> emerge. Click any element to explore.</p>
-        </div>
-        <button class="export-btn" onclick="exportSection('taxonomy')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Export PDF
-        </button>
-      </div>
-    </div>
-
-    <div class="taxonomy-scroll fi">
-    <div class="taxonomy-cols" id="taxGrid">
-      <div class="tc">
-        <div class="tc-head who">Who Contests</div>
-        <div class="tc-items">
-          <div class="ti who" data-col="who" data-key="affected-alone" onclick="pickTax(this)">Affected Individuals Alone</div>
-          <div class="ti who" data-col="who" data-key="high-profile" onclick="pickTax(this)">High-Profile Individuals</div>
-          <div class="ti who" data-col="who" data-key="supported" onclick="pickTax(this)">Individuals + Public Interest Orgs</div>
-          <div class="ti who" data-col="who" data-key="public-interest" onclick="pickTax(this)">Public Interest Groups</div>
-          <div class="ti who" data-col="who" data-key="labor" onclick="pickTax(this)">Labor &amp; Professional Collectives</div>
-          <div class="ti who" data-col="who" data-key="regulators" onclick="pickTax(this)">Regulators &amp; Oversight Bodies</div>
-        </div>
-      </div>
-      <div class="tc">
-        <div class="tc-head what">What Gets Contested</div>
-        <div class="tc-items">
-          <div class="ti what" data-col="what" data-key="practice" onclick="pickTax(this)">Institutional Practice</div>
-          <div class="ti what" data-col="what" data-key="outputs" onclick="pickTax(this)">System Outputs &amp; Decisions</div>
-          <div class="ti what" data-col="what" data-key="design" onclick="pickTax(this)">System Design &amp; Functions</div>
-          <div class="ti what" data-col="what" data-key="context" onclick="pickTax(this)">Application Context</div>
-          <div class="ti what" data-col="what" data-key="environmental" onclick="pickTax(this)">Environmental Impacts</div>
-          <div class="ti what" data-col="what" data-key="data-rights" onclick="pickTax(this)">Data Rights &amp; Training</div>
-        </div>
-      </div>
-      <div class="tc">
-        <div class="tc-head how">How They Act</div>
-        <div class="tc-items">
-          <div class="ti how" data-col="how" data-key="direct" onclick="pickTax(this)">Direct Appeals</div>
-          <div class="ti how" data-col="how" data-key="regulatory" onclick="pickTax(this)">Regulatory Complaints</div>
-          <div class="ti how" data-col="how" data-key="litigation" onclick="pickTax(this)">Litigation</div>
-          <div class="ti how" data-col="how" data-key="protest" onclick="pickTax(this)">Public Protest</div>
-          <div class="ti how" data-col="how" data-key="proactive" onclick="pickTax(this)">Proactive (pre-deployment)</div>
-          <div class="ti how" data-col="how" data-key="reactive" onclick="pickTax(this)">Reactive (post-harm)</div>
-        </div>
-      </div>
-      <div class="tc">
-        <div class="tc-head responses">Responses From Above</div>
-        <div class="tc-items">
-          <div class="ti responses" data-col="responses" data-key="deny-resp" onclick="pickTax(this)">Deny Responsibility</div>
-          <div class="ti responses" data-col="responses" data-key="deny-harm" onclick="pickTax(this)">Deny / Downplay Harm</div>
-          <div class="ti responses" data-col="responses" data-key="restrict" onclick="pickTax(this)">Restrict Contestation</div>
-          <div class="ti responses" data-col="responses" data-key="justify" onclick="pickTax(this)">Justify the Algorithm</div>
-          <div class="ti responses" data-col="responses" data-key="opacity" onclick="pickTax(this)">Avoid Scrutiny / Opacity</div>
-          <div class="ti responses" data-col="responses" data-key="concede" onclick="pickTax(this)">Strategic Concession &amp; Delay</div>
-        </div>
-      </div>
-      <div class="tc">
-        <div class="tc-head outcomes">Outcomes</div>
-        <div class="tc-items">
-          <div class="ti outcomes" data-col="outcomes" data-key="structural" onclick="pickTax(this)">Structural / Policy Reform</div>
-          <div class="ti outcomes" data-col="outcomes" data-key="system" onclick="pickTax(this)">System-Level Change</div>
-          <div class="ti outcomes" data-col="outcomes" data-key="individual" onclick="pickTax(this)">Individual Restitution</div>
-          <div class="ti outcomes" data-col="outcomes" data-key="minimal" onclick="pickTax(this)">Minimal / Unresolved</div>
-        </div>
-      </div>
-    </div>
-    </div><!-- /.taxonomy-scroll -->
-
-    <div class="tax-detail empty fi" id="taxDetail">
-      <div id="taxSelState" style="display:none">
-        <div class="tax-sel-bar">
-          <span id="taxMatchCount" style="font-size:.8rem;font-weight:600;color:var(--text)"></span>
-          <button class="tax-clear-btn" onclick="clearSel()">Clear all</button>
-        </div>
-        <div id="taxSelChips" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.75rem"></div>
-        <div id="taxMatchList" class="tax-match-list"></div>
-        <div style="height:1px;background:var(--border);margin:1rem 0"></div>
-      </div>
-      <h4 id="taxDTitle">Select any element to explore the taxonomy</h4>
-      <p id="taxDDesc" style="margin-top:.4rem">Click any item in the five columns above to see its definition and case examples. Selecting items across multiple columns filters to matching cases.</p>
-      <div class="tax-example" id="taxDEx" style="display:none"></div>
-    </div>
-  </div>
-</section>
-
-<!-- CASES -->
-<section id="cases" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Case Explorer</div>
-      <h2>Cases of AI Contestation</h2>
-      <p>Filter by domain or outcome to explore patterns across the dataset. Colored dots indicate outcome level.</p>
-    </div>
-
-    <div class="outcome-key fi">
-      <div class="ok-item"><div class="ok-dot" style="background:var(--green)"></div>Structural / Policy Reform</div>
-      <div class="ok-item"><div class="ok-dot" style="background:var(--above)"></div>System-Level Change</div>
-      <div class="ok-item"><div class="ok-dot" style="background:var(--yellow)"></div>Individual Restitution</div>
-      <div class="ok-item"><div class="ok-dot" style="background:var(--faint)"></div>Minimal / Unresolved</div>
-    </div>
-
-    <div class="filter-row fi">
-      <span class="fl">Domain:</span>
-      <button class="fb on" data-ftype="domain" data-fval="all" onclick="applyFilter('domain','all',this)">All</button>
-      <button class="fb" data-ftype="domain" data-fval="health" onclick="applyFilter('domain','health',this)">Health</button>
-      <button class="fb" data-ftype="domain" data-fval="education" onclick="applyFilter('domain','education',this)">Education</button>
-      <button class="fb" data-ftype="domain" data-fval="surveillance" onclick="applyFilter('domain','surveillance',this)">Surveillance</button>
-      <button class="fb" data-ftype="domain" data-fval="employment" onclick="applyFilter('domain','employment',this)">Employment</button>
-      <button class="fb" data-ftype="domain" data-fval="safety" onclick="applyFilter('domain','safety',this)">Safety / Content</button>
-      <button class="fb" data-ftype="domain" data-fval="policing" onclick="applyFilter('domain','policing',this)">Policing</button>
-      <button class="fb" data-ftype="domain" data-fval="government" onclick="applyFilter('domain','government',this)">Gov. Contracts</button>
-      <button class="fb" data-ftype="domain" data-fval="copyright" onclick="applyFilter('domain','copyright',this)">Copyright</button>
-      <div class="filter-sep"></div>
-      <span class="fl">Outcome:</span>
-      <button class="fb on" data-ftype="outcome" data-fval="all" onclick="applyFilter('outcome','all',this)">All</button>
-      <button class="fb" data-ftype="outcome" data-fval="structural" onclick="applyFilter('outcome','structural',this)">Structural</button>
-      <button class="fb" data-ftype="outcome" data-fval="system" onclick="applyFilter('outcome','system',this)">System-level</button>
-      <button class="fb" data-ftype="outcome" data-fval="individual" onclick="applyFilter('outcome','individual',this)">Individual</button>
-      <button class="fb" data-ftype="outcome" data-fval="minimal" onclick="applyFilter('outcome','minimal',this)">Minimal</button>
-    </div>
-
-    <div class="cases-grid fi" id="casesGrid"></div>
-  </div>
-</section>
-
-<!-- DYNAMICS -->
-<section id="dynamics" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Key Findings</div>
-      <h2>What Shapes Contestation Outcomes?</h2>
-      <p>Five interconnected factors determine whether contestation leads to meaningful change—or is absorbed by institutions. These factors interact in non-linear ways, and lack in one cannot be offset by surplus in another.</p>
-    </div>
-    <div class="dyn-grid fi">
-      <div class="dyn-card">
-        <div class="dyn-num">FACTOR 01</div>
-        <h3>Attribution &amp; Tangibility of Harm</h3>
-        <p>When harms are well-documented and traceable to specific actors, contestation is far more effective. Diffuse harms distributed across many systems or actors are structurally harder to contest.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>Clear attribution in Arkansas RUGS and K.W. v. Armstrong enabled court-ordered remedies. Diffuse algorithmic bias with unclear causal chains often stalled without resolution.</div>
-      </div>
-      <div class="dyn-card">
-        <div class="dyn-num">FACTOR 02</div>
-        <h3>Coalition Strength &amp; Visibility</h3>
-        <p>Multi-stakeholder coalitions amplify contestation by increasing media visibility and reputational costs of inaction. High-profile individuals dramatically accelerate institutional response timelines.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>The U.S. Take It Down Act resulted from sustained coalition pressure. The UK A-Level algorithm was reversed within days under mass student-media coalition pressure.</div>
-      </div>
-      <div class="dyn-card">
-        <div class="dyn-num">FACTOR 03</div>
-        <h3>Institutional Cost–Benefit Calculations</h3>
-        <p>Institutions weigh the reputational, legal, and operational costs of continued contestation against the costs of change. When feasible alternatives exist, pivots happen faster.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>Character.AI restricted minor access after regulatory pressure made inaction more costly than concession. Stanford revised its vaccine algorithm when operational alternatives were available.</div>
-      </div>
-      <div class="dyn-card">
-        <div class="dyn-num">FACTOR 04</div>
-        <h3>Enforcement Mechanisms &amp; Jurisdiction</h3>
-        <p>Strong regulatory structures with real enforcement capacity enable binding outcomes. Cross-jurisdictional complexity and under-resourced regulators constrain what contestation can achieve.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>Clearview AI faced stronger enforcement via GDPR in the EU than in the US. The Anthropic copyright case benefited from clear US copyright enforcement authority with viable legal remedies.</div>
-      </div>
-      <div class="dyn-card">
-        <div class="dyn-num">FACTOR 05</div>
-        <h3>Strategic Framing</h3>
-        <p>Framing contestation around procedural rights and due process—rather than technical specifics—tends to enable broader policy discussions and stronger legal standing.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>Houston ISD teachers and K.W. v. Armstrong both succeeded by foregrounding due process rather than algorithmic details, securing outcomes that technical framings may have foreclosed.</div>
-      </div>
-      <div class="dyn-card" style="border-color:#bfdbfe">
-        <div class="dyn-num">KEY INSIGHT</div>
-        <h3>Non-Linear, Iterative Dynamics</h3>
-        <p>These factors interact in complex, non-linear ways. Blocking one contestation avenue often prompts reframing and pursuit of alternative channels—with timing playing a critical mediating role.</p>
-        <div class="dyn-ex"><strong>Case evidence</strong>When Clearview AI invoked BIPA exemptions to block US challenges, advocates shifted to EU GDPR enforcement. When Google used NDAs to restrict Project Nimbus disclosure, workers escalated to public protest.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LESSONS -->
-<section id="lessons" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Evidence-Based Guidance</div>
-      <h2>Lessons for Stakeholders</h2>
-      <p>Our analysis yields concrete, evidence-grounded lessons for actors across the contestation ecosystem—based on what worked, what didn't, and why.</p>
-    </div>
-    <div class="tabs fi">
-      <button class="tab-btn on" onclick="setTab('contesters',this)">For Contesters</button>
-      <button class="tab-btn" onclick="setTab('policymakers',this)">For Policymakers</button>
-      <button class="tab-btn" onclick="setTab('researchers',this)">For Researchers</button>
-    </div>
-
-    <div id="tab-contesters" class="tab-pane on fi">
-      <ul class="lesson-list">
-        <li class="lesson-item"><div class="ln">1</div><div class="lc"><h4>Build Evidence of Harm and Attribution</h4><p>Systematically document algorithmic harms and identify responsible actors early. Create shared accountability forums—reporting platforms, community documentation hubs—to build evidence bases that sustain contestation over time.</p></div></li>
-        <li class="lesson-item"><div class="ln">2</div><div class="lc"><h4>Frame Contestation Strategically</h4><p>Frame around procedural rights and due process, not technical specifications. Ensure discussions address broader social and ethical considerations that cannot be easily obscured or delegitimized through technical counter-arguments.</p></div></li>
-        <li class="lesson-item"><div class="ln">3</div><div class="lc"><h4>Treat Implementation as a Distinct Stage</h4><p>Secure lasting pressure and enforcement beyond initial victories. Anticipate delayed implementation and prolonged resistance—many institutional "concessions" are strategic delays, not genuine reforms.</p></div></li>
-        <li class="lesson-item"><div class="ln">4</div><div class="lc"><h4>Lower Barriers and Enable Collective Action</h4><p>Develop practical reporting tools and complaint templates. Strengthen procedural rights and standardize complaint mechanisms to reduce the burden on individual contesters who often lack organizational support.</p></div></li>
-        <li class="lesson-item"><div class="ln">5</div><div class="lc"><h4>Build and Sustain Shared Infrastructure</h4><p>Maintain shared harm repositories and reusable legal and technical tools. Preserve knowledge and communities of practice across cases so hard-won insights are not lost between disputes.</p></div></li>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">FAccT '26 &nbsp;·&nbsp; Contesting AI</span>
+      <ul class="nav-links">
+        <li><button class="nav-info-btn" onclick="toggleInfo()" aria-label="About this paper">i</button></li>
       </ul>
     </div>
+  </nav>
 
-    <div id="tab-policymakers" class="tab-pane fi">
-      <ul class="lesson-list">
-        <li class="lesson-item"><div class="ln">1</div><div class="lc"><h4>Support Contestation Infrastructure</h4><p>Invest in accessible auditing tools, complaint platforms, and coordination mechanisms that lower the barriers to meaningful contestation—especially for individuals without organizational support.</p></div></li>
-        <li class="lesson-item"><div class="ln">2</div><div class="lc"><h4>Establish Procedural Rights with Real Enforcement</h4><p>Create rights to explanation and redress backed by meaningful enforcement. Symbolic rights without enforcement capacity reproduce institutional advantages rather than genuine accountability.</p></div></li>
-        <li class="lesson-item"><div class="ln">3</div><div class="lc"><h4>Design Governance Aligned with How Contestation Works</h4><p>Governance interventions must match the iterative, dynamic reality of AI contestation—not assume accountability is a one-time event. Build in mechanisms for ongoing monitoring and adaptive response.</p></div></li>
-        <li class="lesson-item"><div class="ln">4</div><div class="lc"><h4>Address Cross-Jurisdictional Gaps</h4><p>Harmonize enforcement across jurisdictions to prevent regulatory arbitrage where institutions exploit weak enforcement contexts to evade accountability for harms they cause globally.</p></div></li>
-      </ul>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-body">
+        <div class="hero-text">
+          <div class="hero-badge">ACM FAccT 2026</div>
+          <h1>Push and Pushback in Contesting AI</h1>
+          <p class="hero-subtitle">Demands for and Resistance to Accountability</p>
+          <div class="hero-authors fi">
+            <span class="author-name">Yulu Pi</span>
+            <span class="author-name">Lucas Lichner</span>
+            <span class="author-name">Jae Woo Lee</span>
+            <span class="author-name">Sijia Xiao</span>
+            <span class="author-name">Renwen Zhang</span>
+            <span class="author-name">Jat Singh</span>
+          </div>
+          <div class="hero-stats fi">
+            <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
+            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Actor types</span></div>
+            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
+            <div class="stat"><span class="stat-num">4</span><span class="stat-label">Outcome levels</span></div>
+          </div>
+        </div>
+
+        <div class="hero-diagram fi">
+          <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics" />
+          <button class="export-btn" onclick="exportDiagramSVG()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Export SVG
+          </button>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div id="tab-researchers" class="tab-pane fi">
-      <ul class="lesson-list">
-        <li class="lesson-item"><div class="ln">1</div><div class="lc"><h4>Study Contestation as a Dynamic Process</h4><p>Move beyond snapshot analyses of individual harms or outcomes. The relational, iterative dynamics between contesters and institutions are where accountability is actually negotiated—and where research attention is most needed.</p></div></li>
-        <li class="lesson-item"><div class="ln">2</div><div class="lc"><h4>Attend to Less-Visible Contestation</h4><p>High-profile cases over-represent in available data. Methodological investment in capturing internal, organizational, and under-reported contestation is needed to understand the full landscape of how AI is challenged.</p></div></li>
-        <li class="lesson-item"><div class="ln">3</div><div class="lc"><h4>Theorize Non-Linear and Interactive Effects</h4><p>The five dynamics we identify interact in complex, non-linear ways. Future work should develop richer causal models of how these factors combine and interact across different domains and institutional contexts.</p></div></li>
-      </ul>
+  <!-- SECTION TAB BAR -->
+  <div class="section-tab-bar">
+    <div class="section-tab-inner">
+      <button class="stab on" data-sec="taxonomy" onclick="switchSec('taxonomy',this)">Taxonomy</button>
+      <button class="stab" data-sec="cases" onclick="switchSec('cases',this)">Cases</button>
+      <button class="stab" data-sec="dynamics" onclick="switchSec('dynamics',this)">Dynamics</button>
+      <button class="stab" data-sec="lessons" onclick="switchSec('lessons',this)">Lessons</button>
+      <button class="stab" data-sec="cite" onclick="switchSec('cite',this)">Cite</button>
     </div>
   </div>
-</section>
 
-<!-- CITATION -->
-<section id="cite" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Citation</div>
-      <h2>How to Cite</h2>
+  <!-- TAXONOMY -->
+  <section id="taxonomy" class="section sec-pane on">
+    <div class="container">
+      <div class="section-header fi">
+        <div class="section-label">Empirical Taxonomy</div>
+        <div class="section-header-row">
+          <div>
+            <h2>The Contestation Taxonomy</h2>
+            <p>Across 43 cases, we identify structured patterns in <strong>who</strong> contests, <strong>what</strong>
+              they target, <strong>how</strong> they act, how institutions <strong>respond</strong>, and what
+              <strong>outcomes</strong> emerge. Click any element to explore.
+            </p>
+          </div>
+          <button class="export-btn" onclick="exportSection('taxonomy')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            Export PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="taxonomy-scroll fi">
+        <div class="taxonomy-cols" id="taxGrid">
+          <div class="tc">
+            <div class="tc-head who">Who Contests</div>
+            <div class="tc-items">
+              <div class="ti who" data-col="who" data-key="affected-alone" onclick="pickTax(this)">Affected Individuals
+                Alone</div>
+              <div class="ti who" data-col="who" data-key="high-profile" onclick="pickTax(this)">High-Profile
+                Individuals</div>
+              <div class="ti who" data-col="who" data-key="supported" onclick="pickTax(this)">Individuals + Public
+                Interest Orgs</div>
+              <div class="ti who" data-col="who" data-key="public-interest" onclick="pickTax(this)">Public Interest
+                Groups</div>
+              <div class="ti who" data-col="who" data-key="labor" onclick="pickTax(this)">Labor &amp; Professional
+                Collectives</div>
+              <div class="ti who" data-col="who" data-key="regulators" onclick="pickTax(this)">Regulators &amp;
+                Oversight Bodies</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-head what">What Gets Contested</div>
+            <div class="tc-items">
+              <div class="ti what" data-col="what" data-key="practice" onclick="pickTax(this)">Institutional Practice
+              </div>
+              <div class="ti what" data-col="what" data-key="outputs" onclick="pickTax(this)">System Outputs &amp;
+                Decisions</div>
+              <div class="ti what" data-col="what" data-key="design" onclick="pickTax(this)">System Design &amp;
+                Functions</div>
+              <div class="ti what" data-col="what" data-key="context" onclick="pickTax(this)">Application Context</div>
+              <div class="ti what" data-col="what" data-key="environmental" onclick="pickTax(this)">Environmental
+                Impacts</div>
+              <div class="ti what" data-col="what" data-key="data-rights" onclick="pickTax(this)">Data Rights &amp;
+                Training</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-head how">How They Act</div>
+            <div class="tc-items">
+              <div class="ti how" data-col="how" data-key="direct" onclick="pickTax(this)">Direct Appeals</div>
+              <div class="ti how" data-col="how" data-key="regulatory" onclick="pickTax(this)">Regulatory Complaints
+              </div>
+              <div class="ti how" data-col="how" data-key="litigation" onclick="pickTax(this)">Litigation</div>
+              <div class="ti how" data-col="how" data-key="protest" onclick="pickTax(this)">Public Protest</div>
+              <div class="ti how" data-col="how" data-key="proactive" onclick="pickTax(this)">Proactive (pre-deployment)
+              </div>
+              <div class="ti how" data-col="how" data-key="reactive" onclick="pickTax(this)">Reactive (post-harm)</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-head responses">Responses From Above</div>
+            <div class="tc-items">
+              <div class="ti responses" data-col="responses" data-key="deny-resp" onclick="pickTax(this)">Deny
+                Responsibility</div>
+              <div class="ti responses" data-col="responses" data-key="deny-harm" onclick="pickTax(this)">Deny /
+                Downplay Harm</div>
+              <div class="ti responses" data-col="responses" data-key="restrict" onclick="pickTax(this)">Restrict
+                Contestation</div>
+              <div class="ti responses" data-col="responses" data-key="justify" onclick="pickTax(this)">Justify the
+                Algorithm</div>
+              <div class="ti responses" data-col="responses" data-key="opacity" onclick="pickTax(this)">Avoid Scrutiny /
+                Opacity</div>
+              <div class="ti responses" data-col="responses" data-key="concede" onclick="pickTax(this)">Strategic
+                Concession &amp; Delay</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-head outcomes">Outcomes</div>
+            <div class="tc-items">
+              <div class="ti outcomes" data-col="outcomes" data-key="structural" onclick="pickTax(this)">Structural /
+                Policy Reform</div>
+              <div class="ti outcomes" data-col="outcomes" data-key="system" onclick="pickTax(this)">System-Level Change
+              </div>
+              <div class="ti outcomes" data-col="outcomes" data-key="individual" onclick="pickTax(this)">Individual
+                Restitution</div>
+              <div class="ti outcomes" data-col="outcomes" data-key="minimal" onclick="pickTax(this)">Minimal /
+                Unresolved</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.taxonomy-scroll -->
+
+      <div class="tax-detail empty fi" id="taxDetail">
+        <div id="taxSelState" style="display:none">
+          <div class="tax-sel-bar">
+            <span id="taxMatchCount" style="font-size:.8rem;font-weight:600;color:var(--text)"></span>
+            <button class="tax-clear-btn" onclick="clearSel()">Clear all</button>
+          </div>
+          <div id="taxSelChips" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.75rem"></div>
+          <div id="taxMatchList" class="tax-match-list"></div>
+          <div style="height:1px;background:var(--border);margin:1rem 0"></div>
+        </div>
+        <h4 id="taxDTitle">Select any element to explore the taxonomy</h4>
+        <p id="taxDDesc" style="margin-top:.4rem">Click any item in the five columns above to see its definition and
+          case examples. Selecting items across multiple columns filters to matching cases.</p>
+        <div class="tax-example" id="taxDEx" style="display:none"></div>
+      </div>
     </div>
-    <pre class="cite-pre fi" id="citeBlock">@inproceedings{pi2026pushpushback,
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="section sec-pane">
+    <div class="container">
+      <div class="section-header fi">
+        <div class="section-label">Case Explorer</div>
+        <h2>Cases of AI Contestation</h2>
+        <p>Filter by domain or outcome to explore patterns across the dataset. Colored dots indicate outcome level.</p>
+      </div>
+
+      <div class="outcome-key fi">
+        <div class="ok-item">
+          <div class="ok-dot" style="background:var(--green)"></div>Structural / Policy Reform
+        </div>
+        <div class="ok-item">
+          <div class="ok-dot" style="background:var(--above)"></div>System-Level Change
+        </div>
+        <div class="ok-item">
+          <div class="ok-dot" style="background:var(--yellow)"></div>Individual Restitution
+        </div>
+        <div class="ok-item">
+          <div class="ok-dot" style="background:var(--faint)"></div>Minimal / Unresolved
+        </div>
+      </div>
+
+      <div class="filter-row fi">
+        <span class="fl">Domain:</span>
+        <button class="fb on" data-ftype="domain" data-fval="all"
+          onclick="applyFilter('domain','all',this)">All</button>
+        <button class="fb" data-ftype="domain" data-fval="health"
+          onclick="applyFilter('domain','health',this)">Health</button>
+        <button class="fb" data-ftype="domain" data-fval="education"
+          onclick="applyFilter('domain','education',this)">Education</button>
+        <button class="fb" data-ftype="domain" data-fval="surveillance"
+          onclick="applyFilter('domain','surveillance',this)">Surveillance</button>
+        <button class="fb" data-ftype="domain" data-fval="employment"
+          onclick="applyFilter('domain','employment',this)">Employment</button>
+        <button class="fb" data-ftype="domain" data-fval="safety" onclick="applyFilter('domain','safety',this)">Safety /
+          Content</button>
+        <button class="fb" data-ftype="domain" data-fval="policing"
+          onclick="applyFilter('domain','policing',this)">Policing</button>
+        <button class="fb" data-ftype="domain" data-fval="government"
+          onclick="applyFilter('domain','government',this)">Gov. Contracts</button>
+        <button class="fb" data-ftype="domain" data-fval="copyright"
+          onclick="applyFilter('domain','copyright',this)">Copyright</button>
+        <div class="filter-sep"></div>
+        <span class="fl">Outcome:</span>
+        <button class="fb on" data-ftype="outcome" data-fval="all"
+          onclick="applyFilter('outcome','all',this)">All</button>
+        <button class="fb" data-ftype="outcome" data-fval="structural"
+          onclick="applyFilter('outcome','structural',this)">Structural</button>
+        <button class="fb" data-ftype="outcome" data-fval="system"
+          onclick="applyFilter('outcome','system',this)">System-level</button>
+        <button class="fb" data-ftype="outcome" data-fval="individual"
+          onclick="applyFilter('outcome','individual',this)">Individual</button>
+        <button class="fb" data-ftype="outcome" data-fval="minimal"
+          onclick="applyFilter('outcome','minimal',this)">Minimal</button>
+      </div>
+
+      <div class="cases-grid fi" id="casesGrid"></div>
+    </div>
+  </section>
+
+  <!-- DYNAMICS -->
+  <section id="dynamics" class="section sec-pane">
+    <div class="container">
+      <div class="section-header fi">
+        <div class="section-label">Key Findings</div>
+        <h2>What Shapes Contestation Outcomes?</h2>
+        <p>Five interconnected factors determine whether contestation leads to meaningful change—or is absorbed by
+          institutions. These factors interact in non-linear ways, and lack in one cannot be offset by surplus in
+          another.</p>
+      </div>
+      <div class="dyn-grid fi">
+        <div class="dyn-card">
+          <div class="dyn-num">FACTOR 01</div>
+          <h3>Attribution &amp; Tangibility of Harm</h3>
+          <p>When harms are well-documented and traceable to specific actors, contestation is far more effective.
+            Diffuse harms distributed across many systems or actors are structurally harder to contest.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>Clear attribution in Arkansas RUGS and K.W. v. Armstrong
+            enabled court-ordered remedies. Diffuse algorithmic bias with unclear causal chains often stalled without
+            resolution.</div>
+        </div>
+        <div class="dyn-card">
+          <div class="dyn-num">FACTOR 02</div>
+          <h3>Coalition Strength &amp; Visibility</h3>
+          <p>Multi-stakeholder coalitions amplify contestation by increasing media visibility and reputational costs of
+            inaction. High-profile individuals dramatically accelerate institutional response timelines.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>The U.S. Take It Down Act resulted from sustained coalition
+            pressure. The UK A-Level algorithm was reversed within days under mass student-media coalition pressure.
+          </div>
+        </div>
+        <div class="dyn-card">
+          <div class="dyn-num">FACTOR 03</div>
+          <h3>Institutional Cost–Benefit Calculations</h3>
+          <p>Institutions weigh the reputational, legal, and operational costs of continued contestation against the
+            costs of change. When feasible alternatives exist, pivots happen faster.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>Character.AI restricted minor access after regulatory
+            pressure made inaction more costly than concession. Stanford revised its vaccine algorithm when operational
+            alternatives were available.</div>
+        </div>
+        <div class="dyn-card">
+          <div class="dyn-num">FACTOR 04</div>
+          <h3>Enforcement Mechanisms &amp; Jurisdiction</h3>
+          <p>Strong regulatory structures with real enforcement capacity enable binding outcomes. Cross-jurisdictional
+            complexity and under-resourced regulators constrain what contestation can achieve.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>Clearview AI faced stronger enforcement via GDPR in the EU
+            than in the US. The Anthropic copyright case benefited from clear US copyright enforcement authority with
+            viable legal remedies.</div>
+        </div>
+        <div class="dyn-card">
+          <div class="dyn-num">FACTOR 05</div>
+          <h3>Strategic Framing</h3>
+          <p>Framing contestation around procedural rights and due process—rather than technical specifics—tends to
+            enable broader policy discussions and stronger legal standing.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>Houston ISD teachers and K.W. v. Armstrong both succeeded by
+            foregrounding due process rather than algorithmic details, securing outcomes that technical framings may
+            have foreclosed.</div>
+        </div>
+        <div class="dyn-card" style="border-color:#bfdbfe">
+          <div class="dyn-num">KEY INSIGHT</div>
+          <h3>Non-Linear, Iterative Dynamics</h3>
+          <p>These factors interact in complex, non-linear ways. Blocking one contestation avenue often prompts
+            reframing and pursuit of alternative channels—with timing playing a critical mediating role.</p>
+          <div class="dyn-ex"><strong>Case evidence</strong>When Clearview AI invoked BIPA exemptions to block US
+            challenges, advocates shifted to EU GDPR enforcement. When Google used NDAs to restrict Project Nimbus
+            disclosure, workers escalated to public protest.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LESSONS -->
+  <section id="lessons" class="section sec-pane">
+    <div class="container">
+      <div class="section-header fi">
+        <div class="section-label">Evidence-Based Guidance</div>
+        <h2>Lessons for Stakeholders</h2>
+        <p>Our analysis yields concrete, evidence-grounded lessons for actors across the contestation ecosystem—based on
+          what worked, what didn't, and why.</p>
+      </div>
+      <div class="tabs fi">
+        <button class="tab-btn on" onclick="setTab('contesters',this)">For Contesters</button>
+        <button class="tab-btn" onclick="setTab('policymakers',this)">For Policymakers</button>
+        <button class="tab-btn" onclick="setTab('researchers',this)">For Researchers</button>
+      </div>
+
+      <div id="tab-contesters" class="tab-pane on fi">
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <div class="ln">1</div>
+            <div class="lc">
+              <h4>Build Evidence of Harm and Attribution</h4>
+              <p>Systematically document algorithmic harms and identify responsible actors early. Create shared
+                accountability forums—reporting platforms, community documentation hubs—to build evidence bases that
+                sustain contestation over time.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">2</div>
+            <div class="lc">
+              <h4>Frame Contestation Strategically</h4>
+              <p>Frame around procedural rights and due process, not technical specifications. Ensure discussions
+                address broader social and ethical considerations that cannot be easily obscured or delegitimized
+                through technical counter-arguments.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">3</div>
+            <div class="lc">
+              <h4>Treat Implementation as a Distinct Stage</h4>
+              <p>Secure lasting pressure and enforcement beyond initial victories. Anticipate delayed implementation and
+                prolonged resistance—many institutional "concessions" are strategic delays, not genuine reforms.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">4</div>
+            <div class="lc">
+              <h4>Lower Barriers and Enable Collective Action</h4>
+              <p>Develop practical reporting tools and complaint templates. Strengthen procedural rights and standardize
+                complaint mechanisms to reduce the burden on individual contesters who often lack organizational
+                support.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">5</div>
+            <div class="lc">
+              <h4>Build and Sustain Shared Infrastructure</h4>
+              <p>Maintain shared harm repositories and reusable legal and technical tools. Preserve knowledge and
+                communities of practice across cases so hard-won insights are not lost between disputes.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="tab-policymakers" class="tab-pane fi">
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <div class="ln">1</div>
+            <div class="lc">
+              <h4>Support Contestation Infrastructure</h4>
+              <p>Invest in accessible auditing tools, complaint platforms, and coordination mechanisms that lower the
+                barriers to meaningful contestation—especially for individuals without organizational support.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">2</div>
+            <div class="lc">
+              <h4>Establish Procedural Rights with Real Enforcement</h4>
+              <p>Create rights to explanation and redress backed by meaningful enforcement. Symbolic rights without
+                enforcement capacity reproduce institutional advantages rather than genuine accountability.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">3</div>
+            <div class="lc">
+              <h4>Design Governance Aligned with How Contestation Works</h4>
+              <p>Governance interventions must match the iterative, dynamic reality of AI contestation—not assume
+                accountability is a one-time event. Build in mechanisms for ongoing monitoring and adaptive response.
+              </p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">4</div>
+            <div class="lc">
+              <h4>Address Cross-Jurisdictional Gaps</h4>
+              <p>Harmonize enforcement across jurisdictions to prevent regulatory arbitrage where institutions exploit
+                weak enforcement contexts to evade accountability for harms they cause globally.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="tab-researchers" class="tab-pane fi">
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <div class="ln">1</div>
+            <div class="lc">
+              <h4>Study Contestation as a Dynamic Process</h4>
+              <p>Move beyond snapshot analyses of individual harms or outcomes. The relational, iterative dynamics
+                between contesters and institutions are where accountability is actually negotiated—and where research
+                attention is most needed.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">2</div>
+            <div class="lc">
+              <h4>Attend to Less-Visible Contestation</h4>
+              <p>High-profile cases over-represent in available data. Methodological investment in capturing internal,
+                organizational, and under-reported contestation is needed to understand the full landscape of how AI is
+                challenged.</p>
+            </div>
+          </li>
+          <li class="lesson-item">
+            <div class="ln">3</div>
+            <div class="lc">
+              <h4>Theorize Non-Linear and Interactive Effects</h4>
+              <p>The five dynamics we identify interact in complex, non-linear ways. Future work should develop richer
+                causal models of how these factors combine and interact across different domains and institutional
+                contexts.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITATION -->
+  <section id="cite" class="section sec-pane">
+    <div class="container">
+      <div class="section-header fi">
+        <div class="section-label">Citation</div>
+        <h2>How to Cite</h2>
+      </div>
+      <pre class="cite-pre fi" id="citeBlock">@inproceedings{pi2026pushpushback,
   author    = {Pi, Yulu and Lichner, Lucas and Lee, Jae Woo and
                Xiao, Sijia and Zhang, Renwen and Singh, Jat},
   title     = {Push and Pushback in Contesting {AI}:
@@ -821,250 +1998,292 @@ footer {
   publisher = {{ACM}},
   doi       = {10.1145/nnnnnnn.nnnnnnn}
 }</pre>
-    <button class="copy-btn fi" onclick="copyCite()">Copy BibTeX</button>
-  </div>
-</section>
+      <button class="copy-btn fi" onclick="copyCite()">Copy BibTeX</button>
+    </div>
+  </section>
 
-<footer>
-  <div class="footer-inner">
-    <span>Pi, Lichner, Lee, Xiao, Zhang &amp; Singh · ACM FAccT 2026</span>
-    <span>Push and Pushback in Contesting AI</span>
-  </div>
-</footer>
+  <footer>
+    <div class="footer-inner">
+      <span>Pi, Lichner, Lee, Xiao, Zhang &amp; Singh · ACM FAccT 2026</span>
+      <span>Push and Pushback in Contesting AI</span>
+    </div>
+  </footer>
 
-<script>
-/* ===== COLUMN CONFIG ===== */
-const COLS = ['who','what','how','responses','outcomes'];
+  <script>
+    /* ===== COLUMN CONFIG ===== */
+    const COLS = ['who', 'what', 'how', 'responses', 'outcomes'];
 
-/* ===== TAXONOMY DATA ===== */
-const TAX = {
-  who: {
-    'affected-alone': { title: 'Affected Individuals Alone', desc: 'Individuals directly harmed by AI who pursue remedies independently—typically without organizational support or significant resources. Face acute power asymmetries against institutions with legal teams and algorithmic opacity as tools of resistance.', ex: 'Shannon Carpenter challenged McDonald\'s biometric data collection at drive-through kiosks without organizational support, facing the full asymmetry of individual vs. corporation.' },
-    'high-profile':   { title: 'High-Profile Individuals', desc: 'Public figures whose visibility amplifies contestation and creates reputational pressure otherwise unavailable to ordinary individuals. Their platform dramatically accelerates institutional response timelines.', ex: 'Italian PM Giorgia Meloni\'s contestation of deepfake pornography generated rapid national policy attention and platform response due to her public visibility.' },
-    'supported':      { title: 'Individuals + Public Interest Orgs', desc: 'Individuals collaborating with NGOs or advocacy organizations. They gain resources, legal support, coordination capacity, and institutional leverage through these partnerships, enabling far longer and better-resourced contestation.', ex: 'Arkansas RUGS: Medicaid recipients supported by disability rights organizations contested algorithmic care cuts across a decade-long reform effort they could not have sustained alone.' },
-    'public-interest':{ title: 'Public Interest Groups', desc: 'Organizations independently contesting AI for systemic or diffuse harms affecting the broader public—acting without a specific individual victim. They represent collective interests and can sustain long-term contestation campaigns.', ex: 'Civil society organizations challenged São Paulo\'s metro facial recognition on behalf of all commuters and civil liberties broadly, not any single misidentified person.' },
-    'labor':          { title: 'Labor & Professional Collectives', desc: 'Professional associations, unions, and employee groups contesting AI deployments that threaten labor standards, professional ethics, or worker rights. Leverage collective bargaining power and professional norms as contestation resources.', ex: 'WGA and SAG-AFTRA strikes secured landmark AI protections. Google employee petitions led to non-renewal of the Project Maven military AI contract.' },
-    'regulators':     { title: 'Regulators & Oversight Bodies', desc: 'State actors "acting from below" through investigations, fines, and enforcement. Though institutionally powerful, they operate within jurisdictional and resource constraints that shape—and often limit—their effectiveness.', ex: 'European data protection authorities fining Clearview AI under GDPR; EEOC investigations into algorithmic hiring discrimination in the US.' },
-  },
-  what: {
-    'practice':     { title: 'Institutional Practice', desc: 'Challenging the processes, policies, and decision-making around AI deployment—not the algorithm itself, but how the organization governs and uses it. Includes transparency failures, lack of community consultation, and opaque governance.', ex: 'Amazon worker surveillance case: challenged not just the monitoring technology but the institutional processes, lack of worker notice, and absence of meaningful consent mechanisms.' },
-    'outputs':      { title: 'System Outputs & Decisions', desc: 'Contesting specific algorithmic outputs: discriminatory hiring decisions, incorrect benefit denials, misleading chatbot responses, erroneous facial recognition identifications. The most visible and concrete focal point.', ex: 'Detroit PD facial recognition misidentification of a pregnant woman; Air Canada chatbot providing false information about bereavement fares that a court held the airline liable for.' },
-    'design':       { title: 'System Design & Functions', desc: 'Targeting the underlying logic, decision rules, variables, and design choices embedded in AI—not just outputs but the mechanisms producing them. Requires technical access that institutions often actively deny.', ex: 'Dutch Childcare Benefits: dual nationality treated as a fraud risk factor in the model. K.W. v. Armstrong: Idaho\'s Medicaid budget tool claimed as trade secret to prevent review of its weighting scheme.' },
-    'context':      { title: 'Application Context', desc: 'Contesting whether AI should be deployed in a domain at all—challenging appropriateness regardless of technical accuracy. Often involves proactive contestation before harms fully materialize.', ex: 'San Francisco ban on government facial recognition; employee boycotts of military AI contracts; NEDA eating disorder chatbot challenged as an inappropriate AI use regardless of accuracy.' },
-    'environmental':{ title: 'Environmental Impacts', desc: 'Challenging the material footprint of AI infrastructure: data center construction, land use, energy consumption, and community impacts of AI operations. An emerging and under-theorized focal point.', ex: 'Peculiar v. Diode Ventures: community contested data center construction without adequate public consultation, challenging the enabling infrastructure rather than any AI system directly.' },
-    'data-rights':  { title: 'Data Rights & Training', desc: 'Contesting unauthorized use of copyrighted material, personal data, or intellectual property in training AI systems. A rapidly expanding frontier as generative AI scales training data requirements.', ex: 'Anthropic copyright lawsuit by publishers; Clearview AI\'s mass scraping of biometric data from social media; Japanese media organizations contesting AI training on copyrighted works.' },
-  },
-  how: {
-    'direct':     { title: 'Direct Appeals', desc: 'Contesting directly to the responsible organization: formal complaints, customer service escalations, appeals through official channels. The first resort for many affected individuals, and often the first step in longer contestation chains.', ex: 'Individuals appealing algorithmic benefit denials through state administrative processes; formal HR complaints about discriminatory AI hiring decisions before escalating to litigation.' },
-    'regulatory': { title: 'Regulatory Complaints', desc: 'Filing formal complaints with regulatory bodies, data protection authorities, labor regulators, or oversight agencies. Leverages existing institutional enforcement capacity but depends heavily on regulator resources and jurisdiction.', ex: 'GDPR complaints to European Data Protection Boards against Clearview AI. EEOC complaints against platforms using discriminatory algorithmic hiring tools.' },
-    'litigation': { title: 'Litigation', desc: 'Pursuing legal remedies through courts. Powerful but resource-intensive; most accessible to supported individuals and organizations. Can establish precedent with effects far beyond individual cases.', ex: 'K.W. v. Armstrong establishing due process rights to algorithmic explanation in benefits decisions. Anthropic copyright lawsuit establishing early precedents for training data rights.' },
-    'protest':    { title: 'Public Protest', desc: 'Mobilizing public pressure through demonstrations, petitions, social media campaigns, and media engagement. Amplifies visibility and reputational costs of institutional inaction—particularly effective with strong coalitions.', ex: 'Google employee petitions against Project Maven and Nimbus. Student protests driving rapid reversal of UK A-Level algorithm. Hollywood strikes over AI in creative industries.' },
-    'proactive':  { title: 'Proactive (pre-deployment)', desc: 'Challenging AI systems before harms materialize—anticipating risks and seeking prevention or safeguards before launch. Faces higher evidentiary burdens as harms remain speculative rather than concrete.', ex: 'San Francisco facial recognition ban enacted before widespread deployment. Employee boycotts of defense AI contracts before any direct harm to workers had occurred.' },
-    'reactive':   { title: 'Reactive (post-harm)', desc: 'Responding after harms have materialized. More common and often more successful due to concrete evidence, though affected individuals have already experienced injury—sometimes severe or irreversible.', ex: 'The majority of our 43 cases: benefit cuts administered, wrongful arrests made, misleading AI advice given—all contested after initial harm occurrence.' },
-  },
-  responses: {
-    'deny-resp': { title: 'Deny Responsibility ("It\'s Not Our Fault")', desc: 'Shifting accountability to other actors—blaming the AI as autonomous, positioning as a "technical vendor," or pointing elsewhere in the supply chain. Fractures accountability without addressing harm and is a primary mechanism for evading meaningful contestation.', ex: 'Workday positioned itself as a technical vendor, not an employer making hiring decisions. Air Canada claimed its chatbot was a "separate legal entity" responsible for its own advice—a claim courts rejected.' },
-    'deny-harm': { title: 'Deny / Downplay Harm ("Nothing serious happened")', desc: 'Directly denying harm claims or minimizing their severity, scope, and scale. Shifts the evidentiary burden back to affected parties and undermines the factual basis for contestation.', ex: 'NEDA denied Tessa chatbot caused serious harm. Westfield High officials declared the deepfake incident "resolved" despite ongoing severe reputational harm to affected students.' },
-    'restrict':  { title: 'Restrict Contestation ("You can\'t challenge us")', desc: 'Using legal, procedural, or institutional mechanisms to narrow who can challenge and through what channels—making contestation structurally harder without addressing underlying issues.', ex: 'Clearview AI invoked BIPA exemptions to block US challenges. Google Project Nimbus used contractual design to prevent service discontinuation. NDAs prevented elected officials from disclosing details (Peculiar v. Diode Ventures).' },
-    'justify':   { title: 'Justify the Algorithm ("AI is the right choice")', desc: 'Defending AI as appropriate, efficient, or superior to human alternatives—emphasizing benefits and positive outcomes while deflecting accountability through techno-optimism.', ex: 'UK A-Level grading described as "robust and dependable" before reversal. Arkansas RUGS defended as "more objective" than human evaluation. Stanford vaccine distribution claimed as an "ethical and equitable" process.' },
-    'opacity':   { title: 'Avoid Scrutiny / Intentional Opacity', desc: 'Using proprietary claims, trade secret protections, or algorithmic complexity to block external access and prevent meaningful audits. Transforms opacity into a strategic weapon against accountability.', ex: 'Idaho\'s Medicaid tool claimed as trade secret (K.W. v. Armstrong). Houston ISD\'s EVAAS model obscured from court-appointed experts. UnitedHealth denied discovery requests for coverage denial algorithm details.' },
-    'concede':   { title: 'Strategic Concession & Delay ("We\'ll fix it, eventually")', desc: 'Providing case-by-case exceptions or surface-level adjustments while resisting systemic reform. Postponing implementation of court-mandated or publicly-committed reforms. Exhausts contesters through procedural attrition.', ex: 'Arkansas RUGS: court-mandated reform took nearly ten years to implement. Amazon announced appeals of regulatory fines while continuing contested practices. Character.AI made minor adjustments leaving core systems unchanged.' },
-  },
-  outcomes: {
-    'structural': { title: 'Structural / Policy Reform', desc: 'Changes to governance frameworks, regulatory rules, legal precedent, or institutional policy—affecting not just the immediate case but creating durable systemic change. The most far-reaching outcome type in our taxonomy.', ex: 'San Francisco facial recognition ban. Hollywood strikes establishing AI protections in union contracts. Dutch Childcare Benefits scandal prompting national reckoning with algorithmic governance in the Netherlands.' },
-    'system':     { title: 'System-Level Change', desc: 'Technical modifications to the AI system, withdrawal from deployment, or significant operational changes—without necessarily altering broader policy or regulatory frameworks.', ex: 'UK A-Level algorithm withdrawn and replaced with teacher assessments. NEDA Tessa chatbot shut down. Google\'s decision not to renew Project Maven contract with the Pentagon.' },
-    'individual': { title: 'Individual Restitution', desc: 'Restoring the prior state for affected individuals or providing financial compensation—without fixing the system for others who face the same harm. The narrowest form of successful outcome.', ex: 'Air Canada ordered to compensate the passenger misled by its chatbot. Benefits restored for individual Medicaid recipients who appealed. Wrongful arrest cases settled with financial compensation.' },
-    'minimal':    { title: 'Minimal / Unresolved', desc: 'Symbolic or procedural responses with little substantive change: public acknowledgments, surface-level adjustments, or ongoing/pending cases where contestation has not yet produced meaningful reform.', ex: 'Google Project Nimbus: despite significant employee protest, contract maintained and organizers dismissed. Many proactive contestation cases where legal or evidentiary basis proved insufficient for courts to act.' },
-  },
-};
+    /* ===== TAXONOMY DATA ===== */
+    const TAX = {
+      who: {
+        'affected-alone': { title: 'Affected Individuals Alone', desc: 'Individuals directly harmed by AI who pursue remedies independently—typically without organizational support or significant resources. Face acute power asymmetries against institutions with legal teams and algorithmic opacity as tools of resistance.', ex: 'Shannon Carpenter challenged McDonald\'s biometric data collection at drive-through kiosks without organizational support, facing the full asymmetry of individual vs. corporation.' },
+        'high-profile': { title: 'High-Profile Individuals', desc: 'Public figures whose visibility amplifies contestation and creates reputational pressure otherwise unavailable to ordinary individuals. Their platform dramatically accelerates institutional response timelines.', ex: 'Italian PM Giorgia Meloni\'s contestation of deepfake pornography generated rapid national policy attention and platform response due to her public visibility.' },
+        'supported': { title: 'Individuals + Public Interest Orgs', desc: 'Individuals collaborating with NGOs or advocacy organizations. They gain resources, legal support, coordination capacity, and institutional leverage through these partnerships, enabling far longer and better-resourced contestation.', ex: 'Arkansas RUGS: Medicaid recipients supported by disability rights organizations contested algorithmic care cuts across a decade-long reform effort they could not have sustained alone.' },
+        'public-interest': { title: 'Public Interest Groups', desc: 'Organizations independently contesting AI for systemic or diffuse harms affecting the broader public—acting without a specific individual victim. They represent collective interests and can sustain long-term contestation campaigns.', ex: 'Civil society organizations challenged São Paulo\'s metro facial recognition on behalf of all commuters and civil liberties broadly, not any single misidentified person.' },
+        'labor': { title: 'Labor & Professional Collectives', desc: 'Professional associations, unions, and employee groups contesting AI deployments that threaten labor standards, professional ethics, or worker rights. Leverage collective bargaining power and professional norms as contestation resources.', ex: 'WGA and SAG-AFTRA strikes secured landmark AI protections. Google employee petitions led to non-renewal of the Project Maven military AI contract.' },
+        'regulators': { title: 'Regulators & Oversight Bodies', desc: 'State actors "acting from below" through investigations, fines, and enforcement. Though institutionally powerful, they operate within jurisdictional and resource constraints that shape—and often limit—their effectiveness.', ex: 'European data protection authorities fining Clearview AI under GDPR; EEOC investigations into algorithmic hiring discrimination in the US.' },
+      },
+      what: {
+        'practice': { title: 'Institutional Practice', desc: 'Challenging the processes, policies, and decision-making around AI deployment—not the algorithm itself, but how the organization governs and uses it. Includes transparency failures, lack of community consultation, and opaque governance.', ex: 'Amazon worker surveillance case: challenged not just the monitoring technology but the institutional processes, lack of worker notice, and absence of meaningful consent mechanisms.' },
+        'outputs': { title: 'System Outputs & Decisions', desc: 'Contesting specific algorithmic outputs: discriminatory hiring decisions, incorrect benefit denials, misleading chatbot responses, erroneous facial recognition identifications. The most visible and concrete focal point.', ex: 'Detroit PD facial recognition misidentification of a pregnant woman; Air Canada chatbot providing false information about bereavement fares that a court held the airline liable for.' },
+        'design': { title: 'System Design & Functions', desc: 'Targeting the underlying logic, decision rules, variables, and design choices embedded in AI—not just outputs but the mechanisms producing them. Requires technical access that institutions often actively deny.', ex: 'Dutch Childcare Benefits: dual nationality treated as a fraud risk factor in the model. K.W. v. Armstrong: Idaho\'s Medicaid budget tool claimed as trade secret to prevent review of its weighting scheme.' },
+        'context': { title: 'Application Context', desc: 'Contesting whether AI should be deployed in a domain at all—challenging appropriateness regardless of technical accuracy. Often involves proactive contestation before harms fully materialize.', ex: 'San Francisco ban on government facial recognition; employee boycotts of military AI contracts; NEDA eating disorder chatbot challenged as an inappropriate AI use regardless of accuracy.' },
+        'environmental': { title: 'Environmental Impacts', desc: 'Challenging the material footprint of AI infrastructure: data center construction, land use, energy consumption, and community impacts of AI operations. An emerging and under-theorized focal point.', ex: 'Peculiar v. Diode Ventures: community contested data center construction without adequate public consultation, challenging the enabling infrastructure rather than any AI system directly.' },
+        'data-rights': { title: 'Data Rights & Training', desc: 'Contesting unauthorized use of copyrighted material, personal data, or intellectual property in training AI systems. A rapidly expanding frontier as generative AI scales training data requirements.', ex: 'Anthropic copyright lawsuit by publishers; Clearview AI\'s mass scraping of biometric data from social media; Japanese media organizations contesting AI training on copyrighted works.' },
+      },
+      how: {
+        'direct': { title: 'Direct Appeals', desc: 'Contesting directly to the responsible organization: formal complaints, customer service escalations, appeals through official channels. The first resort for many affected individuals, and often the first step in longer contestation chains.', ex: 'Individuals appealing algorithmic benefit denials through state administrative processes; formal HR complaints about discriminatory AI hiring decisions before escalating to litigation.' },
+        'regulatory': { title: 'Regulatory Complaints', desc: 'Filing formal complaints with regulatory bodies, data protection authorities, labor regulators, or oversight agencies. Leverages existing institutional enforcement capacity but depends heavily on regulator resources and jurisdiction.', ex: 'GDPR complaints to European Data Protection Boards against Clearview AI. EEOC complaints against platforms using discriminatory algorithmic hiring tools.' },
+        'litigation': { title: 'Litigation', desc: 'Pursuing legal remedies through courts. Powerful but resource-intensive; most accessible to supported individuals and organizations. Can establish precedent with effects far beyond individual cases.', ex: 'K.W. v. Armstrong establishing due process rights to algorithmic explanation in benefits decisions. Anthropic copyright lawsuit establishing early precedents for training data rights.' },
+        'protest': { title: 'Public Protest', desc: 'Mobilizing public pressure through demonstrations, petitions, social media campaigns, and media engagement. Amplifies visibility and reputational costs of institutional inaction—particularly effective with strong coalitions.', ex: 'Google employee petitions against Project Maven and Nimbus. Student protests driving rapid reversal of UK A-Level algorithm. Hollywood strikes over AI in creative industries.' },
+        'proactive': { title: 'Proactive (pre-deployment)', desc: 'Challenging AI systems before harms materialize—anticipating risks and seeking prevention or safeguards before launch. Faces higher evidentiary burdens as harms remain speculative rather than concrete.', ex: 'San Francisco facial recognition ban enacted before widespread deployment. Employee boycotts of defense AI contracts before any direct harm to workers had occurred.' },
+        'reactive': { title: 'Reactive (post-harm)', desc: 'Responding after harms have materialized. More common and often more successful due to concrete evidence, though affected individuals have already experienced injury—sometimes severe or irreversible.', ex: 'The majority of our 43 cases: benefit cuts administered, wrongful arrests made, misleading AI advice given—all contested after initial harm occurrence.' },
+      },
+      responses: {
+        'deny-resp': { title: 'Deny Responsibility ("It\'s Not Our Fault")', desc: 'Shifting accountability to other actors—blaming the AI as autonomous, positioning as a "technical vendor," or pointing elsewhere in the supply chain. Fractures accountability without addressing harm and is a primary mechanism for evading meaningful contestation.', ex: 'Workday positioned itself as a technical vendor, not an employer making hiring decisions. Air Canada claimed its chatbot was a "separate legal entity" responsible for its own advice—a claim courts rejected.' },
+        'deny-harm': { title: 'Deny / Downplay Harm ("Nothing serious happened")', desc: 'Directly denying harm claims or minimizing their severity, scope, and scale. Shifts the evidentiary burden back to affected parties and undermines the factual basis for contestation.', ex: 'NEDA denied Tessa chatbot caused serious harm. Westfield High officials declared the deepfake incident "resolved" despite ongoing severe reputational harm to affected students.' },
+        'restrict': { title: 'Restrict Contestation ("You can\'t challenge us")', desc: 'Using legal, procedural, or institutional mechanisms to narrow who can challenge and through what channels—making contestation structurally harder without addressing underlying issues.', ex: 'Clearview AI invoked BIPA exemptions to block US challenges. Google Project Nimbus used contractual design to prevent service discontinuation. NDAs prevented elected officials from disclosing details (Peculiar v. Diode Ventures).' },
+        'justify': { title: 'Justify the Algorithm ("AI is the right choice")', desc: 'Defending AI as appropriate, efficient, or superior to human alternatives—emphasizing benefits and positive outcomes while deflecting accountability through techno-optimism.', ex: 'UK A-Level grading described as "robust and dependable" before reversal. Arkansas RUGS defended as "more objective" than human evaluation. Stanford vaccine distribution claimed as an "ethical and equitable" process.' },
+        'opacity': { title: 'Avoid Scrutiny / Intentional Opacity', desc: 'Using proprietary claims, trade secret protections, or algorithmic complexity to block external access and prevent meaningful audits. Transforms opacity into a strategic weapon against accountability.', ex: 'Idaho\'s Medicaid tool claimed as trade secret (K.W. v. Armstrong). Houston ISD\'s EVAAS model obscured from court-appointed experts. UnitedHealth denied discovery requests for coverage denial algorithm details.' },
+        'concede': { title: 'Strategic Concession & Delay ("We\'ll fix it, eventually")', desc: 'Providing case-by-case exceptions or surface-level adjustments while resisting systemic reform. Postponing implementation of court-mandated or publicly-committed reforms. Exhausts contesters through procedural attrition.', ex: 'Arkansas RUGS: court-mandated reform took nearly ten years to implement. Amazon announced appeals of regulatory fines while continuing contested practices. Character.AI made minor adjustments leaving core systems unchanged.' },
+      },
+      outcomes: {
+        'structural': { title: 'Structural / Policy Reform', desc: 'Changes to governance frameworks, regulatory rules, legal precedent, or institutional policy—affecting not just the immediate case but creating durable systemic change. The most far-reaching outcome type in our taxonomy.', ex: 'San Francisco facial recognition ban. Hollywood strikes establishing AI protections in union contracts. Dutch Childcare Benefits scandal prompting national reckoning with algorithmic governance in the Netherlands.' },
+        'system': { title: 'System-Level Change', desc: 'Technical modifications to the AI system, withdrawal from deployment, or significant operational changes—without necessarily altering broader policy or regulatory frameworks.', ex: 'UK A-Level algorithm withdrawn and replaced with teacher assessments. NEDA Tessa chatbot shut down. Google\'s decision not to renew Project Maven contract with the Pentagon.' },
+        'individual': { title: 'Individual Restitution', desc: 'Restoring the prior state for affected individuals or providing financial compensation—without fixing the system for others who face the same harm. The narrowest form of successful outcome.', ex: 'Air Canada ordered to compensate the passenger misled by its chatbot. Benefits restored for individual Medicaid recipients who appealed. Wrongful arrest cases settled with financial compensation.' },
+        'minimal': { title: 'Minimal / Unresolved', desc: 'Symbolic or procedural responses with little substantive change: public acknowledgments, surface-level adjustments, or ongoing/pending cases where contestation has not yet produced meaningful reform.', ex: 'Google Project Nimbus: despite significant employee protest, contract maintained and organizers dismissed. Many proactive contestation cases where legal or evidentiary basis proved insufficient for courts to act.' },
+      },
+    };
 
-/* ===== CASE DATA (with taxonomy mapping) ===== */
-// tw=who, tq=what, th=how, tr=responses; outcome used for outcomes col
-const CASES = [
-  { name:'Arkansas RUGS Home Care',        domain:'health',       year:2016, actor:'Individuals + Org Support',      outcome:'structural',
-    tw:['supported'],        tq:['design'],           th:['litigation','regulatory'],   tr:['concede','justify'],
-    brief:'Medicaid recipients challenged a scoring algorithm that drastically cut care hours without explanation, leading to a decade-long reform effort.' },
-  { name:'Dutch Childcare Benefits',        domain:'benefits',     year:2019, actor:'Individuals / Public Interest',   outcome:'structural',
-    tw:['affected-alone','public-interest'], tq:['design'],        th:['regulatory','litigation'],  tr:['deny-resp'],
-    brief:'Algorithm treated dual nationality as a fraud risk factor, discriminating against minority families and triggering a national government scandal.' },
-  { name:'K.W. v. Armstrong (Idaho)',       domain:'health',       year:2015, actor:'Individuals + Org Support',      outcome:'structural',
-    tw:['supported'],        tq:['design'],           th:['litigation'],               tr:['opacity','restrict'],
-    brief:"Idaho's Medicaid budget tool was claimed as a trade secret, blocking meaningful review. Courts established due process rights to algorithmic explanation." },
-  { name:"McDonald's Biometric Drive-Thru",domain:'employment',   year:2021, actor:'Affected Individual',            outcome:'individual',
-    tw:['affected-alone'],   tq:['practice'],         th:['litigation'],               tr:['deny-resp'],
-    brief:'Shannon Carpenter challenged collection of biometric data without adequate consent at drive-through kiosks.' },
-  { name:'UK A-Level Grading Algorithm',   domain:'education',    year:2020, actor:'Individuals + Org Support',      outcome:'system',
-    tw:['supported'],        tq:['outputs','design'], th:['protest','regulatory'],     tr:['justify','concede'],
-    brief:'Grade-predicting algorithm was reversed within days after massive student protests, as downgrading disproportionately hit disadvantaged schools.' },
-  { name:'Character.AI Teen Harm',         domain:'safety',       year:2024, actor:'Individuals + Org Support',      outcome:'system',
-    tw:['supported'],        tq:['context','outputs'],th:['regulatory','protest'],     tr:['concede','deny-harm'],
-    brief:"Families contested AI companion app's role in teen suicide, prompting feature restrictions for minors and regulatory scrutiny." },
-  { name:'Air Canada Chatbot Misinformation',domain:'safety',     year:2024, actor:'Affected Individual',            outcome:'individual',
-    tw:['affected-alone'],   tq:['outputs'],          th:['litigation'],               tr:['deny-resp'],
-    brief:"Airline's claim that its chatbot was a 'separate legal entity' responsible for its own advice was rejected by a tribunal, ordering compensation." },
-  { name:'NEDA Tessa Chatbot Shutdown',    domain:'safety',       year:2023, actor:'Public Interest Group',          outcome:'system',
-    tw:['public-interest'],  tq:['context','outputs'],th:['protest','direct'],         tr:['deny-harm'],
-    brief:'Public health advocates called for shutdown of eating disorder helpline chatbot after it gave harmful diet advice, prompting the association to take it offline.' },
-  { name:'São Paulo Metro Facial Recognition',domain:'surveillance',year:2021,actor:'Public Interest Group',        outcome:'system',
-    tw:['public-interest'],  tq:['context'],          th:['regulatory','protest'],     tr:['justify'],
-    brief:'Civil society organizations challenged deployment of facial recognition in São Paulo metro, raising concerns about mass surveillance and racial bias.' },
-  { name:'Google Project Nimbus Boycott',  domain:'government',   year:2024, actor:'Labor / Professional Collective',outcome:'minimal',
-    tw:['labor'],            tq:['context'],          th:['protest','direct'],         tr:['restrict'],
-    brief:'Google employees protested the $1.2B Israeli government AI contract. Workers were fired using contractual mechanisms; contract was maintained.' },
-  { name:'Amazon Worker Surveillance Fine',domain:'surveillance', year:2023, actor:'Regulators',                    outcome:'structural',
-    tw:['regulators'],       tq:['practice'],         th:['regulatory'],               tr:['deny-resp'],
-    brief:'Regulators fined Amazon for invasive algorithmic worker monitoring. Amazon rejected findings and appealed while continuing contested practices.' },
-  { name:'Houston ISD Teacher Evaluation', domain:'education',    year:2017, actor:'Labor / Professional Collective',outcome:'system',
-    tw:['labor'],            tq:['design'],           th:['litigation','regulatory'],  tr:['opacity'],
-    brief:"EVAAS teacher evaluation model was too opaque to audit. Court sided with teachers on due process grounds, leading to the system's removal." },
-  { name:'Detroit PD Facial Recognition MisID',domain:'policing', year:2020,actor:'Individuals + Org Support',     outcome:'individual',
-    tw:['supported'],        tq:['outputs'],          th:['litigation','protest'],     tr:['deny-harm'],
-    brief:'A pregnant woman was falsely identified by facial recognition and arrested—highlighting severe racial bias and the personal costs of AI errors.' },
-  { name:'Clearview AI (EU Data Misuse)',  domain:'surveillance', year:2021, actor:'Regulators',                    outcome:'structural',
-    tw:['regulators'],       tq:['practice','data-rights'],th:['regulatory'],          tr:['restrict','opacity'],
-    brief:'European regulators imposed GDPR fines on Clearview AI for mass scraping of biometric data; enforcement complicated by lack of EU physical presence.' },
-  { name:'Hollywood Writers & Actors Strike',domain:'employment', year:2023, actor:'Labor / Professional Collective',outcome:'structural',
-    tw:['labor'],            tq:['context'],          th:['protest'],                  tr:['concede'],
-    brief:'WGA and SAG-AFTRA secured landmark AI protections in union contracts after sustained strikes, establishing precedents for AI in creative industries.' },
-  { name:'Anthropic Copyright Lawsuit',    domain:'copyright',    year:2024, actor:'Public Interest Group',          outcome:'structural',
-    tw:['public-interest'],  tq:['data-rights'],      th:['litigation'],               tr:['concede'],
-    brief:"Publishers contested Anthropic's use of copyrighted material for AI training, resulting in a settlement establishing early precedents for training data rights." },
-  { name:'Google Project Maven Boycott',   domain:'government',   year:2018, actor:'Labor / Professional Collective',outcome:'system',
-    tw:['labor'],            tq:['context'],          th:['protest','direct'],         tr:['concede'],
-    brief:'Employee petition over AI drone targeting led Google to decline renewal of the Pentagon contract—a landmark in employee contestation of military AI.' },
-  { name:'Giorgia Meloni Deepfake',        domain:'safety',       year:2023, actor:'High-Profile Individual',        outcome:'individual',
-    tw:['high-profile'],     tq:['outputs'],          th:['direct','protest'],         tr:['concede'],
-    brief:'Italian PM leveraged her visibility to contest deepfake pornography generation, amplifying the issue to national policy attention.' },
-  { name:'Stanford Vaccine Distribution',  domain:'health',       year:2020, actor:'Labor / Professional Collective',outcome:'system',
-    tw:['labor'],            tq:['context','outputs'],th:['protest','direct'],         tr:['justify','concede'],
-    brief:'Medical residents contested a vaccine distribution algorithm prioritizing administrators over frontline workers; algorithm revised following internal protest.' },
-  { name:'San Francisco Facial Recognition Ban',domain:'policing',year:2019,actor:'Public Interest Group',         outcome:'structural',
-    tw:['public-interest'],  tq:['context'],          th:['protest','regulatory'],     tr:['justify'],
-    brief:'Civil society advocacy led to the first US city ban on government use of facial recognition technology, establishing a proactive governance precedent.' },
-  { name:'Peculiar v. Diode Ventures',         domain:'government',   year:2023, actor:'Public Interest Group',          outcome:'minimal',
-    tw:['public-interest'],  tq:['environmental'],    th:['regulatory','protest'],     tr:['restrict'],
-    brief:'Community contested data center construction without adequate public consultation. NDAs prevented elected representatives from sharing details, blocking meaningful community engagement with the infrastructure decision.' },
-];
+    /* ===== CASE DATA (with taxonomy mapping) ===== */
+    // tw=who, tq=what, th=how, tr=responses; outcome used for outcomes col
+    const CASES = [
+      {
+        name: 'Arkansas RUGS Home Care', domain: 'health', year: 2016, actor: 'Individuals + Org Support', outcome: 'structural',
+        tw: ['supported'], tq: ['design'], th: ['litigation', 'regulatory'], tr: ['concede', 'justify'],
+        brief: 'Medicaid recipients challenged a scoring algorithm that drastically cut care hours without explanation, leading to a decade-long reform effort.'
+      },
+      {
+        name: 'Dutch Childcare Benefits', domain: 'benefits', year: 2019, actor: 'Individuals / Public Interest', outcome: 'structural',
+        tw: ['affected-alone', 'public-interest'], tq: ['design'], th: ['regulatory', 'litigation'], tr: ['deny-resp'],
+        brief: 'Algorithm treated dual nationality as a fraud risk factor, discriminating against minority families and triggering a national government scandal.'
+      },
+      {
+        name: 'K.W. v. Armstrong (Idaho)', domain: 'health', year: 2015, actor: 'Individuals + Org Support', outcome: 'structural',
+        tw: ['supported'], tq: ['design'], th: ['litigation'], tr: ['opacity', 'restrict'],
+        brief: "Idaho's Medicaid budget tool was claimed as a trade secret, blocking meaningful review. Courts established due process rights to algorithmic explanation."
+      },
+      {
+        name: "McDonald's Biometric Drive-Thru", domain: 'employment', year: 2021, actor: 'Affected Individual', outcome: 'individual',
+        tw: ['affected-alone'], tq: ['practice'], th: ['litigation'], tr: ['deny-resp'],
+        brief: 'Shannon Carpenter challenged collection of biometric data without adequate consent at drive-through kiosks.'
+      },
+      {
+        name: 'UK A-Level Grading Algorithm', domain: 'education', year: 2020, actor: 'Individuals + Org Support', outcome: 'system',
+        tw: ['supported'], tq: ['outputs', 'design'], th: ['protest', 'regulatory'], tr: ['justify', 'concede'],
+        brief: 'Grade-predicting algorithm was reversed within days after massive student protests, as downgrading disproportionately hit disadvantaged schools.'
+      },
+      {
+        name: 'Character.AI Teen Harm', domain: 'safety', year: 2024, actor: 'Individuals + Org Support', outcome: 'system',
+        tw: ['supported'], tq: ['context', 'outputs'], th: ['regulatory', 'protest'], tr: ['concede', 'deny-harm'],
+        brief: "Families contested AI companion app's role in teen suicide, prompting feature restrictions for minors and regulatory scrutiny."
+      },
+      {
+        name: 'Air Canada Chatbot Misinformation', domain: 'safety', year: 2024, actor: 'Affected Individual', outcome: 'individual',
+        tw: ['affected-alone'], tq: ['outputs'], th: ['litigation'], tr: ['deny-resp'],
+        brief: "Airline's claim that its chatbot was a 'separate legal entity' responsible for its own advice was rejected by a tribunal, ordering compensation."
+      },
+      {
+        name: 'NEDA Tessa Chatbot Shutdown', domain: 'safety', year: 2023, actor: 'Public Interest Group', outcome: 'system',
+        tw: ['public-interest'], tq: ['context', 'outputs'], th: ['protest', 'direct'], tr: ['deny-harm'],
+        brief: 'Public health advocates called for shutdown of eating disorder helpline chatbot after it gave harmful diet advice, prompting the association to take it offline.'
+      },
+      {
+        name: 'São Paulo Metro Facial Recognition', domain: 'surveillance', year: 2021, actor: 'Public Interest Group', outcome: 'system',
+        tw: ['public-interest'], tq: ['context'], th: ['regulatory', 'protest'], tr: ['justify'],
+        brief: 'Civil society organizations challenged deployment of facial recognition in São Paulo metro, raising concerns about mass surveillance and racial bias.'
+      },
+      {
+        name: 'Google Project Nimbus Boycott', domain: 'government', year: 2024, actor: 'Labor / Professional Collective', outcome: 'minimal',
+        tw: ['labor'], tq: ['context'], th: ['protest', 'direct'], tr: ['restrict'],
+        brief: 'Google employees protested the $1.2B Israeli government AI contract. Workers were fired using contractual mechanisms; contract was maintained.'
+      },
+      {
+        name: 'Amazon Worker Surveillance Fine', domain: 'surveillance', year: 2023, actor: 'Regulators', outcome: 'structural',
+        tw: ['regulators'], tq: ['practice'], th: ['regulatory'], tr: ['deny-resp'],
+        brief: 'Regulators fined Amazon for invasive algorithmic worker monitoring. Amazon rejected findings and appealed while continuing contested practices.'
+      },
+      {
+        name: 'Houston ISD Teacher Evaluation', domain: 'education', year: 2017, actor: 'Labor / Professional Collective', outcome: 'system',
+        tw: ['labor'], tq: ['design'], th: ['litigation', 'regulatory'], tr: ['opacity'],
+        brief: "EVAAS teacher evaluation model was too opaque to audit. Court sided with teachers on due process grounds, leading to the system's removal."
+      },
+      {
+        name: 'Detroit PD Facial Recognition MisID', domain: 'policing', year: 2020, actor: 'Individuals + Org Support', outcome: 'individual',
+        tw: ['supported'], tq: ['outputs'], th: ['litigation', 'protest'], tr: ['deny-harm'],
+        brief: 'A pregnant woman was falsely identified by facial recognition and arrested—highlighting severe racial bias and the personal costs of AI errors.'
+      },
+      {
+        name: 'Clearview AI (EU Data Misuse)', domain: 'surveillance', year: 2021, actor: 'Regulators', outcome: 'structural',
+        tw: ['regulators'], tq: ['practice', 'data-rights'], th: ['regulatory'], tr: ['restrict', 'opacity'],
+        brief: 'European regulators imposed GDPR fines on Clearview AI for mass scraping of biometric data; enforcement complicated by lack of EU physical presence.'
+      },
+      {
+        name: 'Hollywood Writers & Actors Strike', domain: 'employment', year: 2023, actor: 'Labor / Professional Collective', outcome: 'structural',
+        tw: ['labor'], tq: ['context'], th: ['protest'], tr: ['concede'],
+        brief: 'WGA and SAG-AFTRA secured landmark AI protections in union contracts after sustained strikes, establishing precedents for AI in creative industries.'
+      },
+      {
+        name: 'Anthropic Copyright Lawsuit', domain: 'copyright', year: 2024, actor: 'Public Interest Group', outcome: 'structural',
+        tw: ['public-interest'], tq: ['data-rights'], th: ['litigation'], tr: ['concede'],
+        brief: "Publishers contested Anthropic's use of copyrighted material for AI training, resulting in a settlement establishing early precedents for training data rights."
+      },
+      {
+        name: 'Google Project Maven Boycott', domain: 'government', year: 2018, actor: 'Labor / Professional Collective', outcome: 'system',
+        tw: ['labor'], tq: ['context'], th: ['protest', 'direct'], tr: ['concede'],
+        brief: 'Employee petition over AI drone targeting led Google to decline renewal of the Pentagon contract—a landmark in employee contestation of military AI.'
+      },
+      {
+        name: 'Giorgia Meloni Deepfake', domain: 'safety', year: 2023, actor: 'High-Profile Individual', outcome: 'individual',
+        tw: ['high-profile'], tq: ['outputs'], th: ['direct', 'protest'], tr: ['concede'],
+        brief: 'Italian PM leveraged her visibility to contest deepfake pornography generation, amplifying the issue to national policy attention.'
+      },
+      {
+        name: 'Stanford Vaccine Distribution', domain: 'health', year: 2020, actor: 'Labor / Professional Collective', outcome: 'system',
+        tw: ['labor'], tq: ['context', 'outputs'], th: ['protest', 'direct'], tr: ['justify', 'concede'],
+        brief: 'Medical residents contested a vaccine distribution algorithm prioritizing administrators over frontline workers; algorithm revised following internal protest.'
+      },
+      {
+        name: 'San Francisco Facial Recognition Ban', domain: 'policing', year: 2019, actor: 'Public Interest Group', outcome: 'structural',
+        tw: ['public-interest'], tq: ['context'], th: ['protest', 'regulatory'], tr: ['justify'],
+        brief: 'Civil society advocacy led to the first US city ban on government use of facial recognition technology, establishing a proactive governance precedent.'
+      },
+      {
+        name: 'Peculiar v. Diode Ventures', domain: 'government', year: 2023, actor: 'Public Interest Group', outcome: 'minimal',
+        tw: ['public-interest'], tq: ['environmental'], th: ['regulatory', 'protest'], tr: ['restrict'],
+        brief: 'Community contested data center construction without adequate public consultation. NDAs prevented elected representatives from sharing details, blocking meaningful community engagement with the infrastructure decision.'
+      },
+    ];
 
-/* ===== TAXONOMY MULTI-SELECT ===== */
-const sel = { who:null, what:null, how:null, responses:null, outcomes:null };
-let lastTouched = null; // { col, key } — most recently clicked item
+    /* ===== TAXONOMY MULTI-SELECT ===== */
+    const sel = { who: null, what: null, how: null, responses: null, outcomes: null };
+    let lastTouched = null; // { col, key } — most recently clicked item
 
-// Map taxonomy column → case property
-function caseVals(c, col) {
-  return { who: c.tw, what: c.tq, how: c.th, responses: c.tr, outcomes: [c.outcome] }[col] || [];
-}
-
-function getMatching() {
-  return CASES.filter(c => COLS.every(col => !sel[col] || caseVals(c, col).includes(sel[col])));
-}
-
-function pickTax(el) {
-  const col = el.dataset.col;
-  const key = el.dataset.key;
-  lastTouched = { col, key };
-  sel[col] = sel[col] === key ? null : key; // toggle
-  refreshTax();
-}
-
-function removeSel(col) {
-  sel[col] = null;
-  refreshTax();
-}
-
-function clearSel() {
-  COLS.forEach(c => sel[c] = null);
-  lastTouched = null;
-  refreshTax();
-}
-
-function refreshTax() {
-  const matching = getMatching();
-  const anyActive = COLS.some(c => sel[c] !== null);
-  const outColor = { structural:'var(--green)', system:'var(--above)', individual:'var(--yellow)', minimal:'var(--faint)' };
-
-  // ── Update item visual states ──
-  COLS.forEach(col => {
-    document.querySelectorAll(`.ti.${col}`).forEach(el => {
-      const key = el.dataset.key;
-      const isSelected = sel[col] === key;
-      el.classList.toggle('active', isSelected);
-      if (anyActive && !isSelected) {
-        // dim if adding this item would leave 0 matching cases
-        const wouldMatch = matching.some(c => caseVals(c, col).includes(key));
-        el.classList.toggle('dim', !wouldMatch);
-      } else {
-        el.classList.remove('dim');
-      }
-    });
-  });
-
-  // ── Detail panel ──
-  const detail    = document.getElementById('taxDetail');
-  const selState  = document.getElementById('taxSelState');
-
-  if (!anyActive) {
-    lastTouched = null;
-    detail.classList.add('empty');
-    selState.style.display = 'none';
-    document.getElementById('taxDTitle').textContent = 'Select any element to explore the taxonomy';
-    document.getElementById('taxDDesc').textContent  = 'Click any item in the five columns above to see its definition and case examples. Selecting items across multiple columns filters to matching cases.';
-    document.getElementById('taxDEx').style.display  = 'none';
-    return;
-  }
-  detail.classList.remove('empty');
-
-  // Show description of last touched item
-  if (lastTouched) {
-    const d = TAX[lastTouched.col]?.[lastTouched.key];
-    if (d) {
-      document.getElementById('taxDTitle').textContent = d.title;
-      document.getElementById('taxDDesc').textContent  = d.desc;
-      const ex = document.getElementById('taxDEx');
-      ex.innerHTML     = '<strong>Case evidence</strong>' + d.ex;
-      ex.style.display = 'block';
+    // Map taxonomy column → case property
+    function caseVals(c, col) {
+      return { who: c.tw, what: c.tq, how: c.th, responses: c.tr, outcomes: [c.outcome] }[col] || [];
     }
-  }
 
-  // Show/hide matching-cases bar
-  if (anyActive) {
-    selState.style.display = 'block';
+    function getMatching() {
+      return CASES.filter(c => COLS.every(col => !sel[col] || caseVals(c, col).includes(sel[col])));
+    }
 
-    // Count label
-    document.getElementById('taxMatchCount').textContent =
-      matching.length === 0 ? 'No cases match all selected filters'
-      : `${matching.length} case${matching.length !== 1 ? 's' : ''} match your selection`;
+    function pickTax(el) {
+      const col = el.dataset.col;
+      const key = el.dataset.key;
+      lastTouched = { col, key };
+      sel[col] = sel[col] === key ? null : key; // toggle
+      refreshTax();
+    }
 
-    // Active-filter chips
-    document.getElementById('taxSelChips').innerHTML =
-      COLS.filter(c => sel[c]).map(c => {
-        const label = TAX[c]?.[sel[c]]?.title || sel[c];
-        return `<span class="sel-chip sel-chip-${c}" onclick="removeSel('${c}')">${label} <span style="opacity:.55">×</span></span>`;
-      }).join('');
+    function removeSel(col) {
+      sel[col] = null;
+      refreshTax();
+    }
 
-    // Matching case pills
-    document.getElementById('taxMatchList').innerHTML =
-      matching.length === 0
-        ? '<span style="font-size:.78rem;color:var(--muted);font-style:italic">No cases match all selected criteria. Try removing a filter.</span>'
-        : matching.map(c =>
-            `<span class="match-pill"><span style="width:7px;height:7px;border-radius:50%;background:${outColor[c.outcome]||'var(--muted)'};display:inline-block;flex-shrink:0;margin-top:1px"></span>${c.name}</span>`
-          ).join('');
-  } else {
-    selState.style.display = 'none';
-  }
-}
+    function clearSel() {
+      COLS.forEach(c => sel[c] = null);
+      lastTouched = null;
+      refreshTax();
+    }
 
-/* ===== CASE GRID FILTER ===== */
-const activeF = { domain:'all', outcome:'all' };
-const DLABELS = { health:'Health', benefits:'Benefits', education:'Education', surveillance:'Surveillance', employment:'Employment', safety:'Safety/Content', policing:'Policing', copyright:'Copyright', government:'Gov. Contracts' };
+    function refreshTax() {
+      const matching = getMatching();
+      const anyActive = COLS.some(c => sel[c] !== null);
+      const outColor = { structural: 'var(--green)', system: 'var(--above)', individual: 'var(--yellow)', minimal: 'var(--faint)' };
 
-function renderCases() {
-  document.getElementById('casesGrid').innerHTML = CASES.map(c => {
-    const show = (activeF.domain === 'all' || c.domain === activeF.domain) &&
-                 (activeF.outcome === 'all' || c.outcome === activeF.outcome);
-    return `<div class="cc${show ? '' : ' hidden'}">
+      // ── Update item visual states ──
+      COLS.forEach(col => {
+        document.querySelectorAll(`.ti.${col}`).forEach(el => {
+          const key = el.dataset.key;
+          const isSelected = sel[col] === key;
+          el.classList.toggle('active', isSelected);
+          if (anyActive && !isSelected) {
+            // dim if adding this item would leave 0 matching cases
+            const wouldMatch = matching.some(c => caseVals(c, col).includes(key));
+            el.classList.toggle('dim', !wouldMatch);
+          } else {
+            el.classList.remove('dim');
+          }
+        });
+      });
+
+      // ── Detail panel ──
+      const detail = document.getElementById('taxDetail');
+      const selState = document.getElementById('taxSelState');
+
+      if (!anyActive) {
+        lastTouched = null;
+        detail.classList.add('empty');
+        selState.style.display = 'none';
+        document.getElementById('taxDTitle').textContent = 'Select any element to explore the taxonomy';
+        document.getElementById('taxDDesc').textContent = 'Click any item in the five columns above to see its definition and case examples. Selecting items across multiple columns filters to matching cases.';
+        document.getElementById('taxDEx').style.display = 'none';
+        return;
+      }
+      detail.classList.remove('empty');
+
+      // Show description of last touched item
+      if (lastTouched) {
+        const d = TAX[lastTouched.col]?.[lastTouched.key];
+        if (d) {
+          document.getElementById('taxDTitle').textContent = d.title;
+          document.getElementById('taxDDesc').textContent = d.desc;
+          const ex = document.getElementById('taxDEx');
+          ex.innerHTML = '<strong>Case evidence</strong>' + d.ex;
+          ex.style.display = 'block';
+        }
+      }
+
+      // Show/hide matching-cases bar
+      if (anyActive) {
+        selState.style.display = 'block';
+
+        // Count label
+        document.getElementById('taxMatchCount').textContent =
+          matching.length === 0 ? 'No cases match all selected filters'
+            : `${matching.length} case${matching.length !== 1 ? 's' : ''} match your selection`;
+
+        // Active-filter chips
+        document.getElementById('taxSelChips').innerHTML =
+          COLS.filter(c => sel[c]).map(c => {
+            const label = TAX[c]?.[sel[c]]?.title || sel[c];
+            return `<span class="sel-chip sel-chip-${c}" onclick="removeSel('${c}')">${label} <span style="opacity:.55">×</span></span>`;
+          }).join('');
+
+        // Matching case pills
+        document.getElementById('taxMatchList').innerHTML =
+          matching.length === 0
+            ? '<span style="font-size:.78rem;color:var(--muted);font-style:italic">No cases match all selected criteria. Try removing a filter.</span>'
+            : matching.map(c =>
+              `<span class="match-pill"><span style="width:7px;height:7px;border-radius:50%;background:${outColor[c.outcome] || 'var(--muted)'};display:inline-block;flex-shrink:0;margin-top:1px"></span>${c.name}</span>`
+            ).join('');
+      } else {
+        selState.style.display = 'none';
+      }
+    }
+
+    /* ===== CASE GRID FILTER ===== */
+    const activeF = { domain: 'all', outcome: 'all' };
+    const DLABELS = { health: 'Health', benefits: 'Benefits', education: 'Education', surveillance: 'Surveillance', employment: 'Employment', safety: 'Safety/Content', policing: 'Policing', copyright: 'Copyright', government: 'Gov. Contracts' };
+
+    function renderCases() {
+      document.getElementById('casesGrid').innerHTML = CASES.map(c => {
+        const show = (activeF.domain === 'all' || c.domain === activeF.domain) &&
+          (activeF.outcome === 'all' || c.outcome === activeF.outcome);
+        return `<div class="cc${show ? '' : ' hidden'}">
       <div class="cc-meta">
-        <span class="db db-${c.domain}">${DLABELS[c.domain]||c.domain}</span>
+        <span class="db db-${c.domain}">${DLABELS[c.domain] || c.domain}</span>
         <span class="cc-year">${c.year}</span>
         <span class="outcome-pip op-${c.outcome}" title="${c.outcome} outcome"></span>
       </div>
@@ -1075,79 +2294,89 @@ function renderCases() {
         ${c.actor}
       </div>
     </div>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function applyFilter(type, val, btn) {
-  activeF[type] = val;
-  document.querySelectorAll(`[data-ftype="${type}"]`).forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  renderCases();
-}
+    function applyFilter(type, val, btn) {
+      activeF[type] = val;
+      document.querySelectorAll(`[data-ftype="${type}"]`).forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      renderCases();
+    }
 
-/* ===== TABS ===== */
-function setTab(id, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('tab-' + id).classList.add('on');
-}
+    /* ===== TABS ===== */
+    function setTab(id, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('tab-' + id).classList.add('on');
+    }
 
-/* ===== INFO MODAL ===== */
-function toggleInfo() {
-  document.getElementById('infoOverlay').classList.toggle('open');
-}
-function closeInfo(e) {
-  if (e.target === document.getElementById('infoOverlay')) toggleInfo();
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('infoOverlay').classList.remove('open');
-});
+    /* ===== INFO MODAL ===== */
+    function toggleInfo() {
+      document.getElementById('infoOverlay').classList.toggle('open');
+    }
+    function closeInfo(e) {
+      if (e.target === document.getElementById('infoOverlay')) toggleInfo();
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.getElementById('infoOverlay').classList.remove('open');
+    });
 
-/* ===== SVG EXPORT ===== */
-async function exportDiagramSVG() {
-  const res = await fetch('contestation-diagram.svg');
-  const text = await res.text();
-  const blob = new Blob([text], { type: 'image/svg+xml' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'contestation-dynamics.svg';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+    /* ===== SVG EXPORT ===== */
+    async function exportDiagramSVG() {
+      const res = await fetch('contestation-diagram.svg');
+      const text = await res.text();
+      const blob = new Blob([text], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'contestation-dynamics.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
 
-/* ===== PDF EXPORT ===== */
-function exportSection(section) {
-  const style = document.createElement('style');
-  style.id = '__print-page';
-  style.textContent = '@page { size: A4 landscape; margin: 1.5cm; }';
-  document.head.appendChild(style);
-  document.body.classList.add('print-' + section);
-  window.print();
-  document.body.classList.remove('print-' + section);
-  document.head.removeChild(style);
-}
+    /* ===== PDF EXPORT ===== */
+    function exportSection(section) {
+      const style = document.createElement('style');
+      style.id = '__print-page';
+      style.textContent = '@page { size: A4 landscape; margin: 1.5cm; }';
+      document.head.appendChild(style);
+      document.body.classList.add('print-' + section);
+      window.print();
+      document.body.classList.remove('print-' + section);
+      document.head.removeChild(style);
+    }
 
-/* ===== CITATION COPY ===== */
-function copyCite() {
-  navigator.clipboard.writeText(document.getElementById('citeBlock').textContent).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy BibTeX', 2200);
-  });
-}
+    /* ===== CITATION COPY ===== */
+    function copyCite() {
+      navigator.clipboard.writeText(document.getElementById('citeBlock').textContent).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy BibTeX', 2200);
+      });
+    }
 
-/* ===== SCROLL FADE-INS ===== */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+    /* ===== SCROLL FADE-INS ===== */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 
-/* ===== INIT ===== */
-renderCases();
-</script>
+    /* ===== SECTION TABS ===== */
+    function switchSec(id, btn) {
+      document.querySelectorAll('.sec-pane').forEach(p => p.classList.remove('on'));
+      document.querySelectorAll('.stab').forEach(b => b.classList.remove('on'));
+      document.getElementById(id).classList.add('on');
+      btn.classList.add('on');
+      window.scrollTo({ top: document.querySelector('.section-tab-bar').offsetTop - 58, behavior: 'smooth' });
+    }
+
+    /* ===== INIT ===== */
+    renderCases();
+  </script>
 </body>
+
 </html>
