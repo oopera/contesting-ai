@@ -73,7 +73,7 @@ nav {
   height: 58px; padding: 0 1.5rem;
 }
 .nav-logo { font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 0.02em; }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
 .nav-links a { font-size: 0.82rem; color: var(--muted); transition: color .2s; }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 .nav-cta {
@@ -84,9 +84,64 @@ nav {
   font-weight: 500;
 }
 .nav-cta:hover { background: var(--primary) !important; }
+.nav-info-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-size: .82rem; font-weight: 700; font-family: inherit;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .18s; flex-shrink: 0;
+}
+.nav-info-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ===== INFO MODAL ===== */
+.info-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(28,25,23,.45);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .22s;
+}
+.info-overlay.open { opacity: 1; pointer-events: all; }
+.info-modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.25rem 2.5rem;
+  max-width: 620px; width: calc(100% - 3rem);
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+  transform: translateY(8px);
+  transition: transform .22s;
+  position: relative;
+}
+.info-overlay.open .info-modal { transform: translateY(0); }
+.info-modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); font-size: 1rem; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.info-modal-close:hover { border-color: var(--text); color: var(--text); }
+.info-modal h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1rem; }
+.info-modal p { font-size: .9rem; line-height: 1.85; margin-bottom: 1.25rem; }
+.info-modal p:last-child { margin-bottom: 0; }
+.info-modal .info-label {
+  font-size: .65rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--muted);
+  display: block; margin-bottom: .5rem; margin-top: 1.5rem;
+}
 
 /* ===== HERO ===== */
-#hero { padding: 9rem 0 5.5rem; position: relative; overflow: hidden; }
+#hero { padding: 9rem 0 4rem; position: relative; overflow: hidden; }
+.hero-diagram { margin-top: 3.5rem; max-width: 900px; position: relative; }
+.hero-diagram img { width: 100%; display: block; border-radius: var(--r-lg); }
+.hero-diagram .export-btn { position: absolute; top: 12px; right: 10px; }
 .hero-glow { display: none; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -464,12 +519,24 @@ footer {
 </head>
 <body>
 
+<!-- INFO MODAL -->
+<div class="info-overlay" id="infoOverlay" onclick="closeInfo(event)">
+  <div class="info-modal" role="dialog" aria-modal="true" aria-label="About this paper">
+    <button class="info-modal-close" onclick="toggleInfo()" aria-label="Close">×</button>
+    <span class="info-label">Abstract</span>
+    <h3>Push and Pushback in Contesting AI</h3>
+    <p>Much research examines how AI actors "from above"—designers, deployers, and authorities—handle accountability. Far less is known about <strong>contestation</strong>: the dynamic, iterative process by which affected communities and lower-power actors challenge AI systems. Drawing on <strong>43 real-world cases</strong> spanning health, education, policing, and employment, we map who contests AI, what gets targeted, how institutions respond, and what outcomes emerge. Contestation is rarely settled cleanly—it is an ongoing negotiation shaped by attribution clarity, coalition strength, enforcement capacity, and strategic framing.</p>
+    <span class="info-label">Conceptual Framework</span>
+    <p>Contestation is a <strong>relational, iterative accountability-seeking process</strong> in which lower-power actors challenge AI systems—and those from above push back. Unlike simple algorithmic resistance or abandonment, contestation involves ongoing negotiation between parties with asymmetric power, shaped by Bovens's relational theory of accountability. We extend this model to trace both sides of the dynamic—capturing how initial challenges evolve as institutions respond and contesters adapt strategies, pursue alternative channels, and build coalitions over time.</p>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
     <span class="nav-logo">FAccT '26 &nbsp;·&nbsp; Contesting AI</span>
     <ul class="nav-links">
-      <li><a href="#contestation">Concept</a></li>
+      <li><button class="nav-info-btn" onclick="toggleInfo()" aria-label="About this paper">i</button></li>
       <li><a href="#taxonomy">Taxonomy</a></li>
       <li><a href="#cases">Cases</a></li>
       <li><a href="#dynamics">Dynamics</a></li>
@@ -500,37 +567,13 @@ footer {
       <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
       <div class="stat"><span class="stat-num">4</span><span class="stat-label">Outcome levels</span></div>
     </div>
-    <div class="hero-abstract fi">
-      <p>Much research examines how AI actors "from above"—designers, deployers, and authorities—handle accountability. Far less is known about <strong>contestation</strong>: the dynamic, iterative process by which affected communities and lower-power actors challenge AI systems. Drawing on <strong>43 real-world cases</strong> spanning health, education, policing, and employment, we map who contests AI, what gets targeted, how institutions respond, and what outcomes emerge. Contestation is rarely settled cleanly—it is an ongoing negotiation shaped by attribution clarity, coalition strength, enforcement capacity, and strategic framing.</p>
-    </div>
-  </div>
-</section>
 
-<!-- WHAT IS CONTESTATION -->
-<section id="contestation" class="section">
-  <div class="container">
-    <div class="section-header fi">
-      <div class="section-label">Conceptual Framework</div>
-      <div class="section-header-row">
-        <div>
-          <h2>What Is Contestation?</h2>
-          <p>Contestation is a <strong>relational, iterative accountability-seeking process</strong> in which lower-power actors challenge AI systems—and those from above push back. Unlike simple algorithmic resistance or abandonment, contestation involves ongoing negotiation between parties with asymmetric power, shaped by Bovens's relational theory of accountability.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="diagram-wrap fi" style="position:relative">
-      <img src="contestation-diagram.svg" style="width:100%;display:block"
-           alt="Push and Pushback: Iterative Contestation Dynamics"/>
-      <button class="export-btn" onclick="exportDiagramSVG()"
-              style="position:absolute;top:12px;right:10px">
+    <div class="hero-diagram fi">
+      <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics"/>
+      <button class="export-btn" onclick="exportDiagramSVG()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Export SVG
       </button>
-    </div>
-
-    <div class="diagram-caption fi">
-      <p>We extend Bovens's accountability model to trace both sides of this dynamic—capturing how initial challenges evolve as institutions respond and contesters adapt strategies, pursue alternative channels, and build coalitions over time.</p>
     </div>
   </div>
 </section>
@@ -1049,6 +1092,17 @@ function setTab(id, btn) {
   btn.classList.add('on');
   document.getElementById('tab-' + id).classList.add('on');
 }
+
+/* ===== INFO MODAL ===== */
+function toggleInfo() {
+  document.getElementById('infoOverlay').classList.toggle('open');
+}
+function closeInfo(e) {
+  if (e.target === document.getElementById('infoOverlay')) toggleInfo();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('infoOverlay').classList.remove('open');
+});
 
 /* ===== SVG EXPORT ===== */
 async function exportDiagramSVG() {
