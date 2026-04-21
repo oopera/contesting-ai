@@ -435,15 +435,24 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
+.taxonomy-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--r-lg);
+  /* Hint for mobile users that it scrolls */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.taxonomy-scroll .taxonomy-cols {
+  min-width: 760px;
+}
 @media (max-width: 860px) {
-  .taxonomy-cols { grid-template-columns: 1fr 1fr; overflow-x: auto; }
-  .tc:nth-child(3),.tc:nth-child(4) { display: none; }
+  .taxonomy-scroll .taxonomy-cols { border-radius: 0; }
 }
 @media (max-width: 640px) {
   #hero { padding: 7.5rem 0 4rem; }
   .nav-links { display: none; }
   .hero-stats { gap: 1.25rem; }
-  .taxonomy-cols { grid-template-columns: 1fr; overflow-x: auto; }
   .arrows-row { gap: 1.5rem; }
 }
 </style>
@@ -583,7 +592,8 @@ footer {
       </div>
     </div>
 
-    <div class="taxonomy-cols fi" id="taxGrid">
+    <div class="taxonomy-scroll fi">
+    <div class="taxonomy-cols" id="taxGrid">
       <div class="tc">
         <div class="tc-head who">Who Contests</div>
         <div class="tc-items">
@@ -638,6 +648,7 @@ footer {
         </div>
       </div>
     </div>
+    </div><!-- /.taxonomy-scroll -->
 
     <div class="tax-detail empty fi" id="taxDetail">
       <div id="taxSelState" style="display:none">
