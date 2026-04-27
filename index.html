@@ -53,9 +53,9 @@
 
     /* ===== TYPOGRAPHY ===== */
     h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
       font-weight: 800;
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     h2 {
@@ -360,7 +360,7 @@
     #hero h1 {
       max-width: 17ch;
       margin-bottom: .5rem;
-      color: var(--primary);
+      color: var(--text);
     }
 
     .hero-subtitle {
@@ -391,7 +391,7 @@
 
     .hero-stats {
       display: flex;
-      gap: 2rem;
+      gap: .6rem;
       flex-wrap: wrap;
       margin-bottom: 3rem;
     }
@@ -399,17 +399,20 @@
     .stat {
       display: flex;
       flex-direction: column;
+      border: 1px solid var(--border);
+      padding: .65rem .95rem;
+      min-width: 90px;
     }
 
     .stat-num {
-      font-size: 2.6rem;
+      font-size: 2rem;
       font-weight: 800;
       line-height: 1;
-      color: var(--primary);
+      color: var(--text);
     }
 
     .stat-label {
-      font-size: .75rem;
+      font-size: .72rem;
       color: var(--muted);
     }
 
@@ -1563,7 +1566,104 @@
         </div>
 
         <div class="hero-diagram fi">
-          <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics" />
+          <!-- ═══ INLINE CONTESTATION DIAGRAM ═══ -->
+          <svg id="contestation-svg" width="100%" viewBox="0 0 660 380" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Push and Pushback: Iterative Contestation Dynamics">
+            <defs>
+              <style>
+                .d-txt { font-family: Inter, system-ui, sans-serif; }
+                @keyframes d-flow-dn {
+                  from { stroke-dashoffset: 14; }
+                  to   { stroke-dashoffset: 0; }
+                }
+                @keyframes d-flow-up {
+                  from { stroke-dashoffset: 0; }
+                  to   { stroke-dashoffset: 14; }
+                }
+                .d-anim-dn { stroke-dasharray: 5 4; animation: d-flow-dn .65s linear infinite; }
+                .d-anim-up { stroke-dasharray: 5 4; animation: d-flow-up .65s linear infinite; }
+                @keyframes d-pulse { 0%,100%{opacity:.55} 50%{opacity:1} }
+                .d-pulse { animation: d-pulse 2.8s ease-in-out infinite; }
+              </style>
+            </defs>
+
+            <!-- ── ZONE A: RESPONSES FROM ABOVE ── -->
+            <rect x="0" y="0" width="660" height="118" fill="#fff7ed"/>
+            <rect x="0" y="0" width="660" height="3" fill="#c2410c"/>
+            <text x="16" y="18" class="d-txt" font-size="8" font-weight="700" letter-spacing="1.8" fill="#c2410c">RESPONSES FROM ABOVE</text>
+
+            <!-- Row 1 -->
+            <rect x="16"  y="26" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="115" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Deny Responsibility</text>
+
+            <rect x="228" y="26" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="327" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Deny / Downplay Harm</text>
+
+            <rect x="440" y="26" width="200" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="540" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Restrict Contestation</text>
+
+            <!-- Row 2 -->
+            <rect x="16"  y="64" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="115" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Justify the Algorithm</text>
+
+            <rect x="228" y="64" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="327" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Avoid Scrutiny / Opacity</text>
+
+            <rect x="440" y="64" width="200" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
+            <text x="540" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Strategic Concession</text>
+
+            <!-- ── MIDDLE: ARROWS + DYNAMICS ── -->
+            <!-- PUSHBACK arrow (going down, left) -->
+            <line x1="178" y1="118" x2="178" y2="262" stroke="#c2410c" stroke-width="1.5" opacity="0.25"/>
+            <line x1="178" y1="118" x2="178" y2="262" stroke="#c2410c" stroke-width="3" class="d-anim-dn"/>
+            <!-- Arrowhead down -->
+            <polygon points="172,255 178,268 184,255" fill="#c2410c"/>
+            <!-- "PUSHBACK" label (rotated, left of arrow) -->
+            <text x="163" y="190" class="d-txt" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.6" fill="#c2410c" transform="rotate(-90 163 190)">PUSHBACK</text>
+
+            <!-- PUSH arrow (going up, right) -->
+            <line x1="482" y1="262" x2="482" y2="118" stroke="#1d4ed8" stroke-width="1.5" opacity="0.25"/>
+            <line x1="482" y1="262" x2="482" y2="118" stroke="#1d4ed8" stroke-width="3" class="d-anim-up"/>
+            <!-- Arrowhead up -->
+            <polygon points="476,125 482,112 488,125" fill="#1d4ed8"/>
+            <!-- "PUSH" label (rotated, right of arrow) -->
+            <text x="497" y="190" class="d-txt" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.6" fill="#1d4ed8" transform="rotate(90 497 190)">CHALLENGE</text>
+
+            <!-- Center dynamics box -->
+            <rect x="210" y="148" width="240" height="84" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5"/>
+            <text x="330" y="177" class="d-txt d-pulse" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a0a0a" letter-spacing=".4">CONTESTATION</text>
+            <text x="330" y="193" class="d-txt d-pulse" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a0a0a" letter-spacing=".4">DYNAMICS</text>
+            <text x="330" y="215" class="d-txt" text-anchor="middle" font-size="9" fill="#6b7280">relational · iterative · asymmetric power</text>
+
+            <!-- Connector dashes: center box to arrows -->
+            <line x1="178" y1="190" x2="210" y2="190" stroke="#d0d0d0" stroke-width="1" stroke-dasharray="3 3"/>
+            <line x1="450" y1="190" x2="482" y2="190" stroke="#d0d0d0" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <!-- ── ZONE C: CHALLENGES FROM BELOW ── -->
+            <rect x="0" y="262" width="660" height="118" fill="#eff6ff"/>
+            <rect x="0" y="377" width="660" height="3" fill="#1d4ed8"/>
+            <text x="16" y="280" class="d-txt" font-size="8" font-weight="700" letter-spacing="1.8" fill="#1d4ed8">CHALLENGES FROM BELOW</text>
+
+            <!-- Row 1 -->
+            <rect x="16"  y="287" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="115" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Affected Individuals</text>
+
+            <rect x="228" y="287" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="327" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Coalitions &amp; Orgs</text>
+
+            <rect x="440" y="287" width="200" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="540" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Regulators</text>
+
+            <!-- Row 2 -->
+            <rect x="16"  y="325" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="115" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Litigation</text>
+
+            <rect x="228" y="325" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="327" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Regulatory Complaints</text>
+
+            <rect x="440" y="325" width="200" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+            <text x="540" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Protest &amp; Direct Action</text>
+          </svg>
+
           <button class="export-btn" onclick="exportDiagramSVG()">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -1861,49 +1961,11 @@
 
       <div id="tab-contesters" class="tab-pane on fi">
         <ul class="lesson-list">
-          <li class="lesson-item">
-            <div class="ln">1</div>
-            <div class="lc">
-              <h4>Build Evidence of Harm and Attribution</h4>
-              <p>Systematically document algorithmic harms and identify responsible actors early. Create shared
-                accountability forums—reporting platforms, community documentation hubs—to build evidence bases that
-                sustain contestation over time.</p>
-            </div>
-          </li>
-          <li class="lesson-item">
-            <div class="ln">2</div>
-            <div class="lc">
-              <h4>Frame Contestation Strategically</h4>
-              <p>Frame around procedural rights and due process, not technical specifications. Ensure discussions
-                address broader social and ethical considerations that cannot be easily obscured or delegitimized
-                through technical counter-arguments.</p>
-            </div>
-          </li>
-          <li class="lesson-item">
-            <div class="ln">3</div>
-            <div class="lc">
-              <h4>Treat Implementation as a Distinct Stage</h4>
-              <p>Secure lasting pressure and enforcement beyond initial victories. Anticipate delayed implementation and
-                prolonged resistance—many institutional "concessions" are strategic delays, not genuine reforms.</p>
-            </div>
-          </li>
-          <li class="lesson-item">
-            <div class="ln">4</div>
-            <div class="lc">
-              <h4>Lower Barriers and Enable Collective Action</h4>
-              <p>Develop practical reporting tools and complaint templates. Strengthen procedural rights and standardize
-                complaint mechanisms to reduce the burden on individual contesters who often lack organizational
-                support.</p>
-            </div>
-          </li>
-          <li class="lesson-item">
-            <div class="ln">5</div>
-            <div class="lc">
-              <h4>Build and Sustain Shared Infrastructure</h4>
-              <p>Maintain shared harm repositories and reusable legal and technical tools. Preserve knowledge and
-                communities of practice across cases so hard-won insights are not lost between disputes.</p>
-            </div>
-          </li>
+          <li class="lesson-item"><div class="ln">1</div><div class="lc"><h4>Build Evidence of Harm and Attribution</h4><p>Systematically document algorithmic harms and identify responsible actors early. Create shared accountability forums—reporting platforms, community documentation hubs—to build evidence bases that sustain contestation over time.</p></div></li>
+          <li class="lesson-item"><div class="ln">2</div><div class="lc"><h4>Frame Contestation Strategically</h4><p>Frame around procedural rights and due process, not technical specifications. Ensure discussions address broader social and ethical considerations that cannot be easily obscured or delegitimized through technical counter-arguments.</p></div></li>
+          <li class="lesson-item"><div class="ln">3</div><div class="lc"><h4>Treat Implementation as a Distinct Stage</h4><p>Secure lasting pressure and enforcement beyond initial victories. Anticipate delayed implementation and prolonged resistance—many institutional "concessions" are strategic delays, not genuine reforms.</p></div></li>
+          <li class="lesson-item"><div class="ln">4</div><div class="lc"><h4>Lower Barriers and Enable Collective Action</h4><p>Develop practical reporting tools and complaint templates. Strengthen procedural rights and standardize complaint mechanisms to reduce the burden on individual contesters who often lack organizational support.</p></div></li>
+          <li class="lesson-item"><div class="ln">5</div><div class="lc"><h4>Build and Sustain Shared Infrastructure</h4><p>Maintain shared harm repositories and reusable legal and technical tools. Preserve knowledge and communities of practice across cases so hard-won insights are not lost between disputes.</p></div></li>
         </ul>
       </div>
 
@@ -2324,9 +2386,9 @@
     });
 
     /* ===== SVG EXPORT ===== */
-    async function exportDiagramSVG() {
-      const res = await fetch('contestation-diagram.svg');
-      const text = await res.text();
+    function exportDiagramSVG() {
+      const svg = document.getElementById('contestation-svg');
+      const text = new XMLSerializer().serializeToString(svg);
       const blob = new Blob([text], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
