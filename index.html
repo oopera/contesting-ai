@@ -302,41 +302,28 @@
 
     .hero-body {
       display: flex;
-      align-items: flex-start;
-      gap: 3.5rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
     }
 
     .hero-text {
-      flex: 0 0 auto;
-      max-width: 480px;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .hero-text .hero-authors {
+      justify-content: center;
     }
 
     .hero-diagram {
-      flex: 1 1 420px;
-      min-width: 0;
+      max-width: 724px;
+      width: 100%;
       position: relative;
-      margin-top: 0;
     }
 
     .hero-diagram img {
       width: 100%;
       display: block;
-    }
-
-    @media (max-width: 860px) {
-      .hero-body {
-        flex-direction: column;
-      }
-
-      .hero-text {
-        max-width: 100%;
-      }
-
-      .hero-diagram {
-        flex-basis: 100%;
-        margin-top: 2.5rem;
-      }
     }
 
     .hero-glow {
@@ -358,7 +345,6 @@
     }
 
     #hero h1 {
-      max-width: 17ch;
       margin-bottom: .5rem;
       color: var(--text);
     }
@@ -367,7 +353,6 @@
       font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--muted);
       margin-bottom: .75rem;
-      max-width: 55ch;
     }
 
     .hero-authors {
@@ -419,6 +404,8 @@
       display: flex;
       gap: .6rem;
       flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2.5rem;
       margin-bottom: 3rem;
     }
 
@@ -642,7 +629,7 @@
     /* ===== TAXONOMY ===== */
     .taxonomy-cols {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 1px;
       background: var(--border);
       overflow: hidden;
@@ -664,32 +651,32 @@
     }
 
     .tc-head.who {
-      color: #5b21b6;
-      background: #faf5ff;
-      border-top: 2px solid #7c3aed;
+      color: #7C3AED;
+      background: #FAF5FF;
+      border-top: 2px solid #7C3AED;
     }
 
     .tc-head.what {
-      color: #0369a1;
-      background: #f0f9ff;
-      border-top: 2px solid #0284c7;
+      color: #1D46B9;
+      background: #EFF6FF;
+      border-top: 2px solid #1D46B9;
     }
 
-    .tc-head.how {
-      color: #92400e;
-      background: #fffbeb;
-      border-top: 2px solid #d97706;
+    .tc-head.factors {
+      color: #262626;
+      background: #E8E8E8;
+      border-top: 2px solid #262626;
     }
 
     .tc-head.responses {
-      color: #9a3412;
-      background: #fff7ed;
-      border-top: 2px solid #c2410c;
+      color: #C2410C;
+      background: #FFF7ED;
+      border-top: 2px solid #C2410C;
     }
 
     .tc-head.outcomes {
       color: #166534;
-      background: #f0fdf4;
+      background: #F0FDF4;
       border-top: 2px solid #16a34a;
     }
 
@@ -718,22 +705,22 @@
     }
 
     .ti.who:hover {
-      background: #faf5ff;
+      background: #FAF5FF;
       border-color: #c4b5fd;
     }
 
     .ti.what:hover {
-      background: #f0f9ff;
-      border-color: #7dd3fc;
+      background: #EFF6FF;
+      border-color: #93b4e8;
     }
 
-    .ti.how:hover {
-      background: #fffbeb;
-      border-color: #fcd34d;
+    .ti.factors:hover {
+      background: #E8E8E8;
+      border-color: #b0b0b0;
     }
 
     .ti.responses:hover {
-      background: #fff7ed;
+      background: #FFF7ED;
       border-color: #fdba74;
     }
 
@@ -744,25 +731,25 @@
 
     .ti.active.who {
       background: #ede9fe;
-      border-color: #7c3aed;
+      border-color: #7C3AED;
       color: #4c1d95;
     }
 
     .ti.active.what {
-      background: #e0f2fe;
-      border-color: #0284c7;
-      color: #0c4a6e;
+      background: #dbeafe;
+      border-color: #1D46B9;
+      color: #1e3a8a;
     }
 
-    .ti.active.how {
-      background: #fef3c7;
-      border-color: #d97706;
-      color: #78350f;
+    .ti.active.factors {
+      background: #d4d4d4;
+      border-color: #262626;
+      color: #171717;
     }
 
     .ti.active.responses {
       background: #fee2e2;
-      border-color: #c2410c;
+      border-color: #C2410C;
       color: #7f1d1d;
     }
 
@@ -1274,10 +1261,10 @@
       border-color: #7dd3fc;
     }
 
-    .sel-chip-how {
-      background: #fef3c7;
-      color: #78350f;
-      border-color: #fcd34d;
+    .sel-chip-factors {
+      background: #d4d4d4;
+      color: #171717;
+      border-color: #a3a3a3;
     }
 
     .sel-chip-responses {
@@ -1605,44 +1592,46 @@
               <div class="author-info"><span class="author-name">Jatinder Singh</span><span class="author-affil">UA Ruhr, UDE & University of Cambridge</span></div>
             </div>
           </div>
-          <div class="hero-stats fi">
-            <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Actor types</span></div>
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
-            <div class="stat"><span class="stat-num">4</span><span class="stat-label">Outcome levels</span></div>
-          </div>
         </div>
 
         <div class="hero-diagram fi">
-          <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics — a characterization of AI contestation dynamics capturing the two-sided accountability relationship between actors from below and actors from above.">
-        </div>
+          <picture>
+            <source media="(max-width: 724px)" srcset="contestation-diagram-mobile.svg">
+            <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics — a characterization of AI contestation dynamics capturing the two-sided accountability relationship between actors from below and actors from above.">
+          </picture>
         </div>
       </div>
+      <div class="hero-stats fi">
+        <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Contester types</span></div>
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Key factors</span></div>
+      </div>
+    </div>
     </div>
   </section>
 
   <!-- SECTION TAB BAR -->
   <div class="section-tab-bar">
     <div class="section-tab-inner">
-      <button class="stab on" data-sec="taxonomy" onclick="switchSec('taxonomy',this)">Taxonomy</button>
+      <button class="stab" data-sec="taxonomy" onclick="switchSec('taxonomy',this)">Taxonomy</button>
       <button class="stab" data-sec="cases" onclick="switchSec('cases',this)">Cases</button>
-      <button class="stab" data-sec="dynamics" onclick="switchSec('dynamics',this)">Dynamics</button>
+      <button class="stab on" data-sec="dynamics" onclick="switchSec('dynamics',this)">Dynamics</button>
       <button class="stab" data-sec="lessons" onclick="switchSec('lessons',this)">Lessons</button>
       <button class="stab" data-sec="cite" onclick="switchSec('cite',this)">Cite</button>
     </div>
   </div>
 
   <!-- TAXONOMY -->
-  <section id="taxonomy" class="section sec-pane on">
+  <section id="taxonomy" class="section sec-pane">
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Empirical Taxonomy</div>
         <div class="section-header-row">
           <div>
             <h2>The Contestation Taxonomy</h2>
-            <p>Across 43 cases, we identify structured patterns in <strong>who</strong> contests, <strong>what</strong>
-              they target, <strong>how</strong> they act, how institutions <strong>respond</strong>, and what
-              <strong>outcomes</strong> emerge. Click any element to explore.
+            <p>Across 43 cases, we identify four types of contesters, five dimensions of AI they contest, six institutional
+              response strategies, and five contextual factors that shape divergent <strong>outcomes</strong>. Click any element to explore.
             </p>
           </div>
           <button class="export-btn" onclick="exportSection('taxonomy')">
@@ -1662,47 +1651,20 @@
           <div class="tc">
             <div class="tc-head who">Who Contests</div>
             <div class="tc-items">
-              <div class="ti who" data-col="who" data-key="affected-alone" onclick="pickTax(this)">Affected Individuals
-                Alone</div>
-              <div class="ti who" data-col="who" data-key="high-profile" onclick="pickTax(this)">High-Profile
-                Individuals</div>
-              <div class="ti who" data-col="who" data-key="supported" onclick="pickTax(this)">Individuals + Public
-                Interest Orgs</div>
-              <div class="ti who" data-col="who" data-key="public-interest" onclick="pickTax(this)">Public Interest
-                Groups</div>
-              <div class="ti who" data-col="who" data-key="labor" onclick="pickTax(this)">Labor &amp; Professional
-                Collectives</div>
-              <div class="ti who" data-col="who" data-key="regulators" onclick="pickTax(this)">Regulators &amp;
-                Oversight Bodies</div>
+              <div class="ti who" data-col="who" data-key="affected" onclick="pickTax(this)">Affected Individuals</div>
+              <div class="ti who" data-col="who" data-key="public-interest" onclick="pickTax(this)">Public Interest Groups</div>
+              <div class="ti who" data-col="who" data-key="labor" onclick="pickTax(this)">Labor / Professional Collectives</div>
+              <div class="ti who" data-col="who" data-key="regulators" onclick="pickTax(this)">Regulators &amp; Oversight Bodies</div>
             </div>
           </div>
           <div class="tc">
             <div class="tc-head what">What Gets Contested</div>
             <div class="tc-items">
-              <div class="ti what" data-col="what" data-key="practice" onclick="pickTax(this)">Institutional Practice
-              </div>
-              <div class="ti what" data-col="what" data-key="outputs" onclick="pickTax(this)">System Outputs &amp;
-                Decisions</div>
-              <div class="ti what" data-col="what" data-key="design" onclick="pickTax(this)">System Design &amp;
-                Functions</div>
+              <div class="ti what" data-col="what" data-key="outputs" onclick="pickTax(this)">System Outputs / Decisions</div>
+              <div class="ti what" data-col="what" data-key="design" onclick="pickTax(this)">System Design / Functions</div>
               <div class="ti what" data-col="what" data-key="context" onclick="pickTax(this)">Application Context</div>
-              <div class="ti what" data-col="what" data-key="environmental" onclick="pickTax(this)">Environmental
-                Impacts</div>
-              <div class="ti what" data-col="what" data-key="data-rights" onclick="pickTax(this)">Data Rights &amp;
-                Training</div>
-            </div>
-          </div>
-          <div class="tc">
-            <div class="tc-head how">How They Act</div>
-            <div class="tc-items">
-              <div class="ti how" data-col="how" data-key="direct" onclick="pickTax(this)">Direct Appeals</div>
-              <div class="ti how" data-col="how" data-key="regulatory" onclick="pickTax(this)">Regulatory Complaints
-              </div>
-              <div class="ti how" data-col="how" data-key="litigation" onclick="pickTax(this)">Litigation</div>
-              <div class="ti how" data-col="how" data-key="protest" onclick="pickTax(this)">Public Protest</div>
-              <div class="ti how" data-col="how" data-key="proactive" onclick="pickTax(this)">Proactive (pre-deployment)
-              </div>
-              <div class="ti how" data-col="how" data-key="reactive" onclick="pickTax(this)">Reactive (post-harm)</div>
+              <div class="ti what" data-col="what" data-key="practice" onclick="pickTax(this)">Institutional Practice</div>
+              <div class="ti what" data-col="what" data-key="environmental" onclick="pickTax(this)">Environmental Impacts</div>
             </div>
           </div>
           <div class="tc">
@@ -1720,6 +1682,16 @@
                 Opacity</div>
               <div class="ti responses" data-col="responses" data-key="concede" onclick="pickTax(this)">Strategic
                 Concession &amp; Delay</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-head factors">Key Influencing Factors</div>
+            <div class="tc-items">
+              <div class="ti factors" data-col="factors" data-key="attribution" onclick="pickTax(this)">Attribution &amp; Tangibility of Harm</div>
+              <div class="ti factors" data-col="factors" data-key="coalition" onclick="pickTax(this)">Coalition / Visibility</div>
+              <div class="ti factors" data-col="factors" data-key="cost-benefit" onclick="pickTax(this)">Institutional Cost-Benefit / Alternatives</div>
+              <div class="ti factors" data-col="factors" data-key="enforcement" onclick="pickTax(this)">Enforcement Mechanisms / Jurisdictional Capacity</div>
+              <div class="ti factors" data-col="factors" data-key="framing" onclick="pickTax(this)">Problem Definition / Strategic Framing</div>
             </div>
           </div>
           <div class="tc">
@@ -1819,7 +1791,7 @@
   </section>
 
   <!-- DYNAMICS -->
-  <section id="dynamics" class="section sec-pane">
+  <section id="dynamics" class="section sec-pane on">
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Key Findings</div>
@@ -2020,167 +1992,163 @@
 
   <script>
     /* ===== COLUMN CONFIG ===== */
-    const COLS = ['who', 'what', 'how', 'responses', 'outcomes'];
+    const COLS = ['who', 'what', 'responses', 'factors', 'outcomes'];
 
     /* ===== TAXONOMY DATA ===== */
     const TAX = {
       who: {
-        'affected-alone': { title: 'Affected Individuals Alone', desc: 'Individuals directly harmed by AI who pursue remedies independently—typically without organizational support or significant resources. Face acute power asymmetries against institutions with legal teams and algorithmic opacity as tools of resistance.', ex: 'Shannon Carpenter challenged McDonald\'s biometric data collection at drive-through kiosks without organizational support, facing the full asymmetry of individual vs. corporation.' },
-        'high-profile': { title: 'High-Profile Individuals', desc: 'Public figures whose visibility amplifies contestation and creates reputational pressure otherwise unavailable to ordinary individuals. Their platform dramatically accelerates institutional response timelines.', ex: 'Italian PM Giorgia Meloni\'s contestation of deepfake pornography generated rapid national policy attention and platform response due to her public visibility.' },
-        'supported': { title: 'Individuals + Public Interest Orgs', desc: 'Individuals collaborating with NGOs or advocacy organizations. They gain resources, legal support, coordination capacity, and institutional leverage through these partnerships, enabling far longer and better-resourced contestation.', ex: 'Arkansas RUGS: Medicaid recipients supported by disability rights organizations contested algorithmic care cuts across a decade-long reform effort they could not have sustained alone.' },
-        'public-interest': { title: 'Public Interest Groups', desc: 'Organizations independently contesting AI for systemic or diffuse harms affecting the broader public—acting without a specific individual victim. They represent collective interests and can sustain long-term contestation campaigns.', ex: 'Civil society organizations challenged São Paulo\'s metro facial recognition on behalf of all commuters and civil liberties broadly, not any single misidentified person.' },
-        'labor': { title: 'Labor & Professional Collectives', desc: 'Professional associations, unions, and employee groups contesting AI deployments that threaten labor standards, professional ethics, or worker rights. Leverage collective bargaining power and professional norms as contestation resources.', ex: 'WGA and SAG-AFTRA strikes secured landmark AI protections. Google employee petitions led to non-renewal of the Project Maven military AI contract.' },
-        'regulators': { title: 'Regulators & Oversight Bodies', desc: 'State actors "acting from below" through investigations, fines, and enforcement. Though institutionally powerful, they operate within jurisdictional and resource constraints that shape—and often limit—their effectiveness.', ex: 'European data protection authorities fining Clearview AI under GDPR; EEOC investigations into algorithmic hiring discrimination in the US.' },
+        'affected': { title: 'Affected Individuals', desc: 'Individuals directly harmed by AI systems who pursue available remedies such as filing complaints or bringing lawsuits, in reactive response to immediate personal loss or harm. Contestation is usually initiated by those directly affected when AI causes tangible harm to identifiable individuals.', ex: 'Shannon Carpenter challenged McDonald\'s biometric data collection. Air Canada chatbot misled a passenger about bereavement fares. Detroit facial recognition wrongfully identified a pregnant woman.' },
+        'public-interest': { title: 'Public Interest Groups', desc: 'Organizations acting in support of affected individuals or on behalf of populations exposed to harms that are diffuse, systemic, or legally ambiguous. Their strategies include coordinating related cases, filing class-action lawsuits, engaging regulators, and running advocacy or media campaigns.', ex: 'Civil society organizations challenged São Paulo\'s metro facial recognition on behalf of all commuters. Public interest groups coordinated multiple Character.AI teen harm lawsuits, amplifying visibility.' },
+        'labor': { title: 'Labor / Professional Collectives', desc: 'Professional associations, labor unions, and employee groups contesting AI deployments to uphold labor standards, industry norms, and ethics—even without immediate harms. Contestation may be anticipatory, including collective action, boycotts, and internal dissent.', ex: 'WGA and SAG-AFTRA strikes secured landmark AI protections in union contracts. Google employee petitions led to non-renewal of the Project Maven military AI contract.' },
+        'regulators': { title: 'Regulators & Oversight Bodies', desc: 'Although typically "from above," regulators can act "from below" when legal gaps, technological opacity, or cross-jurisdictional barriers limit enforcement. Their strategies include formal investigations, enforcement actions, or supporting other actors\' contestation.', ex: 'European data protection authorities fining Clearview AI under GDPR. EEOC investigations into algorithmic hiring discrimination. However, cross-jurisdictional complexity and legal ambiguities can limit their authority.' },
       },
       what: {
-        'practice': { title: 'Institutional Practice', desc: 'Challenging the processes, policies, and decision-making around AI deployment—not the algorithm itself, but how the organization governs and uses it. Includes transparency failures, lack of community consultation, and opaque governance.', ex: 'Amazon worker surveillance case: challenged not just the monitoring technology but the institutional processes, lack of worker notice, and absence of meaningful consent mechanisms.' },
-        'outputs': { title: 'System Outputs & Decisions', desc: 'Contesting specific algorithmic outputs: discriminatory hiring decisions, incorrect benefit denials, misleading chatbot responses, erroneous facial recognition identifications. The most visible and concrete focal point.', ex: 'Detroit PD facial recognition misidentification of a pregnant woman; Air Canada chatbot providing false information about bereavement fares that a court held the airline liable for.' },
-        'design': { title: 'System Design & Functions', desc: 'Targeting the underlying logic, decision rules, variables, and design choices embedded in AI—not just outputs but the mechanisms producing them. Requires technical access that institutions often actively deny.', ex: 'Dutch Childcare Benefits: dual nationality treated as a fraud risk factor in the model. K.W. v. Armstrong: Idaho\'s Medicaid budget tool claimed as trade secret to prevent review of its weighting scheme.' },
-        'context': { title: 'Application Context', desc: 'Contesting whether AI should be deployed in a domain at all—challenging appropriateness regardless of technical accuracy. Often involves proactive contestation before harms fully materialize.', ex: 'San Francisco ban on government facial recognition; employee boycotts of military AI contracts; NEDA eating disorder chatbot challenged as an inappropriate AI use regardless of accuracy.' },
-        'environmental': { title: 'Environmental Impacts', desc: 'Challenging the material footprint of AI infrastructure: data center construction, land use, energy consumption, and community impacts of AI operations. An emerging and under-theorized focal point.', ex: 'Peculiar v. Diode Ventures: community contested data center construction without adequate public consultation, challenging the enabling infrastructure rather than any AI system directly.' },
-        'data-rights': { title: 'Data Rights & Training', desc: 'Contesting unauthorized use of copyrighted material, personal data, or intellectual property in training AI systems. A rapidly expanding frontier as generative AI scales training data requirements.', ex: 'Anthropic copyright lawsuit by publishers; Clearview AI\'s mass scraping of biometric data from social media; Japanese media organizations contesting AI training on copyrighted works.' },
+        'outputs': { title: 'System Outputs / Decisions', desc: 'Contesting the system\'s outputs or decisions, such as misleading chatbot responses, harmful generated content, discriminatory hiring outcomes, and facial-recognition errors. These harms often serve as entry points for broader contestation of underlying design, deployment, or governance practices.', ex: 'Air Canada chatbot providing false bereavement fare information. Character.AI generating harmful content for teens. Detroit PD facial recognition misidentifying a pregnant woman.' },
+        'design': { title: 'System Design / Functions', desc: 'Challenging the underlying logic and adequacy of system design—specific decision rules or variables embedded in the system, or questioning the system\'s overall problem formulation and assumptions that underpin it.', ex: 'Dutch Childcare Benefits algorithm treated dual nationality as a fraud risk factor. Teen pregnancy prediction system in Argentina critiqued for oversimplifying complex social problems.' },
+        'context': { title: 'Application Context', desc: 'Contesting the contexts in which AI systems are applied and the purposes they serve. Contestation arises when systems are introduced into high-stakes or socially sensitive domains. Challengers argue that certain uses of AI are inappropriate regardless of technical performance.', ex: 'San Francisco ban on government facial recognition. Employee boycotts of military AI applications. NEDA eating disorder chatbot challenged as inappropriate AI use regardless of accuracy.' },
+        'practice': { title: 'Institutional Practice', desc: 'Targeting the institutional practices that shape how AI systems are developed, procured, governed, and overseen—especially when organizational processes fail to prevent, mitigate, or address harms. Includes lack of transparency, inadequate human oversight, and exclusion of affected communities.', ex: 'Amazon worker surveillance: challenged not just the technology but institutional processes and absence of consent mechanisms. Clearview AI\'s mass scraping practices.' },
+        'environmental': { title: 'Environmental Impacts', desc: 'Contestation extending beyond specific AI applications to the enabling infrastructure itself. Residents mobilize against data center construction, raising concerns about land use, environmental impact, and lack of public consultation—broader contestation of AI\'s material footprint.', ex: 'Peculiar v. Diode Ventures: community contested data center construction without adequate public consultation, challenging the enabling infrastructure rather than any specific AI system.' },
       },
-      how: {
-        'direct': { title: 'Direct Appeals', desc: 'Contesting directly to the responsible organization: formal complaints, customer service escalations, appeals through official channels. The first resort for many affected individuals, and often the first step in longer contestation chains.', ex: 'Individuals appealing algorithmic benefit denials through state administrative processes; formal HR complaints about discriminatory AI hiring decisions before escalating to litigation.' },
-        'regulatory': { title: 'Regulatory Complaints', desc: 'Filing formal complaints with regulatory bodies, data protection authorities, labor regulators, or oversight agencies. Leverages existing institutional enforcement capacity but depends heavily on regulator resources and jurisdiction.', ex: 'GDPR complaints to European Data Protection Boards against Clearview AI. EEOC complaints against platforms using discriminatory algorithmic hiring tools.' },
-        'litigation': { title: 'Litigation', desc: 'Pursuing legal remedies through courts. Powerful but resource-intensive; most accessible to supported individuals and organizations. Can establish precedent with effects far beyond individual cases.', ex: 'K.W. v. Armstrong establishing due process rights to algorithmic explanation in benefits decisions. Anthropic copyright lawsuit establishing early precedents for training data rights.' },
-        'protest': { title: 'Public Protest', desc: 'Mobilizing public pressure through demonstrations, petitions, social media campaigns, and media engagement. Amplifies visibility and reputational costs of institutional inaction—particularly effective with strong coalitions.', ex: 'Google employee petitions against Project Maven and Nimbus. Student protests driving rapid reversal of UK A-Level algorithm. Hollywood strikes over AI in creative industries.' },
-        'proactive': { title: 'Proactive (pre-deployment)', desc: 'Challenging AI systems before harms materialize—anticipating risks and seeking prevention or safeguards before launch. Faces higher evidentiary burdens as harms remain speculative rather than concrete.', ex: 'San Francisco facial recognition ban enacted before widespread deployment. Employee boycotts of defense AI contracts before any direct harm to workers had occurred.' },
-        'reactive': { title: 'Reactive (post-harm)', desc: 'Responding after harms have materialized. More common and often more successful due to concrete evidence, though affected individuals have already experienced injury—sometimes severe or irreversible.', ex: 'The majority of our 43 cases: benefit cuts administered, wrongful arrests made, misleading AI advice given—all contested after initial harm occurrence.' },
+      factors: {
+        'attribution': { title: 'Attribution & Tangibility of Harm', desc: 'Contestation tends to result in remedies when algorithmic harms are well-documented and externally traceable to identifiable actors or institutional decisions. Clear attribution allows affected individuals to direct claims toward specific entities. Diffuse or cumulative harms distributed across multiple actors or along AI value chains appear harder to contest.', ex: 'Anthropic copyright settlement succeeded with clear attribution. In the Workday case, alleged discriminatory hiring outcomes were spread across thousands of applicants and many employer clients, fragmenting responsibility.' },
+        'coalition': { title: 'Coalition / Visibility', desc: 'Contestation can be sustained and amplified when affected individuals, advocacy groups, or other stakeholders form coalitions. Coalitions amplify visibility and reputational pressure, increasing institutional costs of inaction. However, coalition is not sufficient on its own—even visible coalitions can be dismissed when structural incentives for change remain weak.', ex: 'The U.S. Take It Down Act emerged from prolonged advocacy by coalitions of deepfake harassment survivors. Google Project Nimbus: despite significant employee protest and coalitions, contractual obligations maintained the contract.' },
+        'cost-benefit': { title: 'Institutional Cost-Benefit / Alternatives', desc: 'Actors from above tend to weigh the costs of complying with contestation demands against the costs of resisting or maintaining the status quo. When readily implementable alternatives to the contested system exist, institutions can make relatively rapid adjustments. Coalitions can shift these calculations by amplifying reputational pressure.', ex: 'UK A-Level algorithm was quickly reversed because teacher assessments were a ready alternative. Character.AI introduced age verification as a low-cost response. São Paulo Metro defended on public safety grounds with no viable alternative.' },
+        'enforcement': { title: 'Enforcement Mechanisms / Jurisdictional Capacity', desc: 'Legal and regulatory structures shape contestation outcomes by enabling or constraining enforcement. U.S. copyright law supported the Anthropic settlement. Cross-jurisdictional complexity, under-resourced regulators, or legislative ambiguities can limit changes even when violations are recognized.', ex: 'Clearview AI has largely avoided GDPR fines by arguing it falls outside EU jurisdiction. K.W. v. Armstrong secured a court-mandated replacement, but enforcement capacity determined whether the legal victory translated to actual change.' },
+        'framing': { title: 'Problem Definition / Strategic Framing', desc: 'How contestation is framed influences which outcomes are achievable. Efforts focused on specific cases may secure individual-level outcomes, but system-level change often requires connecting localized incidents to broader patterns. Institutions may resist reframing by downplaying harms or highlighting algorithmic benefits.', ex: 'Character.AI teen harm cases: public interest groups coordinated multiple lawsuits; collective framing drew attention to recurring risks and contributed to structural changes. K.W. v. Armstrong reframed from algorithm scrutiny to procedural due process.' },
       },
       responses: {
-        'deny-resp': { title: 'Deny Responsibility ("It\'s Not Our Fault")', desc: 'Shifting accountability to other actors—blaming the AI as autonomous, positioning as a "technical vendor," or pointing elsewhere in the supply chain. Fractures accountability without addressing harm and is a primary mechanism for evading meaningful contestation.', ex: 'Workday positioned itself as a technical vendor, not an employer making hiring decisions. Air Canada claimed its chatbot was a "separate legal entity" responsible for its own advice—a claim courts rejected.' },
-        'deny-harm': { title: 'Deny / Downplay Harm ("Nothing serious happened")', desc: 'Directly denying harm claims or minimizing their severity, scope, and scale. Shifts the evidentiary burden back to affected parties and undermines the factual basis for contestation.', ex: 'NEDA denied Tessa chatbot caused serious harm. Westfield High officials declared the deepfake incident "resolved" despite ongoing severe reputational harm to affected students.' },
-        'restrict': { title: 'Restrict Contestation ("You can\'t challenge us")', desc: 'Using legal, procedural, or institutional mechanisms to narrow who can challenge and through what channels—making contestation structurally harder without addressing underlying issues.', ex: 'Clearview AI invoked BIPA exemptions to block US challenges. Google Project Nimbus used contractual design to prevent service discontinuation. NDAs prevented elected officials from disclosing details (Peculiar v. Diode Ventures).' },
-        'justify': { title: 'Justify the Algorithm ("AI is the right choice")', desc: 'Defending AI as appropriate, efficient, or superior to human alternatives—emphasizing benefits and positive outcomes while deflecting accountability through techno-optimism.', ex: 'UK A-Level grading described as "robust and dependable" before reversal. Arkansas RUGS defended as "more objective" than human evaluation. Stanford vaccine distribution claimed as an "ethical and equitable" process.' },
-        'opacity': { title: 'Avoid Scrutiny / Intentional Opacity', desc: 'Using proprietary claims, trade secret protections, or algorithmic complexity to block external access and prevent meaningful audits. Transforms opacity into a strategic weapon against accountability.', ex: 'Idaho\'s Medicaid tool claimed as trade secret (K.W. v. Armstrong). Houston ISD\'s EVAAS model obscured from court-appointed experts. UnitedHealth denied discovery requests for coverage denial algorithm details.' },
-        'concede': { title: 'Strategic Concession & Delay ("We\'ll fix it, eventually")', desc: 'Providing case-by-case exceptions or surface-level adjustments while resisting systemic reform. Postponing implementation of court-mandated or publicly-committed reforms. Exhausts contesters through procedural attrition.', ex: 'Arkansas RUGS: court-mandated reform took nearly ten years to implement. Amazon announced appeals of regulatory fines while continuing contested practices. Character.AI made minor adjustments leaving core systems unchanged.' },
+        'deny-resp': { title: 'Deny Responsibility', desc: 'Contested actors often deny responsibility, rejecting recognition as parties whose actions contributed to harm. Two common strategies: shifting responsibility to other actors (positioning as a "technical vendor") or blaming the AI system as an autonomous agent responsible for its own outputs.', ex: 'Workday argued it only provided software and did not make hiring decisions. Air Canada claimed its chatbot was "a separate legal entity responsible for its own actions"—a claim courts rejected.' },
+        'deny-harm': { title: 'Deny / Downplay Harm', desc: 'Actors may challenge the existence, severity, or systemic nature of harm. Strategies include direct denial—rejecting harm claims entirely or questioning credibility—and downplaying the severity, scope, or scale, framing adverse outcomes as isolated, minor, or exceptional.', ex: 'NEDA\'s VP accused a user of fabricating complaints about the chatbot. Cruise initially omitted key details about dragging a pedestrian when reporting to California regulators.' },
+        'restrict': { title: 'Restrict Contestation', desc: 'Responding by restricting who can challenge, when challenges can be brought, and the forums in which they can be raised. Uses legal, procedural, or institutional mechanisms to narrow or foreclose avenues for contestation without addressing underlying issues.', ex: 'Clearview AI argued BIPA did not apply because it is based in New York. Google Project Nimbus contract prevents service withdrawal. NDAs in Peculiar v. Diode prevented elected officials from disclosing details.' },
+        'justify': { title: 'Justify the Algorithm', desc: 'Defending AI systems as the appropriate or superior choice by emphasizing benefits, accuracy, or public interest, and deflecting responsibility for harms onto human operators. Both approaches help legitimize continued deployment and reduce pressure for systemic change.', ex: 'UK A-Level grading described as "robust and dependable" before reversal. Arkansas RUGS defended as "more objective" than human evaluation. Detroit police attributed the false arrest to "poor investigative work," not the technology.' },
+        'opacity': { title: 'Avoid Scrutiny / Opacity', desc: 'Using intentional opacity to impede scrutiny and protect commercial interests. Takes two main forms: using proprietary or trade-secret protections to block access to system logic, and procedural or institutional opacity through arrangements such as non-disclosure agreements.', ex: 'Idaho\'s Medicaid tool claimed as trade secret (K.W. v. Armstrong). Houston ISD\'s EVAAS model obscured from review due to proprietary secrecy. UnitedHealth sought to limit discovery in a class-action lawsuit.' },
+        'concede': { title: 'Strategic Concession / Delay', desc: 'Limiting or delaying corrective actions using different methods to manage pressure without fully addressing systemic issues: case-by-case exceptions while resisting system-wide changes, postponing court-mandated reforms, appealing regulatory fines while continuing contested practice, or making only minor adjustments.', ex: 'Arkansas RUGS: court-mandated reform took nearly ten years to implement. Character.AI made minor adjustments leaving core systems unchanged. Amazon appealed regulatory fines while continuing contested practices.' },
       },
       outcomes: {
-        'structural': { title: 'Structural / Policy Reform', desc: 'Changes to governance frameworks, regulatory rules, legal precedent, or institutional policy—affecting not just the immediate case but creating durable systemic change. The most far-reaching outcome type in our taxonomy.', ex: 'San Francisco facial recognition ban. Hollywood strikes establishing AI protections in union contracts. Dutch Childcare Benefits scandal prompting national reckoning with algorithmic governance in the Netherlands.' },
-        'system': { title: 'System-Level Change', desc: 'Technical modifications to the AI system, withdrawal from deployment, or significant operational changes—without necessarily altering broader policy or regulatory frameworks.', ex: 'UK A-Level algorithm withdrawn and replaced with teacher assessments. NEDA Tessa chatbot shut down. Google\'s decision not to renew Project Maven contract with the Pentagon.' },
-        'individual': { title: 'Individual Restitution', desc: 'Restoring the prior state for affected individuals or providing financial compensation—without fixing the system for others who face the same harm. The narrowest form of successful outcome.', ex: 'Air Canada ordered to compensate the passenger misled by its chatbot. Benefits restored for individual Medicaid recipients who appealed. Wrongful arrest cases settled with financial compensation.' },
-        'minimal': { title: 'Minimal / Unresolved', desc: 'Symbolic or procedural responses with little substantive change: public acknowledgments, surface-level adjustments, or ongoing/pending cases where contestation has not yet produced meaningful reform.', ex: 'Google Project Nimbus: despite significant employee protest, contract maintained and organizers dismissed. Many proactive contestation cases where legal or evidentiary basis proved insufficient for courts to act.' },
+        'individual': { title: 'Individual Restitution', desc: 'Affected individuals receive direct relief addressing the harms they experienced—restoring prior states or providing financial compensation. Notably, actors from above often separate individual remedies from broader system-level or structural changes, using the strategic concessions strategy.', ex: 'Air Canada ordered to compensate the passenger misled by its chatbot. Reinstated benefits in Arkansas RUGS. Corrected grades in UK A-Levels. Financial compensation in wrongful arrest cases.' },
+        'structural': { title: 'Structural / Policy Reform', desc: 'Changes to governance frameworks, regulatory rules, legal precedent, or institutional policy—affecting not just the immediate case but creating durable systemic change. The most far-reaching outcome type in our taxonomy.', ex: 'San Francisco facial recognition ban. Hollywood strikes establishing AI protections in union contracts. Dutch Childcare Benefits scandal prompting national reckoning with algorithmic governance.' },
+        'system': { title: 'System-Level Change', desc: 'Technical modifications to the AI system, withdrawal from deployment, or significant operational changes—without necessarily altering broader policy or regulatory frameworks. Broader changes can occur even without remedies for affected individuals.', ex: 'UK A-Level algorithm withdrawn and replaced with teacher assessments. NEDA Tessa chatbot shut down. Character.AI restricted minors\' chat access following media scrutiny before any individual litigation resolved.' },
+        'minimal': { title: 'Minimal / Unresolved', desc: 'Symbolic or procedural responses with little substantive change: public acknowledgments, surface-level adjustments, or ongoing/pending cases where contestation has not yet produced meaningful reform.', ex: 'Google Project Nimbus: despite significant employee protest, contract maintained and organizers dismissed. São Paulo Metro and Pause Letter cases where coalitions were present but structural incentives for change remained weak.' },
       },
     };
 
     /* ===== CASE DATA (with taxonomy mapping) ===== */
-    // tw=who, tq=what, th=how, tr=responses; outcome used for outcomes col
+    // tw=who, tq=what, tf=factors, tr=responses; outcome used for outcomes col
     const CASES = [
       {
         name: 'Arkansas RUGS Home Care', domain: 'health', year: 2016, actor: 'Individuals + Org Support', outcome: 'structural',
-        tw: ['supported'], tq: ['design'], th: ['litigation', 'regulatory'], tr: ['concede', 'justify'],
+        tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'coalition', 'enforcement', 'framing'], tr: ['concede', 'justify'],
         brief: 'Medicaid recipients challenged a scoring algorithm that drastically cut care hours without explanation, leading to a decade-long reform effort.'
       },
       {
         name: 'Dutch Childcare Benefits', domain: 'benefits', year: 2019, actor: 'Individuals / Public Interest', outcome: 'structural',
-        tw: ['affected-alone', 'public-interest'], tq: ['design'], th: ['regulatory', 'litigation'], tr: ['deny-resp'],
+        tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'coalition', 'enforcement'], tr: ['deny-resp'],
         brief: 'Algorithm treated dual nationality as a fraud risk factor, discriminating against minority families and triggering a national government scandal.'
       },
       {
         name: 'K.W. v. Armstrong (Idaho)', domain: 'health', year: 2015, actor: 'Individuals + Org Support', outcome: 'structural',
-        tw: ['supported'], tq: ['design'], th: ['litigation'], tr: ['opacity', 'restrict'],
+        tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'enforcement', 'framing', 'coalition'], tr: ['opacity', 'restrict'],
         brief: "Idaho's Medicaid budget tool was claimed as a trade secret, blocking meaningful review. Courts established due process rights to algorithmic explanation."
       },
       {
         name: "McDonald's Biometric Drive-Thru", domain: 'employment', year: 2021, actor: 'Affected Individual', outcome: 'individual',
-        tw: ['affected-alone'], tq: ['practice'], th: ['litigation'], tr: ['deny-resp'],
+        tw: ['affected'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
         brief: 'Shannon Carpenter challenged collection of biometric data without adequate consent at drive-through kiosks.'
       },
       {
         name: 'UK A-Level Grading Algorithm', domain: 'education', year: 2020, actor: 'Individuals + Org Support', outcome: 'system',
-        tw: ['supported'], tq: ['outputs', 'design'], th: ['protest', 'regulatory'], tr: ['justify', 'concede'],
+        tw: ['affected', 'public-interest'], tq: ['outputs', 'design'], tf: ['attribution', 'coalition', 'cost-benefit'], tr: ['justify', 'concede'],
         brief: 'Grade-predicting algorithm was reversed within days after massive student protests, as downgrading disproportionately hit disadvantaged schools.'
       },
       {
         name: 'Character.AI Teen Harm', domain: 'safety', year: 2024, actor: 'Individuals + Org Support', outcome: 'system',
-        tw: ['supported'], tq: ['context', 'outputs'], th: ['regulatory', 'protest'], tr: ['concede', 'deny-harm'],
+        tw: ['affected', 'public-interest'], tq: ['context', 'outputs'], tf: ['attribution', 'coalition', 'cost-benefit', 'framing'], tr: ['concede', 'deny-harm'],
         brief: "Families contested AI companion app's role in teen suicide, prompting feature restrictions for minors and regulatory scrutiny."
       },
       {
         name: 'Air Canada Chatbot Misinformation', domain: 'safety', year: 2024, actor: 'Affected Individual', outcome: 'individual',
-        tw: ['affected-alone'], tq: ['outputs'], th: ['litigation'], tr: ['deny-resp'],
+        tw: ['affected'], tq: ['outputs'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
         brief: "Airline's claim that its chatbot was a 'separate legal entity' responsible for its own advice was rejected by a tribunal, ordering compensation."
       },
       {
         name: 'NEDA Tessa Chatbot Shutdown', domain: 'safety', year: 2023, actor: 'Public Interest Group', outcome: 'system',
-        tw: ['public-interest'], tq: ['context', 'outputs'], th: ['protest', 'direct'], tr: ['deny-harm'],
+        tw: ['public-interest'], tq: ['context', 'outputs'], tf: ['attribution', 'cost-benefit', 'coalition'], tr: ['deny-harm'],
         brief: 'Public health advocates called for shutdown of eating disorder helpline chatbot after it gave harmful diet advice, prompting the association to take it offline.'
       },
       {
-        name: 'São Paulo Metro Facial Recognition', domain: 'surveillance', year: 2021, actor: 'Public Interest Group', outcome: 'system',
-        tw: ['public-interest'], tq: ['context'], th: ['regulatory', 'protest'], tr: ['justify'],
+        name: 'São Paulo Metro Facial Recognition', domain: 'surveillance', year: 2021, actor: 'Public Interest Group', outcome: 'minimal',
+        tw: ['public-interest'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'enforcement'], tr: ['justify'],
         brief: 'Civil society organizations challenged deployment of facial recognition in São Paulo metro, raising concerns about mass surveillance and racial bias.'
       },
       {
         name: 'Google Project Nimbus Boycott', domain: 'government', year: 2024, actor: 'Labor / Professional Collective', outcome: 'minimal',
-        tw: ['labor'], tq: ['context'], th: ['protest', 'direct'], tr: ['restrict'],
+        tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'enforcement'], tr: ['restrict'],
         brief: 'Google employees protested the $1.2B Israeli government AI contract. Workers were fired using contractual mechanisms; contract was maintained.'
       },
       {
         name: 'Amazon Worker Surveillance Fine', domain: 'surveillance', year: 2023, actor: 'Regulators', outcome: 'structural',
-        tw: ['regulators'], tq: ['practice'], th: ['regulatory'], tr: ['deny-resp'],
+        tw: ['regulators'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
         brief: 'Regulators fined Amazon for invasive algorithmic worker monitoring. Amazon rejected findings and appealed while continuing contested practices.'
       },
       {
         name: 'Houston ISD Teacher Evaluation', domain: 'education', year: 2017, actor: 'Labor / Professional Collective', outcome: 'system',
-        tw: ['labor'], tq: ['design'], th: ['litigation', 'regulatory'], tr: ['opacity'],
+        tw: ['labor'], tq: ['design'], tf: ['attribution', 'enforcement', 'framing'], tr: ['opacity'],
         brief: "EVAAS teacher evaluation model was too opaque to audit. Court sided with teachers on due process grounds, leading to the system's removal."
       },
       {
         name: 'Detroit PD Facial Recognition MisID', domain: 'policing', year: 2020, actor: 'Individuals + Org Support', outcome: 'individual',
-        tw: ['supported'], tq: ['outputs'], th: ['litigation', 'protest'], tr: ['deny-harm'],
+        tw: ['affected', 'public-interest'], tq: ['outputs'], tf: ['attribution', 'coalition', 'framing'], tr: ['deny-harm'],
         brief: 'A pregnant woman was falsely identified by facial recognition and arrested—highlighting severe racial bias and the personal costs of AI errors.'
       },
       {
         name: 'Clearview AI (EU Data Misuse)', domain: 'surveillance', year: 2021, actor: 'Regulators', outcome: 'structural',
-        tw: ['regulators'], tq: ['practice', 'data-rights'], th: ['regulatory'], tr: ['restrict', 'opacity'],
+        tw: ['regulators'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['restrict', 'opacity'],
         brief: 'European regulators imposed GDPR fines on Clearview AI for mass scraping of biometric data; enforcement complicated by lack of EU physical presence.'
       },
       {
         name: 'Hollywood Writers & Actors Strike', domain: 'employment', year: 2023, actor: 'Labor / Professional Collective', outcome: 'structural',
-        tw: ['labor'], tq: ['context'], th: ['protest'], tr: ['concede'],
+        tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'framing'], tr: ['concede'],
         brief: 'WGA and SAG-AFTRA secured landmark AI protections in union contracts after sustained strikes, establishing precedents for AI in creative industries.'
       },
       {
         name: 'Anthropic Copyright Lawsuit', domain: 'copyright', year: 2024, actor: 'Public Interest Group', outcome: 'structural',
-        tw: ['public-interest'], tq: ['data-rights'], th: ['litigation'], tr: ['concede'],
+        tw: ['public-interest'], tq: ['practice'], tf: ['attribution', 'enforcement', 'cost-benefit'], tr: ['concede'],
         brief: "Publishers contested Anthropic's use of copyrighted material for AI training, resulting in a settlement establishing early precedents for training data rights."
       },
       {
         name: 'Google Project Maven Boycott', domain: 'government', year: 2018, actor: 'Labor / Professional Collective', outcome: 'system',
-        tw: ['labor'], tq: ['context'], th: ['protest', 'direct'], tr: ['concede'],
+        tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'framing'], tr: ['concede'],
         brief: 'Employee petition over AI drone targeting led Google to decline renewal of the Pentagon contract—a landmark in employee contestation of military AI.'
       },
       {
-        name: 'Giorgia Meloni Deepfake', domain: 'safety', year: 2023, actor: 'High-Profile Individual', outcome: 'individual',
-        tw: ['high-profile'], tq: ['outputs'], th: ['direct', 'protest'], tr: ['concede'],
+        name: 'Giorgia Meloni Deepfake', domain: 'safety', year: 2023, actor: 'Affected Individual', outcome: 'individual',
+        tw: ['affected'], tq: ['outputs'], tf: ['attribution', 'coalition'], tr: ['concede'],
         brief: 'Italian PM leveraged her visibility to contest deepfake pornography generation, amplifying the issue to national policy attention.'
       },
       {
         name: 'Stanford Vaccine Distribution', domain: 'health', year: 2020, actor: 'Labor / Professional Collective', outcome: 'system',
-        tw: ['labor'], tq: ['context', 'outputs'], th: ['protest', 'direct'], tr: ['justify', 'concede'],
+        tw: ['labor'], tq: ['context', 'outputs'], tf: ['attribution', 'coalition', 'cost-benefit'], tr: ['justify', 'concede'],
         brief: 'Medical residents contested a vaccine distribution algorithm prioritizing administrators over frontline workers; algorithm revised following internal protest.'
       },
       {
         name: 'San Francisco Facial Recognition Ban', domain: 'policing', year: 2019, actor: 'Public Interest Group', outcome: 'structural',
-        tw: ['public-interest'], tq: ['context'], th: ['protest', 'regulatory'], tr: ['justify'],
+        tw: ['public-interest'], tq: ['context'], tf: ['coalition', 'framing', 'cost-benefit'], tr: ['justify'],
         brief: 'Civil society advocacy led to the first US city ban on government use of facial recognition technology, establishing a proactive governance precedent.'
       },
       {
         name: 'Peculiar v. Diode Ventures', domain: 'government', year: 2023, actor: 'Public Interest Group', outcome: 'minimal',
-        tw: ['public-interest'], tq: ['environmental'], th: ['regulatory', 'protest'], tr: ['restrict'],
+        tw: ['public-interest'], tq: ['environmental'], tf: ['coalition', 'enforcement', 'framing'], tr: ['restrict'],
         brief: 'Community contested data center construction without adequate public consultation. NDAs prevented elected representatives from sharing details, blocking meaningful community engagement with the infrastructure decision.'
       },
     ];
 
     /* ===== TAXONOMY MULTI-SELECT ===== */
-    const sel = { who: null, what: null, how: null, responses: null, outcomes: null };
+    const sel = { who: null, what: null, factors: null, responses: null, outcomes: null };
     let lastTouched = null; // { col, key } — most recently clicked item
 
     // Map taxonomy column → case property
     function caseVals(c, col) {
-      return { who: c.tw, what: c.tq, how: c.th, responses: c.tr, outcomes: [c.outcome] }[col] || [];
+      return { who: c.tw, what: c.tq, factors: c.tf, responses: c.tr, outcomes: [c.outcome] }[col] || [];
     }
 
     function getMatching() {
@@ -2334,17 +2302,12 @@
 
     /* ===== SVG EXPORT ===== */
     function exportDiagramSVG() {
-      const svg = document.getElementById('contestation-svg');
-      const text = new XMLSerializer().serializeToString(svg);
-      const blob = new Blob([text], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
+      a.href = 'contestation-diagram.svg';
       a.download = 'contestation-dynamics.svg';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(url);
     }
 
     /* ===== PDF EXPORT ===== */
