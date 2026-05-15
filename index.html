@@ -376,17 +376,43 @@
       margin-bottom: 2.5rem;
       display: flex;
       flex-wrap: wrap;
-      gap: .4rem;
+      gap: .5rem;
+      align-items: stretch;
+    }
+
+    .author-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: .5rem .7rem;
+      display: flex;
       align-items: center;
+      gap: .55rem;
+    }
+
+    .author-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
     }
 
     .author-name {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: .2rem .7rem;
       font-size: .78rem;
+      font-weight: 600;
       color: var(--text);
+    }
+
+    .author-affil {
+      font-size: .65rem;
+      color: var(--muted);
     }
 
     .hero-stats {
@@ -1497,7 +1523,11 @@
       <h3>Push and Pushback in Contesting AI: Demands for and Resistance to Accountability</h3>
       <p style="margin-bottom:.5rem;color:var(--text);font-size:.85rem;">Yulu Pi, Lucas Lichner, Jae Woo Lee, Sijia
         Xiao, Renwen Zhang, Jat Singh</p>
-      <p style="margin-bottom:1.25rem;font-size:.8rem;">ACM FAccT 2026</p>
+      <p style="margin-bottom:.5rem;font-size:.8rem;">ACM FAccT 2026</p>
+      <p style="margin-bottom:1.25rem;font-size:.8rem;">
+        <a href="https://arxiv.org/abs/2605.09793" target="_blank" rel="noopener">arXiv</a> &nbsp;·&nbsp;
+        <a href="https://doi.org/10.1145/3805689.3812323" target="_blank" rel="noopener">DOI</a>
+      </p>
       <span class="info-label">Abstract</span>
       <p>Much research examines how AI actors "from above"—designers, deployers, and authorities—handle accountability.
         Far less is known about <strong>contestation</strong>: the dynamic, iterative process by which affected
@@ -1522,10 +1552,10 @@
   booktitle = {Proceedings of the 2026 ACM Conference on
                Fairness, Accountability, and Transparency},
   year      = {2026},
-  doi       = {10.1145/nnnnnnn.nnnnnnn}
+  doi       = {10.1145/3805689.3812323}
 }</pre>
       <button class="export-btn" style="font-size:.8rem"
-        onclick="(()=>{const t=`@inproceedings{pi2026pushpushback,\n  author    = {Pi, Yulu and Lichner, Lucas and Lee, Jae Woo and\n               Xiao, Sijia and Zhang, Renwen and Singh, Jat},\n  title     = {Push and Pushback in Contesting {AI}:\n               Demands for and Resistance to Accountability},\n  booktitle = {Proceedings of the 2026 ACM Conference on\n               Fairness, Accountability, and Transparency},\n  year      = {2026},\n  doi       = {10.1145/nnnnnnn.nnnnnnn}\n}`;navigator.clipboard.writeText(t).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy BibTeX',2200)})})()">Copy
+        onclick="(()=>{const t=`@inproceedings{pi2026pushpushback,\n  author    = {Pi, Yulu and Lichner, Lucas and Lee, Jae Woo and\n               Xiao, Sijia and Zhang, Renwen and Singh, Jat},\n  title     = {Push and Pushback in Contesting {AI}:\n               Demands for and Resistance to Accountability},\n  booktitle = {Proceedings of the 2026 ACM Conference on\n               Fairness, Accountability, and Transparency},\n  year      = {2026},\n  doi       = {10.1145/3805689.3812323}\n}`;navigator.clipboard.writeText(t).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy BibTeX',2200)})})()">Copy
         BibTeX</button>
     </div>
   </div>
@@ -1546,16 +1576,34 @@
     <div class="container">
       <div class="hero-body">
         <div class="hero-text">
-          <div class="hero-badge">ACM FAccT 2026</div>
+          <div class="hero-badge">ACM FAccT 2026 &nbsp;·&nbsp; <a href="https://arxiv.org/abs/2605.09793" target="_blank" rel="noopener">arXiv</a> &nbsp;·&nbsp; <a href="https://doi.org/10.1145/3805689.3812323" target="_blank" rel="noopener">DOI</a></div>
           <h1>Push and Pushback in Contesting AI</h1>
           <p class="hero-subtitle">Demands for and Resistance to Accountability</p>
           <div class="hero-authors fi">
-            <span class="author-name">Yulu Pi</span>
-            <span class="author-name">Lucas Lichner</span>
-            <span class="author-name">Jae Woo Lee</span>
-            <span class="author-name">Sijia Xiao</span>
-            <span class="author-name">Renwen Zhang</span>
-            <span class="author-name">Jat Singh</span>
+            <div class="author-card">
+              <img class="author-img" src="images/yulu.png" alt="Yulu Pi">
+              <div class="author-info"><span class="author-name">Yulu Pi</span><span class="author-affil">UA Ruhr, University of Duisburg-Essen</span></div>
+            </div>
+            <div class="author-card">
+              <img class="author-img" src="images/lucas.png" alt="Lucas Lichner">
+              <div class="author-info"><span class="author-name">Lucas Lichner</span><span class="author-affil">UA Ruhr, University of Duisburg-Essen</span></div>
+            </div>
+            <div class="author-card">
+              <img class="author-img" src="images/jw.png" alt="Jae Woo Lee">
+              <div class="author-info"><span class="author-name">Jae Woo Lee</span><span class="author-affil">University of Cambridge</span></div>
+            </div>
+            <div class="author-card">
+              <img class="author-img" src="images/sijia.png" alt="Sijia Xiao">
+              <div class="author-info"><span class="author-name">Sijia Xiao</span><span class="author-affil">Carnegie Mellon University</span></div>
+            </div>
+            <div class="author-card">
+              <img class="author-img" src="images/renwen.png" alt="Renwen Zhang">
+              <div class="author-info"><span class="author-name">Renwen Zhang</span><span class="author-affil">Nanyang Technological University</span></div>
+            </div>
+            <div class="author-card">
+              <img class="author-img" src="images/jat.png" alt="Jatinder Singh">
+              <div class="author-info"><span class="author-name">Jatinder Singh</span><span class="author-affil">UA Ruhr, UDE & University of Cambridge</span></div>
+            </div>
           </div>
           <div class="hero-stats fi">
             <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
@@ -1566,113 +1614,8 @@
         </div>
 
         <div class="hero-diagram fi">
-          <!-- ═══ INLINE CONTESTATION DIAGRAM ═══ -->
-          <svg id="contestation-svg" width="100%" viewBox="0 0 660 380" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Push and Pushback: Iterative Contestation Dynamics">
-            <defs>
-              <style>
-                .d-txt { font-family: Inter, system-ui, sans-serif; }
-                @keyframes d-flow-dn {
-                  from { stroke-dashoffset: 14; }
-                  to   { stroke-dashoffset: 0; }
-                }
-                @keyframes d-flow-up {
-                  from { stroke-dashoffset: 0; }
-                  to   { stroke-dashoffset: 14; }
-                }
-                .d-anim-dn { stroke-dasharray: 5 4; animation: d-flow-dn .65s linear infinite; }
-                .d-anim-up { stroke-dasharray: 5 4; animation: d-flow-up .65s linear infinite; }
-                @keyframes d-pulse { 0%,100%{opacity:.55} 50%{opacity:1} }
-                .d-pulse { animation: d-pulse 2.8s ease-in-out infinite; }
-              </style>
-            </defs>
-
-            <!-- ── ZONE A: RESPONSES FROM ABOVE ── -->
-            <rect x="0" y="0" width="660" height="118" fill="#fff7ed"/>
-            <rect x="0" y="0" width="660" height="3" fill="#c2410c"/>
-            <text x="16" y="18" class="d-txt" font-size="8" font-weight="700" letter-spacing="1.8" fill="#c2410c">RESPONSES FROM ABOVE</text>
-
-            <!-- Row 1 -->
-            <rect x="16"  y="26" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="115" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Deny Responsibility</text>
-
-            <rect x="228" y="26" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="327" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Deny / Downplay Harm</text>
-
-            <rect x="440" y="26" width="200" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="540" y="46" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Restrict Contestation</text>
-
-            <!-- Row 2 -->
-            <rect x="16"  y="64" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="115" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Justify the Algorithm</text>
-
-            <rect x="228" y="64" width="198" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="327" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Avoid Scrutiny / Opacity</text>
-
-            <rect x="440" y="64" width="200" height="30" fill="#ffedd5" stroke="#fed7aa" stroke-width="1"/>
-            <text x="540" y="84" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#9a3412">Strategic Concession</text>
-
-            <!-- ── MIDDLE: ARROWS + DYNAMICS ── -->
-            <!-- PUSHBACK arrow (going down, left) -->
-            <line x1="178" y1="118" x2="178" y2="262" stroke="#c2410c" stroke-width="1.5" opacity="0.25"/>
-            <line x1="178" y1="118" x2="178" y2="262" stroke="#c2410c" stroke-width="3" class="d-anim-dn"/>
-            <!-- Arrowhead down -->
-            <polygon points="172,255 178,268 184,255" fill="#c2410c"/>
-            <!-- "PUSHBACK" label (rotated, left of arrow) -->
-            <text x="163" y="190" class="d-txt" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.6" fill="#c2410c" transform="rotate(-90 163 190)">PUSHBACK</text>
-
-            <!-- PUSH arrow (going up, right) -->
-            <line x1="482" y1="262" x2="482" y2="118" stroke="#1d4ed8" stroke-width="1.5" opacity="0.25"/>
-            <line x1="482" y1="262" x2="482" y2="118" stroke="#1d4ed8" stroke-width="3" class="d-anim-up"/>
-            <!-- Arrowhead up -->
-            <polygon points="476,125 482,112 488,125" fill="#1d4ed8"/>
-            <!-- "PUSH" label (rotated, right of arrow) -->
-            <text x="497" y="190" class="d-txt" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.6" fill="#1d4ed8" transform="rotate(90 497 190)">CHALLENGE</text>
-
-            <!-- Center dynamics box -->
-            <rect x="210" y="148" width="240" height="84" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5"/>
-            <text x="330" y="177" class="d-txt d-pulse" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a0a0a" letter-spacing=".4">CONTESTATION</text>
-            <text x="330" y="193" class="d-txt d-pulse" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a0a0a" letter-spacing=".4">DYNAMICS</text>
-            <text x="330" y="215" class="d-txt" text-anchor="middle" font-size="9" fill="#6b7280">relational · iterative · asymmetric power</text>
-
-            <!-- Connector dashes: center box to arrows -->
-            <line x1="178" y1="190" x2="210" y2="190" stroke="#d0d0d0" stroke-width="1" stroke-dasharray="3 3"/>
-            <line x1="450" y1="190" x2="482" y2="190" stroke="#d0d0d0" stroke-width="1" stroke-dasharray="3 3"/>
-
-            <!-- ── ZONE C: CHALLENGES FROM BELOW ── -->
-            <rect x="0" y="262" width="660" height="118" fill="#eff6ff"/>
-            <rect x="0" y="377" width="660" height="3" fill="#1d4ed8"/>
-            <text x="16" y="280" class="d-txt" font-size="8" font-weight="700" letter-spacing="1.8" fill="#1d4ed8">CHALLENGES FROM BELOW</text>
-
-            <!-- Row 1 -->
-            <rect x="16"  y="287" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="115" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Affected Individuals</text>
-
-            <rect x="228" y="287" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="327" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Coalitions &amp; Orgs</text>
-
-            <rect x="440" y="287" width="200" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="540" y="307" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Regulators</text>
-
-            <!-- Row 2 -->
-            <rect x="16"  y="325" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="115" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Litigation</text>
-
-            <rect x="228" y="325" width="198" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="327" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Regulatory Complaints</text>
-
-            <rect x="440" y="325" width="200" height="30" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-            <text x="540" y="345" class="d-txt" text-anchor="middle" font-size="10.5" font-weight="500" fill="#1e40af">Protest &amp; Direct Action</text>
-          </svg>
-
-          <button class="export-btn" onclick="exportDiagramSVG()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Export SVG
-          </button>
+          <img src="contestation-diagram.svg" alt="Push and Pushback: Iterative Contestation Dynamics — a characterization of AI contestation dynamics capturing the two-sided accountability relationship between actors from below and actors from above.">
+        </div>
         </div>
       </div>
     </div>
@@ -2058,9 +2001,13 @@
   series    = {{FAccT} '26},
   year      = {2026},
   publisher = {{ACM}},
-  doi       = {10.1145/nnnnnnn.nnnnnnn}
+  doi       = {10.1145/3805689.3812323}
 }</pre>
       <button class="copy-btn fi" onclick="copyCite()">Copy BibTeX</button>
+      <p style="margin-top:1.25rem;font-size:.88rem;">
+        <a href="https://arxiv.org/abs/2605.09793" target="_blank" rel="noopener">arXiv</a> &nbsp;·&nbsp;
+        <a href="https://doi.org/10.1145/3805689.3812323" target="_blank" rel="noopener">DOI</a>
+      </p>
     </div>
   </section>
 
