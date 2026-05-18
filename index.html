@@ -400,6 +400,20 @@
       color: var(--muted);
     }
 
+    .hero-slogan {
+      text-align: center;
+      max-width: 620px;
+      margin: 2.5rem auto 0;
+    }
+
+    .hero-slogan p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--text);
+      font-style: italic;
+    }
+
     .hero-stats {
       display: flex;
       gap: .6rem;
@@ -627,6 +641,21 @@
     }
 
     /* ===== TAXONOMY ===== */
+    .tax-callout {
+      background: #FFF7ED;
+      border: 1px solid #fed7aa;
+      border-left: 3px solid #C2410C;
+      border-radius: var(--r);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tax-callout p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
     .taxonomy-cols {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1601,6 +1630,9 @@
           </picture>
         </div>
       </div>
+      <div class="hero-slogan fi">
+        <p>Contestation is prolonged and iterative. Accountability is negotiated over time. Change is contingent, partial, and reversible.</p>
+      </div>
       <div class="hero-stats fi">
         <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
         <div class="stat"><span class="stat-num">4</span><span class="stat-label">Contester types</span></div>
@@ -1616,8 +1648,8 @@
     <div class="section-tab-inner">
       <button class="stab" data-sec="taxonomy" onclick="switchSec('taxonomy',this)">Taxonomy</button>
       <button class="stab" data-sec="cases" onclick="switchSec('cases',this)">Cases</button>
-      <button class="stab on" data-sec="dynamics" onclick="switchSec('dynamics',this)">Dynamics</button>
-      <button class="stab" data-sec="lessons" onclick="switchSec('lessons',this)">Lessons</button>
+      <button class="stab" data-sec="dynamics" onclick="switchSec('dynamics',this)">Dynamics</button>
+      <button class="stab on" data-sec="lessons" onclick="switchSec('lessons',this)">Lessons</button>
       <button class="stab" data-sec="cite" onclick="switchSec('cite',this)">Cite</button>
     </div>
   </div>
@@ -1635,6 +1667,10 @@
             </p>
           </div>
         </div>
+      </div>
+
+      <div class="tax-callout fi">
+        <p><strong>Those from above routinely deploy a set of strategies to push back against contestation</strong>, often slowing or blocking meaningful change those from below are demanding. Select a response strategy to explore how institutions resist accountability.</p>
       </div>
 
       <div class="taxonomy-scroll fi">
@@ -1782,7 +1818,7 @@
   </section>
 
   <!-- DYNAMICS -->
-  <section id="dynamics" class="section sec-pane on">
+  <section id="dynamics" class="section sec-pane">
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Key Findings</div>
@@ -1851,7 +1887,7 @@
   </section>
 
   <!-- LESSONS -->
-  <section id="lessons" class="section sec-pane">
+  <section id="lessons" class="section sec-pane on">
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Evidence-Based Guidance</div>
