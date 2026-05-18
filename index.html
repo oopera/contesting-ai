@@ -20,20 +20,20 @@
     }
 
     :root {
-      --bg: #ffffff;
-      --surface: #f5f5f5;
-      --card: #ffffff;
-      --border: #e0e0e0;
-      --primary: #1f2020;
-      --primary-d: #000000;
-      --below: #9a3412;
-      --above: #1d4ed8;
+      --bg: #faf7f2;
+      --surface: #f3ede5;
+      --card: #fffcf7;
+      --border: #e8dfd4;
+      --primary: #1a1715;
+      --primary-d: #0d0b0a;
+      --below: #c2410c;
+      --above: #2563eb;
       --green: #166534;
-      --yellow: #92400e;
-      --red: #b91c1c;
-      --text: #0a0a0a;
-      --muted: #6b7280;
-      --faint: #c8c8c8;
+      --yellow: #a16207;
+      --red: #dc2626;
+      --text: #1a1715;
+      --muted: #78716c;
+      --faint: #d6d3d1;
       --r: 6px;
       --r-lg: 10px;
     }
@@ -53,25 +53,28 @@
 
     /* ===== TYPOGRAPHY ===== */
     h1 {
-      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
     }
 
     h2 {
-      font-size: clamp(1.6rem, 3vw, 2.3rem);
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
     h3 {
       font-size: 1.15rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     h4 {
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     p {
@@ -128,7 +131,7 @@
       left: 0;
       right: 0;
       z-index: 200;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -298,6 +301,7 @@
       padding: 9rem 0 4rem;
       position: relative;
       overflow: hidden;
+      background: #ffffff;
     }
 
     .hero-body {
@@ -334,14 +338,18 @@
       display: inline-flex;
       align-items: center;
       gap: .5rem;
-      background: #dbeafe;
-      border: 1px solid #93c5fd;
-      color: #1d4ed8;
+      background: #fef3e2;
+      border: 1px solid #f5d5a0;
+      color: #92400e;
       font-size: .78rem;
       font-weight: 600;
       padding: .3rem .9rem;
       margin-bottom: 1.5rem;
       letter-spacing: .03em;
+    }
+
+    .hero-badge a {
+      color: #c2410c;
     }
 
     #hero h1 {
@@ -402,16 +410,22 @@
 
     .hero-slogan {
       text-align: center;
-      max-width: 620px;
-      margin: 2.5rem auto 0;
+      max-width: 720px;
+      margin: 3rem auto 0;
+      padding: 0 1rem;
     }
 
     .hero-slogan p {
-      font-size: 1.15rem;
-      font-weight: 500;
-      line-height: 1.7;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      line-height: 1.65;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .hero-slogan strong {
       color: var(--text);
-      font-style: italic;
+      font-weight: 800;
     }
 
     .hero-stats {
@@ -642,9 +656,9 @@
 
     /* ===== TAXONOMY ===== */
     .tax-callout {
-      background: #FFF7ED;
+      background: #fff5eb;
       border: 1px solid #fed7aa;
-      border-left: 3px solid #C2410C;
+      border-left: 3px solid #ea580c;
       border-radius: var(--r);
       padding: 1rem 1.25rem;
       margin-bottom: 1.5rem;
@@ -680,33 +694,37 @@
     }
 
     .tc-head.who {
-      color: #7C3AED;
-      background: #FAF5FF;
-      border-top: 2px solid #7C3AED;
+      color: #6d28d9;
+      background: #f5f0ff;
+      border-top: 2px solid #8b5cf6;
     }
 
     .tc-head.what {
-      color: #1D46B9;
-      background: #EFF6FF;
-      border-top: 2px solid #1D46B9;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-top: 2px solid #3b82f6;
     }
 
     .tc-head.factors {
-      color: #262626;
-      background: #E8E8E8;
-      border-top: 2px solid #262626;
+      color: #57534e;
+      background: #f5f0eb;
+      border-top: 2px solid #a8a29e;
     }
 
     .tc-head.responses {
-      color: #C2410C;
-      background: #FFF7ED;
-      border-top: 2px solid #C2410C;
+      color: #c2410c;
+      background: #fff5eb;
+      border-top: 3px solid #ea580c;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: .72rem;
     }
 
     .tc-head.outcomes {
       color: #166534;
-      background: #F0FDF4;
-      border-top: 2px solid #16a34a;
+      background: #f0fdf4;
+      border-top: 2px solid #22c55e;
     }
 
     .tc-items {
@@ -734,22 +752,22 @@
     }
 
     .ti.who:hover {
-      background: #FAF5FF;
+      background: #f5f0ff;
       border-color: #c4b5fd;
     }
 
     .ti.what:hover {
-      background: #EFF6FF;
-      border-color: #93b4e8;
+      background: #eff6ff;
+      border-color: #93c5fd;
     }
 
     .ti.factors:hover {
-      background: #E8E8E8;
-      border-color: #b0b0b0;
+      background: #f5f0eb;
+      border-color: #d6d3d1;
     }
 
     .ti.responses:hover {
-      background: #FFF7ED;
+      background: #fff5eb;
       border-color: #fdba74;
     }
 
@@ -760,31 +778,31 @@
 
     .ti.active.who {
       background: #ede9fe;
-      border-color: #7C3AED;
+      border-color: #8b5cf6;
       color: #4c1d95;
     }
 
     .ti.active.what {
       background: #dbeafe;
-      border-color: #1D46B9;
+      border-color: #3b82f6;
       color: #1e3a8a;
     }
 
     .ti.active.factors {
-      background: #d4d4d4;
-      border-color: #262626;
-      color: #171717;
+      background: #e7e5e4;
+      border-color: #78716c;
+      color: #1c1917;
     }
 
     .ti.active.responses {
-      background: #fee2e2;
-      border-color: #C2410C;
-      color: #7f1d1d;
+      background: #ffedd5;
+      border-color: #ea580c;
+      color: #7c2d12;
     }
 
     .ti.active.outcomes {
       background: #dcfce7;
-      border-color: #16a34a;
+      border-color: #22c55e;
       color: #14532d;
     }
 
@@ -869,7 +887,7 @@
     .fb.on {
       border-color: var(--primary);
       color: var(--primary);
-      background: #eff6ff;
+      background: #fef3e2;
     }
 
     .outcome-key {
@@ -912,7 +930,7 @@
     .cc:hover {
       border-color: var(--primary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(30, 58, 95, .1);
+      box-shadow: 0 4px 12px rgba(120, 100, 80, .1);
     }
 
     .cc.hidden {
@@ -975,8 +993,8 @@
     }
 
     .db-government {
-      background: #f1f5f9;
-      color: #475569;
+      background: #f3ede5;
+      color: #57534e;
     }
 
     .cc-year {
@@ -1047,7 +1065,7 @@
 
     .dyn-card:hover {
       border-color: var(--primary);
-      box-shadow: 0 4px 16px rgba(30, 58, 95, .1);
+      box-shadow: 0 4px 16px rgba(120, 100, 80, .1);
     }
 
     .dyn-num {
@@ -1146,8 +1164,8 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background: #fef3e2;
+      border: 1px solid #f5d5a0;
       color: var(--primary);
       font-size: .72rem;
       font-weight: 700;
@@ -1285,21 +1303,21 @@
     }
 
     .sel-chip-what {
-      background: #e0f2fe;
-      color: #0c4a6e;
-      border-color: #7dd3fc;
+      background: #dbeafe;
+      color: #1e3a8a;
+      border-color: #93c5fd;
     }
 
     .sel-chip-factors {
-      background: #d4d4d4;
-      color: #171717;
-      border-color: #a3a3a3;
+      background: #e7e5e4;
+      color: #1c1917;
+      border-color: #a8a29e;
     }
 
     .sel-chip-responses {
-      background: #fee2e2;
-      color: #7f1d1d;
-      border-color: #fca5a5;
+      background: #ffedd5;
+      color: #7c2d12;
+      border-color: #fdba74;
     }
 
     .sel-chip-outcomes {
@@ -1376,7 +1394,7 @@
       position: sticky;
       top: 58px;
       z-index: 150;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(250, 247, 242, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -1631,13 +1649,13 @@
         </div>
       </div>
       <div class="hero-slogan fi">
-        <p>Contestation is prolonged and iterative. Accountability is negotiated over time. Change is contingent, partial, and reversible.</p>
+        <p><strong>Contestation is prolonged and iterative.</strong> Accountability is negotiated over time. <strong>Change is contingent, partial, and reversible.</strong></p>
       </div>
       <div class="hero-stats fi">
-        <div class="stat"><span class="stat-num">43</span><span class="stat-label">Real-world cases</span></div>
-        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Contester types</span></div>
-        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Response strategies</span></div>
-        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Key factors</span></div>
+        <div class="stat"><span class="stat-num">43</span><span class="stat-label">Cases documented</span></div>
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Who fights back</span></div>
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Ways institutions resist</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Factors that decide outcomes</span></div>
       </div>
     </div>
     </div>
@@ -1661,16 +1679,15 @@
         <div class="section-label">Empirical Taxonomy</div>
         <div class="section-header-row">
           <div>
-            <h2>The Contestation Taxonomy</h2>
-            <p>Across 43 cases, we identify four types of contesters, five dimensions of AI they contest, six institutional
-              response strategies, and five contextual factors that shape divergent <strong>outcomes</strong>. Click any element to explore.
+            <h2>Who Fights Back — And What They Face</h2>
+            <p>Across 43 cases, we map who contests AI, what they challenge, how institutions resist, what factors tip the balance, and what actually changes. Click any element to explore.
             </p>
           </div>
         </div>
       </div>
 
       <div class="tax-callout fi">
-        <p><strong>Those from above routinely deploy a set of strategies to push back against contestation</strong>, often slowing or blocking meaningful change those from below are demanding. Select a response strategy to explore how institutions resist accountability.</p>
+        <p><strong>Institutions don't just fail to act — they actively resist.</strong> Denial, opacity, delay, and legal barriers are deployed to absorb pressure without meaningful change. Select a response strategy to see how.</p>
       </div>
 
       <div class="taxonomy-scroll fi">
@@ -1760,8 +1777,8 @@
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Case Explorer</div>
-        <h2>Cases of AI Contestation</h2>
-        <p>Filter by domain or outcome to explore patterns across the dataset. Colored dots indicate outcome level.</p>
+        <h2>43 Fights Against AI Systems</h2>
+        <p>Real people and organizations pushing back against algorithmic harm. Filter by domain or outcome.</p>
       </div>
 
       <div class="outcome-key fi">
@@ -1822,10 +1839,8 @@
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Key Findings</div>
-        <h2>What Shapes Contestation Outcomes?</h2>
-        <p>Five interconnected factors determine whether contestation leads to meaningful change—or is absorbed by
-          institutions. These factors interact in non-linear ways, and lack in one cannot be offset by surplus in
-          another.</p>
+        <h2>Why Some Fights Win — And Most Don't</h2>
+        <p>Five factors determine whether contestation produces real change or gets absorbed by institutional inertia. None alone is sufficient. Missing any one can stall even the strongest challenge.</p>
       </div>
       <div class="dyn-grid fi">
         <div class="dyn-card">
@@ -1873,7 +1888,7 @@
             foregrounding due process rather than algorithmic details, securing outcomes that technical framings may
             have foreclosed.</div>
         </div>
-        <div class="dyn-card" style="border-color:#bfdbfe">
+        <div class="dyn-card" style="border-color:#f5d5a0">
           <div class="dyn-num">KEY INSIGHT</div>
           <h3>Non-Linear, Iterative Dynamics</h3>
           <p>These factors interact in complex, non-linear ways. Blocking one contestation avenue often prompts
@@ -1891,9 +1906,8 @@
     <div class="container">
       <div class="section-header fi">
         <div class="section-label">Evidence-Based Guidance</div>
-        <h2>Lessons for Stakeholders</h2>
-        <p>Our analysis yields concrete, evidence-grounded lessons for actors across the contestation ecosystem—based on
-          what worked, what didn't, and why.</p>
+        <h2>What The Evidence Shows Works</h2>
+        <p>Concrete, hard-won lessons from 43 cases — for those fighting AI systems, those writing the rules, and those studying the fight.</p>
       </div>
       <div class="tabs fi">
         <button class="tab-btn on" onclick="setTab('contesters',this)">For Contesters</button>
@@ -2065,107 +2079,107 @@
       {
         name: 'Arkansas RUGS Home Care', domain: 'health', year: 2016, actor: 'Individuals + Org Support', outcome: 'structural',
         tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'coalition', 'enforcement', 'framing'], tr: ['concede', 'justify'],
-        brief: 'Medicaid recipients challenged a scoring algorithm that drastically cut care hours without explanation, leading to a decade-long reform effort.'
+        brief: 'An algorithm slashed care hours for disabled Medicaid recipients with no explanation. It took a decade of legal battles to force reform.'
       },
       {
         name: 'Dutch Childcare Benefits', domain: 'benefits', year: 2019, actor: 'Individuals / Public Interest', outcome: 'structural',
         tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'coalition', 'enforcement'], tr: ['deny-resp'],
-        brief: 'Algorithm treated dual nationality as a fraud risk factor, discriminating against minority families and triggering a national government scandal.'
+        brief: 'A fraud-detection algorithm flagged dual-nationality families as suspects. Thousands lost childcare benefits. The resulting scandal toppled a government.'
       },
       {
         name: 'K.W. v. Armstrong (Idaho)', domain: 'health', year: 2015, actor: 'Individuals + Org Support', outcome: 'structural',
         tw: ['affected', 'public-interest'], tq: ['design'], tf: ['attribution', 'enforcement', 'framing', 'coalition'], tr: ['opacity', 'restrict'],
-        brief: "Idaho's Medicaid budget tool was claimed as a trade secret, blocking meaningful review. Courts established due process rights to algorithmic explanation."
+        brief: "Idaho hid its Medicaid algorithm behind trade-secret claims. Courts ruled people have a right to know how the system decides their fate."
       },
       {
         name: "McDonald's Biometric Drive-Thru", domain: 'employment', year: 2021, actor: 'Affected Individual', outcome: 'individual',
         tw: ['affected'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
-        brief: 'Shannon Carpenter challenged collection of biometric data without adequate consent at drive-through kiosks.'
+        brief: "McDonald's collected customers' biometric data without consent. One person's lawsuit forced the company to answer for it."
       },
       {
         name: 'UK A-Level Grading Algorithm', domain: 'education', year: 2020, actor: 'Individuals + Org Support', outcome: 'system',
         tw: ['affected', 'public-interest'], tq: ['outputs', 'design'], tf: ['attribution', 'coalition', 'cost-benefit'], tr: ['justify', 'concede'],
-        brief: 'Grade-predicting algorithm was reversed within days after massive student protests, as downgrading disproportionately hit disadvantaged schools.'
+        brief: 'An algorithm downgraded students from disadvantaged schools. Mass protests forced reversal within days — one of the fastest wins on record.'
       },
       {
         name: 'Character.AI Teen Harm', domain: 'safety', year: 2024, actor: 'Individuals + Org Support', outcome: 'system',
         tw: ['affected', 'public-interest'], tq: ['context', 'outputs'], tf: ['attribution', 'coalition', 'cost-benefit', 'framing'], tr: ['concede', 'deny-harm'],
-        brief: "Families contested AI companion app's role in teen suicide, prompting feature restrictions for minors and regulatory scrutiny."
+        brief: "A teenager died after prolonged interaction with an AI chatbot. Grieving families sued. The company made minor tweaks — leaving the core product intact."
       },
       {
         name: 'Air Canada Chatbot Misinformation', domain: 'safety', year: 2024, actor: 'Affected Individual', outcome: 'individual',
         tw: ['affected'], tq: ['outputs'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
-        brief: "Airline's claim that its chatbot was a 'separate legal entity' responsible for its own advice was rejected by a tribunal, ordering compensation."
+        brief: "Air Canada tried to argue its chatbot was a 'separate legal entity' — not the airline's responsibility. A tribunal called that out and ordered compensation."
       },
       {
         name: 'NEDA Tessa Chatbot Shutdown', domain: 'safety', year: 2023, actor: 'Public Interest Group', outcome: 'system',
         tw: ['public-interest'], tq: ['context', 'outputs'], tf: ['attribution', 'cost-benefit', 'coalition'], tr: ['deny-harm'],
-        brief: 'Public health advocates called for shutdown of eating disorder helpline chatbot after it gave harmful diet advice, prompting the association to take it offline.'
+        brief: 'An eating disorder helpline replaced human counselors with a chatbot — which then gave harmful diet advice. Public outcry forced its shutdown.'
       },
       {
         name: 'São Paulo Metro Facial Recognition', domain: 'surveillance', year: 2021, actor: 'Public Interest Group', outcome: 'minimal',
         tw: ['public-interest'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'enforcement'], tr: ['justify'],
-        brief: 'Civil society organizations challenged deployment of facial recognition in São Paulo metro, raising concerns about mass surveillance and racial bias.'
+        brief: 'Facial recognition rolled out in São Paulo\'s metro — scanning millions of commuters daily. Civil society challenged it. The system stayed.'
       },
       {
         name: 'Google Project Nimbus Boycott', domain: 'government', year: 2024, actor: 'Labor / Professional Collective', outcome: 'minimal',
         tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'enforcement'], tr: ['restrict'],
-        brief: 'Google employees protested the $1.2B Israeli government AI contract. Workers were fired using contractual mechanisms; contract was maintained.'
+        brief: 'Google workers protested a $1.2B military AI contract. The company fired the organizers and kept the deal.'
       },
       {
         name: 'Amazon Worker Surveillance Fine', domain: 'surveillance', year: 2023, actor: 'Regulators', outcome: 'structural',
         tw: ['regulators'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['deny-resp'],
-        brief: 'Regulators fined Amazon for invasive algorithmic worker monitoring. Amazon rejected findings and appealed while continuing contested practices.'
+        brief: 'Amazon surveils warehouse workers with algorithmic monitoring. Regulators fined them. Amazon appealed — and kept surveilling.'
       },
       {
         name: 'Houston ISD Teacher Evaluation', domain: 'education', year: 2017, actor: 'Labor / Professional Collective', outcome: 'system',
         tw: ['labor'], tq: ['design'], tf: ['attribution', 'enforcement', 'framing'], tr: ['opacity'],
-        brief: "EVAAS teacher evaluation model was too opaque to audit. Court sided with teachers on due process grounds, leading to the system's removal."
+        brief: "Teachers' careers hung on a secret algorithm no one could inspect. When they sued, the court agreed: if you can't see it, you can't be judged by it."
       },
       {
         name: 'Detroit PD Facial Recognition MisID', domain: 'policing', year: 2020, actor: 'Individuals + Org Support', outcome: 'individual',
         tw: ['affected', 'public-interest'], tq: ['outputs'], tf: ['attribution', 'coalition', 'framing'], tr: ['deny-harm'],
-        brief: 'A pregnant woman was falsely identified by facial recognition and arrested—highlighting severe racial bias and the personal costs of AI errors.'
+        brief: 'A pregnant woman was wrongfully arrested based on a faulty facial recognition match. Detroit PD blamed "poor investigative work" — not the technology.'
       },
       {
         name: 'Clearview AI (EU Data Misuse)', domain: 'surveillance', year: 2021, actor: 'Regulators', outcome: 'structural',
         tw: ['regulators'], tq: ['practice'], tf: ['attribution', 'enforcement'], tr: ['restrict', 'opacity'],
-        brief: 'European regulators imposed GDPR fines on Clearview AI for mass scraping of biometric data; enforcement complicated by lack of EU physical presence.'
+        brief: 'Clearview scraped billions of faces from the internet. EU regulators fined them — but the company claims it\'s beyond their jurisdiction.'
       },
       {
         name: 'Hollywood Writers & Actors Strike', domain: 'employment', year: 2023, actor: 'Labor / Professional Collective', outcome: 'structural',
         tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'framing'], tr: ['concede'],
-        brief: 'WGA and SAG-AFTRA secured landmark AI protections in union contracts after sustained strikes, establishing precedents for AI in creative industries.'
+        brief: 'Hollywood writers and actors went on strike to stop AI from replacing them. They won — securing the first union contracts with AI protections.'
       },
       {
         name: 'Anthropic Copyright Lawsuit', domain: 'copyright', year: 2024, actor: 'Public Interest Group', outcome: 'structural',
         tw: ['public-interest'], tq: ['practice'], tf: ['attribution', 'enforcement', 'cost-benefit'], tr: ['concede'],
-        brief: "Publishers contested Anthropic's use of copyrighted material for AI training, resulting in a settlement establishing early precedents for training data rights."
+        brief: "Publishers sued Anthropic for training AI on copyrighted books without permission. The settlement set an early precedent for training data rights."
       },
       {
         name: 'Google Project Maven Boycott', domain: 'government', year: 2018, actor: 'Labor / Professional Collective', outcome: 'system',
         tw: ['labor'], tq: ['context'], tf: ['coalition', 'cost-benefit', 'framing'], tr: ['concede'],
-        brief: 'Employee petition over AI drone targeting led Google to decline renewal of the Pentagon contract—a landmark in employee contestation of military AI.'
+        brief: 'Google employees refused to build AI for military drones. Thousands signed a petition. Google dropped the Pentagon contract.'
       },
       {
         name: 'Giorgia Meloni Deepfake', domain: 'safety', year: 2023, actor: 'Affected Individual', outcome: 'individual',
         tw: ['affected'], tq: ['outputs'], tf: ['attribution', 'coalition'], tr: ['concede'],
-        brief: 'Italian PM leveraged her visibility to contest deepfake pornography generation, amplifying the issue to national policy attention.'
+        brief: 'Deepfake pornography of Italy\'s PM went viral. Her public visibility turned a personal attack into a national policy moment.'
       },
       {
         name: 'Stanford Vaccine Distribution', domain: 'health', year: 2020, actor: 'Labor / Professional Collective', outcome: 'system',
         tw: ['labor'], tq: ['context', 'outputs'], tf: ['attribution', 'coalition', 'cost-benefit'], tr: ['justify', 'concede'],
-        brief: 'Medical residents contested a vaccine distribution algorithm prioritizing administrators over frontline workers; algorithm revised following internal protest.'
+        brief: 'Stanford\'s vaccine algorithm put administrators ahead of frontline doctors. Medical residents protested — and the algorithm was rewritten overnight.'
       },
       {
         name: 'San Francisco Facial Recognition Ban', domain: 'policing', year: 2019, actor: 'Public Interest Group', outcome: 'structural',
         tw: ['public-interest'], tq: ['context'], tf: ['coalition', 'framing', 'cost-benefit'], tr: ['justify'],
-        brief: 'Civil society advocacy led to the first US city ban on government use of facial recognition technology, establishing a proactive governance precedent.'
+        brief: 'San Francisco became the first US city to ban government facial recognition — proving that proactive governance is possible before harm occurs.'
       },
       {
         name: 'Peculiar v. Diode Ventures', domain: 'government', year: 2023, actor: 'Public Interest Group', outcome: 'minimal',
         tw: ['public-interest'], tq: ['environmental'], tf: ['coalition', 'enforcement', 'framing'], tr: ['restrict'],
-        brief: 'Community contested data center construction without adequate public consultation. NDAs prevented elected representatives from sharing details, blocking meaningful community engagement with the infrastructure decision.'
+        brief: 'A data center was built in a small town with no public consultation. NDAs silenced elected officials. The community couldn\'t challenge what they couldn\'t see.'
       },
     ];
 
